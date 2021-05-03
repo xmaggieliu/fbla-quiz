@@ -1,0 +1,226 @@
+/*     home page      */
+.quiz-title {
+    text-align: center;
+    color: #002955;
+    padding-top: 10em;
+}
+/* --------------- source: https://css-tricks.com/snippets/css/typewriter-effect/ --------------------- */
+.typewrite:hover {
+    text-decoration: none;
+}
+      
+* { color:#002955; text-decoration: none;}
+/* -------------------------------------------------- END OF SOURCE */
+
+#home-choose-next {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.info {
+    margin-right: 1em;
+}
+
+.start {
+    margin-left: 1em;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+/*     results page      */
+.fa-check-circle {
+    margin-right: 10px;
+    color: rgb(0, 201, 0);
+    display: inline;
+}
+
+.fa-times-circle {
+    margin-right: 10px;
+    color: rgb(201, 0, 0);
+    display: inline;
+}
+
+.q-in-results {
+    display: inline-flex;
+    align-items: flex-start;
+}
+
+.btn-light {
+    background-color: #cdddf5a1;
+    border-color: #cdddf5;
+    pointer-events: none;
+    color: rgb(0, 0, 36) !important;
+}
+
+.hint-result {
+    background-color: #f5eecda1 !important;
+    border-color: #f5eecd !important;
+    pointer-events: none;
+    color: rgb(0, 0, 36) !important;
+}
+
+#results {
+    margin-bottom: 30px;
+    display: flex;
+    direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+#input-name {
+    margin-left: 10px;
+}
+
+/*     quiz page      */
+#instruction-container {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    right: 0;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+.home {
+    background-color: #1596d1;
+    border-color: #1596d1;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+.home:hover, .home:focus, .home:active {
+    background-color: #1a8abe !important;
+    border-color: #1a8abe !important;
+}
+
+.in-quiz {
+    margin-top: 0.75em;
+}
+
+p {
+    color: black;
+}
+
+.hint {
+    display: none;
+}
+
+.hint-p {
+    font-style: italic;
+}
+
+.get-hint {
+    opacity: 0.75;
+    margin-left: 20px;
+    color: black;
+}
+
+#quiz_form, #report {
+    padding: 5em;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+.general {
+    display: flex;
+    justify-content: center;
+}
+
+.question {
+    padding-bottom: 25px;
+}
+
+/* the radio buttons */
+.form-check-input {
+    position: relative;
+    z-index: -1;
+    background-color: transparent;
+    transform: translate(30px);
+}
+
+.choice-viewable{
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: top;
+    align-items: baseline;
+}
+
+.p-beside-bubbles {
+    padding-left: 15px;
+}
+
+.choice-viewable > label{
+    border-radius: 20px; /*roundness of answer boxes*/
+}
+
+.form-control {
+    color: rgb(0, 0, 36);
+}
+
+.blue {
+    color: #005ec2; /*text color */
+    background-color: white;
+}
+
+.choice-viewable:hover .blue, .blue:hover, .blue:active, .form-check-input:checked + .choice-viewable .blue{
+    color: white;
+    background-color: #007bff !important;
+    border-color: #007bff !important;
+}
+
+.blue:focus, .blue:active, .form-check-input:checked + .choice-viewable .blue {
+    box-shadow: 0px 0px 0px 3px #007bff70 !important;
+}
+
+.violet {
+    border-color: #9c33ff;
+    background-color: white;
+    color: #5f00b8;
+}
+
+.choice-viewable:hover .violet, .violet:hover, .violet:active, .form-check-input:checked + .choice-viewable .violet {
+    color: white;
+    background-color: #9c33ff !important;
+    border-color: #9c33ff !important;
+}
+
+.violet:focus, .violet:active, .form-check-input:checked + .choice-viewable .violet {
+    box-shadow: 0px 0px 0px 3px #9c33ff70 !important;
+}
+
+.pink {
+    border-color: #ff33e4;
+    background-color: white;
+    color: #ce00a1;
+}
+
+.choice-viewable:hover .pink,  .pink:hover, .pink:active, .form-check-input:checked + .choice-viewable .pink {
+    color: white;
+    background-color: #ff33e4 !important;
+    border-color: #ff33e4 !important;
+}
+
+.pink:focus, .pink:active, .form-check-input:checked + .choice-viewable .pink {
+    box-shadow: 0px 0px 0px 3px #ff33e470 !important;
+}
+
+.orange {
+    border-color: #ff941a;
+    background-color: white;
+    color: #ec7200;
+}
+
+.choice-viewable:hover .orange, .orange:hover, .orange:active, .form-check-input:checked + .choice-viewable .orange {
+    color: white;
+    background-color: #ff941a !important;
+    border-color: #ff941a !important;
+}
+
+.orange:focus, .orange:active, .form-check-input:checked + .choice-viewable .orange {
+    box-shadow: 0px 0px 0px 3px #ff941a70 !important;
+}

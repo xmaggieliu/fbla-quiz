@@ -1,0 +1,36 @@
+from helpers import *
+from flask import Flask, render_template, request, redirect
+
+app = Flask(__name__)
+questions = {}
+
+# Home page
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+# 5 Questions quiz page
+@app.route("/quiz", methods=["GET", "POST"])
+def quiz():
+    global questions
+    if request.method == "GET":
+        questions = get_questions()
+        return render_template("quiz.html", questions=questions)
+    else:
+        return redirect("/quiz")
+
+# Results page  
+@app.route("/results", methods=["GET", "POST"])
+def results():
+    formResults = []
+    hintsUsed = []
+    for i in range(1, 6):
+        name_of_val = "answer" + str(i)
+        name_of_hint = "hint" + str(i)
+        formResults.append(request.form.get(name_of_val))
+        if name_of_hint in request.form:
+            hintsUsed.append(i)
+    return render_template("results.html", formResults=formResults, hintsUsed=hintsUsed, questions=questions)
+
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=80)
