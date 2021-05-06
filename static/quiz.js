@@ -9,28 +9,28 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="A" autocomplete="off" required>
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary blue bubbles" for="a">A</label>
+                            <label class="btn btn-outline-primary blue" for="a">A</label>
                             <p class="p-beside-bubbles">${questions[i]["a"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="B" autocomplete="off">
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary violet bubbles" for="b">B</label>
+                            <label class="btn btn-outline-primary violet" for="b">B</label>
                             <p class="p-beside-bubbles">${questions[i]["b"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="C" autocomplete="off">
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary pink bubbles" for="c">C</label>
+                            <label class="btn btn-outline-primary pink" for="c">C</label>
                             <p class="p-beside-bubbles">${questions[i]["c"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="D" autocomplete="off">
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary orange bubbles" for="d">D</label>
+                            <label class="btn btn-outline-primary orange" for="d">D</label>
                             <p class="p-beside-bubbles">${questions[i]["d"]}</p>
                         </div>
                     </div>
@@ -44,13 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="True" autocomplete="off" required>
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary blue bubbles" for="true">True</label><br>
+                            <label class="btn btn-outline-primary blue" for="true">True</label><br>
                         </div>
                     </div>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" name="answer${i}" value="False" autocomplete="off">
                         <div class="choice-viewable">
-                            <label class="btn btn-outline-primary violet bubbles" for="false">False</label><br>
+                            <label class="btn btn-outline-primary violet" for="false">False</label><br>
                         </div>
                     </div>
                 </fieldset>

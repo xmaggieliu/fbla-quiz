@@ -32,16 +32,17 @@
 }
 
 /*     results page      */
-.fa-check-circle {
+.fa {
     margin-right: 10px;
-    color: rgb(0, 201, 0);
     display: inline;
 }
 
+.fa-check-circle {
+    color: rgb(0, 201, 0);
+}
+
 .fa-times-circle {
-    margin-right: 10px;
     color: rgb(201, 0, 0);
-    display: inline;
 }
 
 .q-in-results {
