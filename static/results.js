@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var colon = ":";
 
     for (var i = 1; i <= 5; i++) { 
-        var question_type = questions[i]["type"];
+        var question_type = questions[i]["question_type"];
         to_html = ``;
         if (question_type == "multiple choice") {
             if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             };
         }
-        else if (question_type == "dropdowns") {
+        else if (question_type == "dropdown") {
             if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
                 to_html = `
                 <div class="question">

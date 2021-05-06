@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     for (var i = 1; i <= 5; i++) { 
-        var question_type = questions[i]["type"];
+        var question_type = questions[i]["question_type"];
         to_html = ``;
         if (question_type == "multiple choice") {
             to_html = `
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </fieldset>
             `;
         }
-        else if (question_type == "dropdowns") {
+        else if (question_type == "dropdown") {
             to_html = `
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
