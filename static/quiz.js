@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Loops through dictionary and add HTML depending on question type
     for (var i = 1; i <= 5; i++) { 
         var question_type = questions[i]["question_type"];
         to_html = ``;
@@ -80,11 +81,20 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
             `;
             var hint = questions[i]["hint"];
+            // If hint exists:
             if (hint != "None") {
                 to_html += `
                     <button type="button" class="btn btn-warning get-hint">Hint</button>
-                    <div class="hint">
-                        <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert" data-hide="alert">
+                        <div>
+                            <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
+                        </div>
+                        <div class="alert-react">
+                            <button type="button" class="btn btn-warning yes-hint">YES!</button>
+                            <button type="button" class="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     </div>
                 `
             }
@@ -92,15 +102,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         document.getElementById("quiz_form").innerHTML += to_html;
     }
+    // Add submit button
     document.getElementById("quiz_form").innerHTML += `
         <div class="general">
             <button class="btn btn-primary" type="submit" name="submit" value="Submit">Submit</button>
         </div>
     `;
 
-    var answerButtons = document.getElementsByClassName("choice-viewable");
-    var inpBoxes = document.getElementsByClassName("form-control");
-    var hintBox = document.getElementsByClassName("get-hint");
+
+    // Questions related var
+    var answerButtons = document.querySelectorAll(".choice-viewable");
+    var inpBoxes = document.querySelectorAll(".form-control");
+    // Hints related var
+    var hintBox = document.querySelectorAll(".get-hint");
+    var yesHint = document.querySelectorAll(".yes-hint");
+    var hintAlert = document.querySelectorAll(".alert-react");
+
 
     // Checkmarks "hidden" radio buttons
     function selectBubble(e) {
@@ -119,26 +136,19 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     };
 
-    // Hint replaces hint button
-    function getHint(e) {
-        console.log(e)
-        e.target.nextElementSibling.style.display = "block";
-        e.target.style.display = "none";
-        qNum = e.path[1].id
-        qNum = qNum.charAt(qNum.length - 1)
-        e.target.nextElementSibling.innerHTML += `
-            <input name="hint${qNum}" value="TRUE" type="hidden">
-            `;
+    // Hint alert appears
+    function confirmGetHint(e) {
+        e.target.nextElementSibling.style.display = "flex";
     }
 
-    // Make css changes for mc and true/false type questions
+    // Make CSS changes for MC and true/false type questions
     for (var j = 0; j < answerButtons.length; j++) {
         answerButtons[j].addEventListener("mousedown", (e) => {
             selectBubble(e);
         });
     }
 
-    // Make css changes for dropdown and fill-in-the-blank type questions
+    // Make CSS changes for dropdown and fill-in-the-blank type questions
     for (var k = 0; k < inpBoxes.length; k++) {
         inpBoxes[k].addEventListener("click", (e) => {
             selectBox(e);
@@ -148,9 +158,56 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
-    for (var l = 0; l < hintBox.length; l++) {
-        hintBox[l].addEventListener("click", (e) => {
-            getHint(e);
-        }) 
+    function hintSeries() {
+        // Hint alert appears
+        for (var l = 0; l < hintBox.length; l++) {
+            hintBox[l].addEventListener("click", (e) => {
+                confirmGetHint(e);
+            }) 
+        }
+
+        // Displays hint after Yes! clicked
+        for (var m = 0; m < yesHint.length; m++) {
+            yesHint[m].addEventListener("click", (e) => {
+                displayHint(e);
+            }) 
+        }
+
+        // Hides hint alert if x is clicked
+        for (var n = 0; n < hintAlert.length; n++) {
+            hintAlert[n].addEventListener("click", function() {
+                $(".alert-warning").hide(); 
+            }) 
+        }
     }
+    
+    // Hides get hint button, add hint to page, form records which hint is used
+    function displayHint(e) {
+        hintButton = e.path[3].querySelectorAll(".get-hint")[0]
+        hintButton.style.display = "none";
+
+        qNum = e.path[3].id
+        qNum = qNum.charAt(qNum.length - 1)
+        i = parseInt(qNum)
+
+        e.path[3].innerHTML += `
+        <div class="hint">
+            <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
+        </div>
+        `;
+
+        e.path[4].innerHTML +=`
+            <input name="hint${qNum}" value="TRUE" type="hidden">
+        `;
+
+        $(".alert-warning").hide(); 
+
+        hintBox = document.querySelectorAll(".get-hint");
+        yesHint = document.querySelectorAll(".yes-hint");
+        hintAlert = document.querySelectorAll(".alert-react");
+        hintSeries()
+    }
+
+    // Run hintSeries for the first time
+    hintSeries()
 });

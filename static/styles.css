@@ -67,13 +67,23 @@
 #results {
     margin-bottom: 30px;
     display: flex;
-    direction: row;
+    flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
 }
 
 #input-name {
     margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+    #results {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+    #input-name {
+        margin-left: 0;
+    }
 }
 
 /*     quiz page      */
@@ -108,7 +118,7 @@ p {
 }
 
 .hint {
-    display: none;
+    display: block;
 }
 
 .hint-p {
@@ -121,8 +131,29 @@ p {
     color: black;
 }
 
+.alert-warning {
+    position: fixed;
+    display: none; /* flex */
+    align-items: center;
+    justify-content: space-between;
+    top: 1em;
+    padding-right: 0;
+    margin-left: -15em;
+    left: 50%;
+}
+
+.close {
+    position: relative !important;
+}
+
+.alert-react {
+    display: inline-flex;
+    padding-left: 2em;
+    padding-right: 0;
+}
+
 #quiz_form, #report {
-    padding: 5em;
+    padding: 6em;
     padding-left: 10em;
     padding-right: 10em;
 }
@@ -134,6 +165,19 @@ p {
 
 .question {
     padding-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    #quiz_form, #report {
+        padding: 2em;
+        padding-top: 5em;
+    }
+    #instruction-container {
+        flex-direction: row-reverse;
+    }
+    .in-quiz {
+        margin-top: 1em;
+    }
 }
 
 /* the radio buttons */
