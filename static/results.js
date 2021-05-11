@@ -146,18 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.getElementById("results").innerHTML += score_to_html;
 
-    // Prints a report of quiz results. Removes parts of page not in the "report" when printing.
-    function reportPrint(e) {
-        var optn = document.getElementById("instruction-container");
-        e.target.style.display = "none";
-        optn.style.display = "none";
+    // Prints a light mode report of quiz results.
+    document.getElementById("print").addEventListener("click", function() {
         window.print();
-        e.target.style.display = "block";
-        optn.style.display = "flex";
-    };
-
-    document.getElementById("print").addEventListener("click", (e) => {
-        reportPrint(e);
     });
 
 });

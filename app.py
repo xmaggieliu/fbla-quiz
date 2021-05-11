@@ -28,7 +28,7 @@ def results():
             name_of_val = "answer" + str(i)
             name_of_hint = "hint" + str(i)
             formResults.append(request.form.get(name_of_val))
-            if name_of_hint in request.form:
+            if request.form.get(name_of_hint) == "TRUE":
                 hintsUsed.append(i)
         return render_template("results.html", formResults=formResults, hintsUsed=hintsUsed, questions=questions)
 

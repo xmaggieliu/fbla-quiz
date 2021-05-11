@@ -1,20 +1,26 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <style>
-        body {
-            background-color: #F7F7F9;
-        }
-    </style>
-    <div class="quiz-title">
-        <h1>
-            <a href="" class="typewrite" data-period="2000" data-type='[ "FBLA Quiz", "5 Questions"]'>
-                <span class="wrap"></span>
-            </a>
-        </h1>
-    </div>
-    <div id="home-choose-next">
-        <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
-        <a class="btn btn-primary start" href="/quiz" role="button">Start</a>
+    <div id="index-bg">
+        <div class="quiz-title">
+            <h1>
+                <a href="" class="typewrite" data-period="2000" data-type='[ "FBLA Quiz", "5 Questions"]'>
+                    <span class="wrap"></span>
+                </a>
+            </h1>
+        </div>
+        <div id="home-choose-next">
+            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
+            <a class="btn btn-primary start" href="/quiz" role="button">Start</a>
+            <!-- <button id="toggle-mode" onclick="toggleTheme('dark-mode')">LIGHT/DARK MODE</button> -->
+            <div>
+                <input type="checkbox" class="checkbox" id="chk" />
+                <label class="label" for="chk">
+                    <i class="fa fa-moon"></i>
+                    <i class="fa fa-sun"></i>
+                    <div class="ball"></div>
+                </label>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,13 +1,15 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div id="instruction-container">
-        <a class="btn btn-primary home" href="/" role="button">Home</a>
-        <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
-    </div>    
-    <div id="quiz_questions">
-        <form id="quiz_form" action="/results" method="post">
-        </form>
+    <div id="page-bg">
+        <div id="instruction-container">
+            <a class="btn btn-primary home" href="/" role="button">Home</a>
+            <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
+        </div>    
+        <div id="quiz_questions">
+            <form id="quiz_form" action="/results" method="post">
+            </form>
+        </div>
     </div>
     <script>
         var questions = {{ questions | safe }};

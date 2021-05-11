@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <div id="instruction-container">
-        <a class="btn btn-primary home" href="/" role="button">Home</a>
-        <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
-    </div> 
-    <div id="report">
-        <div id="results"></div>
-        <div id="questionsResults"></div>
-        <div id="print-region"></div>
+    <div id="page-bg">
+        <div id="instruction-container">
+            <a class="btn btn-primary home" href="/" role="button">Home</a>
+            <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
+        </div> 
+        <div id="report">
+            <div id="results"></div>
+            <div id="questionsResults"></div>
+            <div id="print-region"></div>
+        </div>
     </div>
     <script>
         var formResults = {{ formResults|safe }};

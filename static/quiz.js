@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (hint != "None") {
                 to_html += `
                     <button type="button" class="btn btn-warning get-hint">Hint</button>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert" data-hide="alert">
+                    <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">
                         <div>
                             <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
                         </div>
@@ -96,9 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     </div>
+                    </fieldset>
+                    <input name="hint${i}" value="FALSE" type="hidden">
                 `
             }
-            to_html += `</fieldset>`
+            else {
+                to_html += `</fieldset>`
+            }
         }
         document.getElementById("quiz_form").innerHTML += to_html;
     }
@@ -140,6 +144,28 @@ document.addEventListener('DOMContentLoaded', function() {
     function confirmGetHint(e) {
         e.target.nextElementSibling.style.display = "flex";
     }
+    
+    // Hides get hint button, add hint to page, form records which hint is used
+    function displayHint(e) {
+        hintButton = e.path[3].querySelectorAll(".get-hint")[0];
+        hintButton.style.display = "none";
+
+        qNum = e.path[3].id;
+        qNum = qNum.charAt(qNum.length - 1);
+        i = parseInt(qNum);
+
+        e.path[3].innerHTML += `
+        <div class="hint">
+            <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
+        </div>
+        `;
+        
+        var hintToForm = document.getElementsByName(`hint${qNum}`)[0];
+        hintToForm.setAttribute('value', 'TRUE');
+
+        $(".alert-warning").hide(); 
+    }
+
 
     // Make CSS changes for MC and true/false type questions
     for (var j = 0; j < answerButtons.length; j++) {
@@ -158,56 +184,24 @@ document.addEventListener('DOMContentLoaded', function() {
         })
     }
 
-    function hintSeries() {
-        // Hint alert appears
-        for (var l = 0; l < hintBox.length; l++) {
-            hintBox[l].addEventListener("click", (e) => {
-                confirmGetHint(e);
-            }) 
-        }
-
-        // Displays hint after Yes! clicked
-        for (var m = 0; m < yesHint.length; m++) {
-            yesHint[m].addEventListener("click", (e) => {
-                displayHint(e);
-            }) 
-        }
-
-        // Hides hint alert if x is clicked
-        for (var n = 0; n < hintAlert.length; n++) {
-            hintAlert[n].addEventListener("click", function() {
-                $(".alert-warning").hide(); 
-            }) 
-        }
+    // Hint alert appears
+    for (var l = 0; l < hintBox.length; l++) {
+        hintBox[l].addEventListener("click", (e) => {
+            confirmGetHint(e);
+        }) 
     }
-    
-    // Hides get hint button, add hint to page, form records which hint is used
-    function displayHint(e) {
-        hintButton = e.path[3].querySelectorAll(".get-hint")[0]
-        hintButton.style.display = "none";
 
-        qNum = e.path[3].id
-        qNum = qNum.charAt(qNum.length - 1)
-        i = parseInt(qNum)
+    // Displays hint after Yes! clicked
+    for (var m = 0; m < yesHint.length; m++) {
+        yesHint[m].addEventListener("click", (e) => {
+            displayHint(e);
+        }) 
+    }
 
-        e.path[3].innerHTML += `
-        <div class="hint">
-            <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
-        </div>
-        `;
-
-        e.path[4].innerHTML +=`
-            <input name="hint${qNum}" value="TRUE" type="hidden">
-        `;
-
+    // Hides hint alert if x is clicked
+    for (var n = 0; n < hintAlert.length; n++) {
+        hintAlert[n].addEventListener("click", function(){
         $(".alert-warning").hide(); 
-
-        hintBox = document.querySelectorAll(".get-hint");
-        yesHint = document.querySelectorAll(".yes-hint");
-        hintAlert = document.querySelectorAll(".alert-react");
-        hintSeries()
+        }) 
     }
-
-    // Run hintSeries for the first time
-    hintSeries()
 });
