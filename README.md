@@ -5,8 +5,8 @@ Flask web app that randomly generates a 5-question quiz from a database.
 1. Hints (with confirmation alert)
 2. Dark mode
 
-## Bibliography & Works Cited
-- DOCUMENTATIONS/GENERAL RESOURCES VISITED
+## References + Works Cited
+DOCUMENTATIONS/GENERAL RESOURCES VISITED
 - CS50: https://cs50.harvard.edu/x/2021/weeks/9/
 - Web: https://developer.mozilla.org/en-US/docs/Web
 - Bootstrap: https://getbootstrap.com/docs/4.3/components/
@@ -26,3 +26,4 @@ SOURCES OF CODE USED
 - https://css-tricks.com/snippets/css/typewriter-effect/
 - https://stackoverflow.com/questions/43043113/how-to-force-reloading-a-page-when-using-browser-back-button
 - https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
+- https://codepen.io/FlorinPop17/pen/XWWZYYG
