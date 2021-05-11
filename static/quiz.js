@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
         </div>
         `;
-        
+
         var hintToForm = document.getElementsByName(`hint${qNum}`)[0];
         hintToForm.setAttribute('value', 'TRUE');
 
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hides hint alert if x is clicked
     for (var n = 0; n < hintAlert.length; n++) {
         hintAlert[n].addEventListener("click", function(){
-        $(".alert-warning").hide(); 
+            $(".alert-warning").hide(); 
         }) 
     }
 });

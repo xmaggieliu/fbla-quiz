@@ -55,21 +55,24 @@ window.onload = function() {
   css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #170020}";
   document.body.appendChild(css);
   // -------------------------------------------------- END OF SOURCE
-  /////////////////////////////////////////////////////////////////////////////////////////DEL
-  // const html = document.getElementsByTagName('html')[0];
-  // const toggleTheme = (theme) => {
-  //   html.dataset.theme = theme;
-  // }
 
-  // document.getElementById("toggle-mode").onclick = function fun() {
-  //   toggleTheme();
-  // }
+  if (document.body.classList.contains('dark')) {
+    console.log(document.querySelectorAll('.label'))
+    document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
+  }
+
   const chk = document.getElementById('chk');
 
   chk.addEventListener('change', () => {
     document.body.classList.toggle('dark');
     const theme = document.body.classList
     localStorage.setItem('theme', theme);
+    if (document.body.classList.contains('dark')) {
+      document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
+    }
+    else {
+      document.querySelectorAll('.ball')[0].style.transform = 'translateX(0px)';
+    }
   });
 };
 
