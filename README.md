@@ -2,8 +2,8 @@
 Flask web app that randomly generates a 5-question quiz from a database.
 
 ## Features
-1. Hints
-2. Fast and lightweight
+1. Hints (with confirmation alert)
+2. Dark mode
 
 ## Bibliography & Works Cited
 - DOCUMENTATIONS/GENERAL RESOURCES VISITED
