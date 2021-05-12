@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </button>
                         </div>
                     </div>
+                    <div class="hint"></div>
                     </fieldset>
                     <input name="hint${i}" value="FALSE" type="hidden">
                 `
@@ -147,17 +148,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Hides get hint button, add hint to page, form records which hint is used
     function displayHint(e) {
-        hintButton = e.path[3].querySelectorAll(".get-hint")[0];
-        hintButton.style.display = "none";
-
         qNum = e.path[3].id;
         qNum = qNum.charAt(qNum.length - 1);
         i = parseInt(qNum);
 
-        e.path[3].innerHTML += `
-        <div class="hint">
+        hintButton = e.path[3].querySelectorAll(".get-hint")[0];
+        hintButton.style.display = "none";
+
+        e.path[3].querySelectorAll(".hint")[0].innerHTML += `
             <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
-        </div>
         `;
 
         var hintToForm = document.getElementsByName(`hint${qNum}`)[0];

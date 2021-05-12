@@ -28,3 +28,4 @@ SOURCES OF CODE USED
 - https://stackoverflow.com/questions/43043113/how-to-force-reloading-a-page-when-using-browser-back-button
 - https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
 - https://codepen.io/FlorinPop17/pen/XWWZYYG
+- https://lukelowrey.com/css-variable-theme-switcher/
