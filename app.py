@@ -1,5 +1,6 @@
 from helpers import get_questions
 from flask import Flask, render_template, request, redirect
+# from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 questions = {}

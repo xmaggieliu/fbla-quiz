@@ -2,11 +2,11 @@ import csv, random
 from cs50 import SQL
 
 #connects to database
-db = SQL("sqlite:///questions.db")
+db = SQL("sqlite:///my.db")
 
 # Creates table in questions.db and insert csv values as default questions into database
 def create_database():
-    # Creates table
+    # Creates table for questions
     db.execute("""CREATE TABLE IF NOT EXISTS question_bank(
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         question_type TEXT NOT NULL,
@@ -18,6 +18,19 @@ def create_database():
         c TEXT,
         d TEXT
         );""")
+    
+    # Creates table for users
+    # db.execute("""CREATE TABLE IF NOT EXISTS question_bank(
+    #     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    #     username TEXT NOT NULL,
+    #     password TEXT NOT NULL,
+    #     answer TEXT NOT NULL,
+    #     hint TEXT,
+    #     a TEXT,
+    #     b TEXT,
+    #     c TEXT,
+    #     d TEXT
+    #     );""")
 
     # Reads each row from csv and insert into database
     with open("questions.csv", "r") as f:

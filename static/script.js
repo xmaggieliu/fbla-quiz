@@ -81,6 +81,29 @@ window.onload = function() {
     localStorage.setItem('theme', targetTheme);
   };
   // -------------------- END OF SOURCE
+
+  var storedHint = localStorage.getItem('hint-mode');
+  if (storedHint === "no-hint") {
+    document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
+  }
+
+  const chk = document.getElementById('chk');
+
+  chk.addEventListener('change', () => {
+    if (chk.checked === true) {
+      document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
+      localStorage.setItem('hint-mode', "no-hint");
+    }
+    else {
+      console.log("hint back!")
+      document.querySelectorAll('.ball')[1].style.transform = 'translateX(0px)';
+      localStorage.setItem('hint-mode', "yes-hint");
+    }
+  });
+    
+  document.getElementById("adddd").addEventListener("onclick", () => {
+    $('.collapse').collapse();
+  });
 };
 
 // Automatic reload of page when accessing history (e.g. alt + left-arrow)

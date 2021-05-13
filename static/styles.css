@@ -42,14 +42,46 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     position: fixed !important;
 }
 
-/* .checkbox {
+#adv-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+hr {
+    size: 5px;
+    width: 60%;
+    /* width: 800px; */
+}
+
+.adv-setting-text {
+    color: #850000;
+    margin-bottom: 10px;
+}
+
+.modes {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*          yes or no hint button          */
+.checkbox {
 	opacity: 0;
 	position: absolute;
-} */
-
-#bg-mode {
-    margin-top: 50px;
 }
+
+.on {
+    color: #f39c12;
+    transform: translate(2px);
+}
+
+.off {
+    transform: translate(-2px);
+    color: #759fc4;
+}
+
 
 /*       light/dark mode button        */
 .label {
@@ -91,9 +123,6 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
 #index-bg {
     background-color: #eaeaf7;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 #page-bg {
@@ -119,14 +148,19 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 16px;
 }
 
 .info {
     margin-right: 1em;
+    margin-left: 1em;
+    color: #ffebe9;
 }
 
 .start {
     margin-left: 1em;
+    margin-right: 1em;
+    color: #f5ebea;
 }
 
 .disabled {
@@ -162,8 +196,6 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
 .hint-result {
     background-color: #ffee9aaa !important;
     border-color: #ffee9a !important;
-    /* background-color: #f5eecda1 !important;
-    border-color: #ffee9a !important; */
     pointer-events: none;
     color: rgb(0, 0, 36) !important;
 }
@@ -193,7 +225,7 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
 /*     quiz page      */
 #instruction-container {
     position: fixed;
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     justify-content: flex-end;
     right: 0;
@@ -206,6 +238,7 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     border-color: #1596d1;
     margin-top: 1em;
     margin-right: 1em;
+    margin-left: 1em;
 }
 
 .home:hover, .home:focus, .home:active {

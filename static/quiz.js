@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var storedHint = localStorage.getItem('hint-mode');
     // Loops through dictionary and add HTML depending on question type
     for (var i = 1; i <= 5; i++) { 
         var question_type = questions[i]["question_type"];
@@ -81,8 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
             `;
             var hint = questions[i]["hint"];
-            // If hint exists:
-            if (hint != "None") {
+            // If hint exists and is wanted:
+            if (hint !== "None" && storedHint !== "no-hint") {
                 to_html += `
                     <button type="button" class="btn btn-warning get-hint">Hint</button>
                     <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">
@@ -103,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             else {
                 to_html += `</fieldset>`
+                console.log("OFF WITH THE HINT!")
             }
         }
         document.getElementById("quiz_form").innerHTML += to_html;

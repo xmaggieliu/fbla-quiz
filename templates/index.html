@@ -13,16 +13,32 @@
         </div>
         <div id="home-choose-next">
             <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
+            <button type="button" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
             <a class="btn btn-primary start" href="/quiz" role="button">Start</a>
         </div>
-        <div id="bg-mode">
-            <!-- SOURCE: https://codepen.io/FlorinPop17/pen/XWWZYYG -->
-            <div class="label">
-                <i class="fa fa-sun-o"></i>
-                <i class="fa fa-moon-o"></i>
-                <div class="ball"></div>
+        <div id="adv-settings" class="collapse">
+            <div id="adv-wrapper">
+                <hr>
+                <div id="bg-mode" class="modes">
+                    <p class="adv-setting-text">Dark mode</p>
+                    <!-- SOURCE: https://codepen.io/FlorinPop17/pen/XWWZYYG -->
+                    <div class="label">
+                        <i class="fa fa-sun-o"></i>
+                        <i class="fa fa-moon-o"></i>
+                        <div class="ball"></div>
+                    </div>
+                    <!-- END OF SOURCE -->
+                </div>
+                <div class="modes">
+                    <p class="adv-setting-text">Disable hint</p>
+                    <input type="checkbox" class="checkbox" id="chk" />
+                    <label class="label" for="chk">
+                        <i class="fa fa-lightbulb-o on" aria-hidden="true"></i>
+                        <i class="fa fa-lightbulb-o off" aria-hidden="true"></i>
+                        <div class="ball"></div>
+                    </label>
+                </div>
             </div>
-            <!-- END OF SOURCE -->
         </div>
     </div>
 {% endblock %}
