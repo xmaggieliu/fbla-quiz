@@ -56,11 +56,15 @@ window.onload = function() {
   document.body.appendChild(css);
   // -------------------------------------------------- END OF SOURCE
   
+
   // Make currently visited page into set mode
   // ------------------ SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
-  var storedTheme = localStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  var storedTheme = sessionStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
     document.documentElement.setAttribute('data-theme', storedTheme)
+    if (storedTheme == "dark") {
+      document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
+    }
   }
 
   // Switch mode
@@ -78,11 +82,11 @@ window.onload = function() {
     }
 
     document.documentElement.setAttribute('data-theme', targetTheme)
-    localStorage.setItem('theme', targetTheme);
+    sessionStorage.setItem('theme', targetTheme);
   };
   // -------------------- END OF SOURCE
 
-  var storedHint = localStorage.getItem('hint-mode');
+  var storedHint = sessionStorage.getItem('hint-mode');
   if (storedHint === "no-hint") {
     document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
@@ -92,26 +96,17 @@ window.onload = function() {
   chk.addEventListener('change', () => {
     if (chk.checked === true) {
       document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
-      localStorage.setItem('hint-mode', "no-hint");
+      sessionStorage.setItem('hint-mode', "no-hint");
     }
     else {
       console.log("hint back!")
       document.querySelectorAll('.ball')[1].style.transform = 'translateX(0px)';
-      localStorage.setItem('hint-mode', "yes-hint");
+      sessionStorage.setItem('hint-mode', "yes-hint");
     }
   });
     
-  document.getElementById("adddd").addEventListener("onclick", () => {
-    $('.collapse').collapse();
-  });
+  document.getElementById("logout").onclick = function() {
+    sessionStorage.clear()
+  };
 };
 
-// Automatic reload of page when accessing history (e.g. alt + left-arrow)
-//---------------- SOURCE: https://stackoverflow.com/questions/43043113/how-to-force-reloading-a-page-when-using-browser-back-button ---------------------------------
-window.addEventListener( "pageshow", function ( event ) {
-    var historyTraversal = event.persisted || ( typeof window.performance != "undefined" && window.performance.navigation.type === 2 );
-    if ( historyTraversal ) {
-      window.location.reload();
-    }
-});
-//--------------------------------------------------- END OF SOURCE

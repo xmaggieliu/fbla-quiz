@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    var storedHint = localStorage.getItem('hint-mode');
+    var storedHint = sessionStorage.getItem('hint-mode');
     // Loops through dictionary and add HTML depending on question type
     for (var i = 1; i <= 5; i++) { 
         var question_type = questions[i]["question_type"];
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add submit button
     document.getElementById("quiz_form").innerHTML += `
         <div class="general">
-            <button class="btn btn-primary" type="submit" name="submit" value="Submit">Submit</button>
+            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
         </div>
     `;
 

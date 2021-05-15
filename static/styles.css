@@ -48,6 +48,10 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     align-items: center;
 }
 
+.lower {
+    margin-top: 2em;
+}
+
 hr {
     size: 5px;
     width: 60%;
@@ -154,13 +158,13 @@ hr {
 .info {
     margin-right: 1em;
     margin-left: 1em;
-    color: #ffebe9;
+    color: #fff6fa;
 }
 
 .start {
     margin-left: 1em;
     margin-right: 1em;
-    color: #f5ebea;
+    color: #fff6fa;
 }
 
 .disabled {

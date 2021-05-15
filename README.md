@@ -1,9 +1,9 @@
 # FBLA NLC 2021 - Coding and Programming Submission
-Flask web app that randomly generates a 5-question quiz from a SQLITE database.
+Flask web app that randomly generates a 5-question quiz from a SQLite database.
 
 ## Features
-1. Hints (with confirmation alert)
-2. Dark mode
+1. Hints (with confirmation alert + disable option)
+2. Dark mode (toggleable)
 3. Printable report in white background
 
 ## References + Works Cited
@@ -25,7 +25,6 @@ REFERENCE FOR QUESTIONS IN DATABASE - FOUND IN FBLA TRAINING MATERIALS MEGAFOLDE
 
 SOURCES OF CODE USED
 - https://css-tricks.com/snippets/css/typewriter-effect/
-- https://stackoverflow.com/questions/43043113/how-to-force-reloading-a-page-when-using-browser-back-button
 - https://stackoverflow.com/questions/1531093/how-do-i-get-the-current-date-in-javascript
 - https://codepen.io/FlorinPop17/pen/XWWZYYG
 - https://lukelowrey.com/css-variable-theme-switcher/

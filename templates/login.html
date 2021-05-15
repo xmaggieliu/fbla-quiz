@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <div id="instruction-container">
+        <a class="btn btn-primary" href="/register" role="button">Register</a>
+    </div>
+    <div id="index-bg">
+        <div class="quiz-title">
+            <!-- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ -->
+            <h1>
+                <a href="" class="typewrite" data-period="2000" data-type='["FBLA Quiz", "5 Questions"]'>
+                    <span class="wrap"></span>
+                </a>
+            </h1>
+            <!-- END OF SOURCE -->
+        </div>
+        <form action="/login" method="post" id="adv-wrapper" class="lower">
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+            </div>
+            <div class="form-group">
+                <input class="form-control" name="password" placeholder="Password" type="password">
+            </div>
+            <button class="btn btn-primary" type="submit">Log In</button>
+        </form>
+    </div>
+{% endblock %}
