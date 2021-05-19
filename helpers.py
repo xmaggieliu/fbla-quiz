@@ -33,10 +33,11 @@ def create_questionbank(id_table):
         );""", id_table)
 
     # Reads each row from csv and insert into database
-    with open("questions.csv", "r") as f:
+    with open("defaults.csv", "r") as f:
         for row in csv.DictReader(f):
             db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", id_table, row["question_type"], row["question"], row["answer"], row["hint"], row["a"], row["b"], row["c"], row["d"])
 
+    
 quiz_questions = {}
 
 # Creates a dictionary of the 5 questions and their info
@@ -44,7 +45,7 @@ def get_questions(table_name):
     num_of_q = len(db.execute("SELECT * FROM ?", table_name))
     i = 1
     # Loops through 5 unique int from [1, total num of questions]
-    for q_id in random.sample(range(1, num_of_q + 1), 5): 
+    for q_id in random.sample(range(3, num_of_q + 1), 5): 
         quiz_questions[i] = db.execute("SELECT * FROM ? where id = (?);", table_name, q_id)[0]
         i += 1
     return quiz_questions

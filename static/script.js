@@ -59,7 +59,7 @@ window.onload = function() {
 
   // Make currently visited page into set mode
   // ------------------ SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
-  var storedTheme = sessionStorage.getItem('theme') || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
     document.documentElement.setAttribute('data-theme', storedTheme)
     if (storedTheme == "dark") {
@@ -86,7 +86,7 @@ window.onload = function() {
   };
   // -------------------- END OF SOURCE
 
-  var storedHint = sessionStorage.getItem('hint-mode');
+  var storedHint = sessionStorage.getItem('hint-mode') || curHint;
   if (storedHint === "no-hint") {
     document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
@@ -105,8 +105,11 @@ window.onload = function() {
     }
   });
     
-  document.getElementById("logout").onclick = function() {
-    sessionStorage.clear()
+  var logoutBtn = document.getElementById("logout");
+  logoutBtn.onclick = function() {
+    to_value = sessionStorage.getItem('theme') + " " + sessionStorage.getItem('hint-mode')
+    logoutBtn.value = to_value
+    sessionStorage.clear() // del this line if clears session in app.py too
   };
 };
 

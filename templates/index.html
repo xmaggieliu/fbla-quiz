@@ -2,7 +2,9 @@
 
 {% block body %}
     <div id="instruction-container">
-        <a class="btn btn-primary logout" href="/logout" role="button">Log out</a>
+        <form action="/logout" method="post">
+            <button class="btn btn-primary" id="logout" name="submit" type="submit" value="logout">Log out</button>
+        </form>
     </div>
     <div id="index-bg">
         <div class="quiz-title">
@@ -44,4 +46,9 @@
             </div>
         </div>
     </div>
+    <script>
+        var curTheme = "{{ theme|safe }}";
+        var curHint = "{{ hintMode|safe }}";
+        console.log(curTheme, curHint)
+    </script>
 {% endblock %}

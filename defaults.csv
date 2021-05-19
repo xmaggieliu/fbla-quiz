@@ -1,4 +1,6 @@
 question_type,question,answer,hint,a,b,c,d
+settings,theme,light,,,,,
+settings,hint-mode,yes-hint,,,,,
 true and false,The first step in making decisions about starting a business is to define the problem/opportunity.,TRUE,,,,,
 true and false,Carol can be considered an entrepreneur because she manages a coffee shop owned by her sister.,FALSE,,,,,
 true and false,Insurance is not a risk associated with doing business in another country.,TRUE,,,,,

@@ -7,6 +7,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 questions = {}
+tableName = ""
+
 
 #connects to database
 db = SQL("sqlite:///my.db")
@@ -35,16 +37,22 @@ Session(app)
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    global tableName
+    curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
+    curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
+    print(db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName))
+    print(curTheme, curHint)
+    return render_template("index.html", theme=curTheme, hintMode=curHint)
 
-# 5 Questions quiz page
+# 5 questions quiz page
 @app.route("/quiz", methods=["GET"])
 @login_required
 def quiz():
-    global questions
-    table_id = "question_bank" + str(session["user_id"])
-    questions = get_questions(table_id)
-    return render_template("quiz.html", questions=questions)
+    global questions, tableName
+    questions = get_questions(tableName)
+    # Remove "answer" from the dictionary passed into quiz page
+    new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys() - {'answer'}} for k in questions.keys()}
+    return render_template("quiz.html", questions=new_dict)
 
 # Results page  
 @app.route("/results", methods=["GET", "POST"])
@@ -65,6 +73,8 @@ def results():
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    global tableName
+
     # Forget any user_id
     session.clear()
 
@@ -77,6 +87,7 @@ def login():
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
+        tableName = "question_bank" + str(session["user_id"])
 
         return redirect("/")
 
@@ -109,8 +120,15 @@ def register():
     else:
         return render_template("register.html")
 
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 def logout():
+    global tableName
+    values = request.form.get("submit")
+    curTheme, curHint = values.split()
+    print(values)
+    db.execute("UPDATE ? SET answer = ? WHERE question = 'theme'", tableName, curTheme)
+    db.execute("UPDATE ? SET answer = ? WHERE question = 'hint-mode'", tableName, curHint)
+
     # Forget any user_id
     session.clear()
 
