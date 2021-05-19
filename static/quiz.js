@@ -1,9 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
+
     var storedHint = sessionStorage.getItem('hint-mode');
+
     // Loops through dictionary and add HTML depending on question type
     for (var i = 1; i <= 5; i++) { 
+
         var question_type = questions[i]["question_type"];
         to_html = ``;
+
         if (question_type == "multiple choice") {
             to_html = `
                 <fieldset class="question" id="group${i}">
@@ -81,7 +85,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <input name="answer${i}" class="form-control" placeholder="Type..." type="text" autocomplete="off" required>
                     </div>
             `;
+
             var hint = questions[i]["hint"];
+
             // If hint exists and is wanted:
             if (hint !== "None" && storedHint !== "no-hint") {
                 to_html += `
@@ -100,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="hint"></div>
                     </fieldset>
                     <input name="hint${i}" value="FALSE" type="hidden">
-                `
+                `;
             }
             else {
                 to_html += `</fieldset>`
@@ -120,24 +126,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // Questions related var
     var answerButtons = document.querySelectorAll(".choice-viewable");
     var inpBoxes = document.querySelectorAll(".form-control");
+
     // Hints related var
     var hintBox = document.querySelectorAll(".get-hint");
     var yesHint = document.querySelectorAll(".yes-hint");
     var hintAlert = document.querySelectorAll(".alert-react");
 
 
-    // Checkmarks "hidden" radio buttons
+    // Checkmark "hidden" radio buttons
     function selectBubble(e) {
         inp = e.toElement.offsetParent.getElementsByTagName("input");
         inp[0].checked = true;
     }
 
-    // Make outline of input box purple when the form field is filled, else return to original css style properties
+    // Indicate by color the status of the fill in the blank and dropdown boxes
     function selectBox(e) {
+        // Make outline of input box purple if form field is filled
         if (e.target.classList.contains("form-control") && e.target.value) {
             e.target.style.borderColor = "purple";
             e.target.style.boxShadow = "0px 0px 0px 3px rgba(255, 0, 255, 0.473)";
-        } else if (e.target.classList.contains("form-control") && !(e.target.value)) {
+        } 
+        // else return to originall css style properties
+        else if (e.target.classList.contains("form-control") && !(e.target.value)) {
             e.target.style.removeProperty("border-color");
             e.target.style.removeProperty("box-shadow");
         };
@@ -148,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.target.nextElementSibling.style.display = "flex";
     }
     
-    // Hides get hint button, add hint to page, form records which hint is used
+    // Hide get hint button, add hint to page, have form record which hint was used
     function displayHint(e) {
         qNum = e.path[3].id;
         qNum = qNum.charAt(qNum.length - 1);
@@ -192,14 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }) 
     }
 
-    // Displays hint after Yes! clicked
+    // Display hint after 'Yes!' clicked
     for (var m = 0; m < yesHint.length; m++) {
         yesHint[m].addEventListener("click", (e) => {
             displayHint(e);
         }) 
     }
 
-    // Hides hint alert if x is clicked
+    // Hide hint alert if 'x' is clicked
     for (var n = 0; n < hintAlert.length; n++) {
         hintAlert[n].addEventListener("click", function(){
             $(".alert-warning").hide(); 

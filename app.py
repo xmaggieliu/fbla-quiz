@@ -5,13 +5,14 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
+
 app = Flask(__name__)
 questions = {}
 tableName = ""
 
-
-#connects to database
+# Connect to database
 db = SQL("sqlite:///my.db")
+
 
 # --------------------------------------    SOURCE: CS50x 2021 pset9
 # Ensure templates are auto-reloaded
@@ -30,18 +31,19 @@ app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-
 # -----------------------------------------   END OF SOURCE
+
 
 # Home page
 @app.route("/")
 @login_required
 def index():
     global tableName
+
+    # Have pages satisfy default/last saved theme and hint modes
     curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
     curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
-    print(db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName))
-    print(curTheme, curHint)
+
     return render_template("index.html", theme=curTheme, hintMode=curHint)
 
 # 5 questions quiz page
@@ -49,9 +51,11 @@ def index():
 @login_required
 def quiz():
     global questions, tableName
-    questions = get_questions(tableName)
+
     # Remove "answer" from the dictionary passed into quiz page
+    questions = get_questions(tableName)
     new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys() - {'answer'}} for k in questions.keys()}
+
     return render_template("quiz.html", questions=new_dict)
 
 # Results page  
@@ -61,14 +65,21 @@ def results():
     if request.method == "GET":
         return redirect("/")
     else:
+        # Store user answers to questions
         formResults = []
+
+        # Store question #s that used hints
         hintsUsed = []
+
+        # Loop through each quiz question from submitted form
         for i in range(1, 6):
             name_of_val = "answer" + str(i)
             name_of_hint = "hint" + str(i)
             formResults.append(request.form.get(name_of_val))
+            # Check if hint was used
             if request.form.get(name_of_hint) == "TRUE":
                 hintsUsed.append(i)
+
         return render_template("results.html", formResults=formResults, hintsUsed=hintsUsed, questions=questions)
 
 @app.route("/login", methods=["GET", "POST"])
@@ -89,6 +100,7 @@ def login():
         session["user_id"] = rows[0]["id"]
         tableName = "question_bank" + str(session["user_id"])
 
+        # Redirect logged in user to index.html
         return redirect("/")
 
     else:
@@ -96,7 +108,6 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
     if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
@@ -123,9 +134,11 @@ def register():
 @app.route("/logout", methods=["POST"])
 def logout():
     global tableName
+
+    # Update saved theme and modes for next use
     values = request.form.get("submit")
     curTheme, curHint = values.split()
-    print(values)
+
     db.execute("UPDATE ? SET answer = ? WHERE question = 'theme'", tableName, curTheme)
     db.execute("UPDATE ? SET answer = ? WHERE question = 'hint-mode'", tableName, curHint)
 
@@ -134,6 +147,7 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=80)

@@ -57,7 +57,7 @@ window.onload = function() {
   // -------------------------------------------------- END OF SOURCE
   
 
-  // Make currently visited page into set mode
+  // Make currently visited page into set modes
   // ------------------ SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
   var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   if (storedTheme) {
@@ -85,6 +85,7 @@ window.onload = function() {
     sessionStorage.setItem('theme', targetTheme);
   };
   // -------------------- END OF SOURCE
+
 
   var storedHint = sessionStorage.getItem('hint-mode') || curHint;
   if (storedHint === "no-hint") {
