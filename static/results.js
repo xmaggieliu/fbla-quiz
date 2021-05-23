@@ -1,3 +1,5 @@
+document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
+
 document.addEventListener('DOMContentLoaded', function() {
     totalScore = 10
     var colon = ":";
@@ -57,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
             };
         }
         else if (question_type == "dropdown") {
-            if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
+            res = formResults[i - 1].trim().toLowerCase();
+            if (res == questions[i]["answer"].toLowerCase()) {
                 to_html = `
                 <div class="question">
                     <div class="q-in-results">

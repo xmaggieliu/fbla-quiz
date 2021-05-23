@@ -1,3 +1,5 @@
+document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
+
 document.addEventListener('DOMContentLoaded', function() {
 
     var storedHint = sessionStorage.getItem('hint-mode');
@@ -135,7 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Checkmark "hidden" radio buttons
     function selectBubble(e) {
-        inp = e.toElement.offsetParent.getElementsByTagName("input");
+        console.log(e)
+        // inp = e.toElement.offsetParent.getElementsByTagName("input");
+        inp = e.target.offsetParent.getElementsByTagName("input");
         inp[0].checked = true;
     }
 
@@ -143,14 +147,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function selectBox(e) {
         // Make outline of input box purple if form field is filled
         if (e.target.classList.contains("form-control") && e.target.value) {
-            e.target.style.borderColor = "purple";
-            e.target.style.boxShadow = "0px 0px 0px 3px rgba(255, 0, 255, 0.473)";
+            e.target.style.borderColor = "#80008080";
+            e.target.style.boxShadow = "0px 0px 0px 3px #80008044";
         } 
-        // else return to originall css style properties
-        else if (e.target.classList.contains("form-control") && !(e.target.value)) {
+        // Make outline of dropdown box purple 
+        else if (e.target.parentNode.classList.contains("form-control") && e.target.parentNode.value) {
+            e.target.parentNode.style.borderColor = "80008080";
+            e.target.parentNode.style.boxShadow = "0px 0px 0px 3px #80008044";
+        }
+        // else have input box return to original css style properties
+        else {
             e.target.style.removeProperty("border-color");
             e.target.style.removeProperty("box-shadow");
-        };
+        };        
     };
 
     // Hint alert appears
@@ -160,14 +169,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Hide get hint button, add hint to page, have form record which hint was used
     function displayHint(e) {
-        qNum = e.path[3].id;
+        console.log(e)
+        // path[3] == parentNode.parentNode.parentNode
+        fieldSet = e.target.parentNode.parentNode.parentNode
+        qNum = fieldSet.id;
         qNum = qNum.charAt(qNum.length - 1);
         i = parseInt(qNum);
 
-        hintButton = e.path[3].querySelectorAll(".get-hint")[0];
+        hintButton = fieldSet.querySelectorAll(".get-hint")[0];
         hintButton.style.display = "none";
 
-        e.path[3].querySelectorAll(".hint")[0].innerHTML += `
+        fieldSet.querySelectorAll(".hint")[0].innerHTML += `
             <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
         `;
 

@@ -23,7 +23,10 @@
         </div>
         <div id="adv-settings" class="collapse">
             <div id="adv-wrapper">
-                <hr>
+                <div class="setting-section">
+                    <hr>
+                    <p class="settings-sub">MODES</p>
+                </div>
                 <div id="bg-mode" class="modes">
                     <p class="adv-setting-text">Dark mode</p>
                     <!-- SOURCE: https://codepen.io/FlorinPop17/pen/XWWZYYG -->
@@ -43,6 +46,44 @@
                         <div class="ball"></div>
                     </label>
                 </div>
+                <div class="setting-section">
+                    <hr>
+                    <p class="settings-sub">ACCOUNT</p>
+                </div>
+                <div class="modes">
+                    <p class="adv-setting-text">Change username</p>
+                    <form action="/" method="post" class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="new-username" class="sr-only">Username</label>
+                            <input type="text" class="form-control" name="new-username" id="new-username" placeholder="New username" autocomplete="off" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit" value="Submit">Change</button>
+                    </form>
+                </div>
+                <div class="modes">
+                    <p class="adv-setting-text">Change password</p>
+                    <form action="/" method="post" class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="new-password" class="sr-only">Password</label>
+                            <input type="password" class="form-control" name="password" id="new-password" placeholder="New password" autocomplete="off" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit" value="Submit">Change</button>
+                    </form>
+                </div>
+                <div class="setting-section">
+                    <hr>
+                    <p class="settings-sub">QUESTION BANK</p>
+                </div>
+                <!-- have collapse use bootstrap --> 
+                <button class="btn btn-primary">Add questions</button>
+                    <form action="/" method="post" class="form-inline">
+                        <div class="form-group mx-sm-3 mb-2">
+                            <label for="add-answer" class="sr-only">Password</label>
+                            <input type="text" class="form-control" name="answer" id="add-answer" placeholder="Answer" autocomplete="off" required>
+                        </div>
+                        <button class="btn btn-primary" type="submit" value="Submit">Change</button>
+                    </form>
+                <button class="btn btn-primary">View current</button>
             </div>
         </div>
     </div>
@@ -51,4 +92,6 @@
         var curHint = "{{ hintMode|safe }}";
         console.log(curTheme, curHint)
     </script>
+    <script src="static/index.js"></script>
+    <script src="static/script.js"></script>
 {% endblock %}

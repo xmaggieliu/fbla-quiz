@@ -35,16 +35,25 @@ Session(app)
 
 
 # Home page
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
     global tableName
+    if request.method == "POST":
+        if request.form.get("new-username"):
+            if len(db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("new-username"))) == 0:
+                db.execute("UPDATE users SET username = ? WHERE id = ?;", request.form.get("new-username"), session["user_id"])
+            else: 
+                return("TAKEN !!!")
+        elif request.form.get("password"):
+            db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(request.form.get("password")), session["user_id"])
+        return redirect("/")
+    else:    
+        # Have pages satisfy default/last saved theme and hint modes
+        curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
+        curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
 
-    # Have pages satisfy default/last saved theme and hint modes
-    curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
-    curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
-
-    return render_template("index.html", theme=curTheme, hintMode=curHint)
+        return render_template("index.html", theme=curTheme, hintMode=curHint)
 
 # 5 questions quiz page
 @app.route("/quiz", methods=["GET"])
@@ -106,8 +115,8 @@ def login():
     else:
         return render_template("login.html")
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
     if request.method == "POST":
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
@@ -129,7 +138,7 @@ def register():
         return render_template("login.html")
 
     else:
-        return render_template("register.html")
+        return render_template("signup.html")
 
 @app.route("/logout", methods=["POST"])
 def logout():
