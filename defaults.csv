@@ -1,63 +1,63 @@
 question_type,question,answer,hint,a,b,c,d
 settings,theme,light,,,,,
 settings,hint-mode,yes-hint,,,,,
-true and false,The first step in making decisions about starting a business is to define the problem/opportunity.,TRUE,,,,,
-true and false,Carol can be considered an entrepreneur because she manages a coffee shop owned by her sister.,FALSE,,,,,
-true and false,Insurance is not a risk associated with doing business in another country.,TRUE,,,,,
-true and false,An income statement does not forecast how well the business can expect to perform in the future.,FALSE,,,,,
-true and false,Inventory is an example of a current asset.,TRUE,,,,,
-true and false,Fringe benefits are demonstrated when employees request employers to take out payments for health or dental insurance from their pay.,FALSE,,,,,
-true and false,Payroll is the list of people who receive salary or wage payments from a business.,TRUE,,,,,
-true and false,"Every month, businesses must pay sales taxes to the federal government.",FALSE,,,,,
-true and false,Giveaways of stationeries imprinted with the company name/logo is an example of self-promotion.,TRUE,,,,,
-true and false,Weaknesses refer to negative external forces that inhibit the firm's ability to achieve its objectives.,FALSE,,,,,
-true and false,The deed is a document used to evidence transfer of ownership of real property.,TRUE,,,,,
-true and false,Potential is a part of the marketing mix.,FALSE,,,,,
-true and false,Price is a part of the marketing mix.,TRUE,,,,,
-true and false,The right to low prices is one of the Consumer Bill of Rights.,FALSE,,,,,
-true and false,Philanthropy is the promotion of human welfare through giving.,TRUE,,,,,
-fill in the blank,The ____ follows the main body of a business plan.,appendix,This section provides further details/visuals to support your ideas.,,,,
-fill in the blank,The ____ is the roadmap for a business.,business plan,Two words!,,,,
-fill in the blank,____ are business possibilities that arise from existing conditions.,Opportunities,This term is in the SWOT acronym.,,,,
-fill in the blank,____ loans are backed by collateral.,Secured,How secure are these loans?,,,,
-fill in the blank,"The ____ is the grant of the exclusive right to make, use, import, sell, and offer a new product or process.",patent,None,,,,
-fill in the blank,____ is an amount paid for a job position stated on an annual basis.,Salary,None,,,,
-fill in the blank,____ are managers who work directly with the employees who perform the day-to-day tasks of a business.,Supervisors,None,,,,
-fill in the blank,Establishing informal ties with people who can help your business grow is called ____.,networking,None,,,,
-fill in the blank,____ is the act of establishing a favourable relationship with customers and the general public.,Public relations,2 words!,,,,
-fill in the blank,____ occurs when labour negotiations break down and a third party is brought to impose a settlement both sides must accept.,Arbitration,This is a common method to settle disputes.,,,,
-fill in the blank,The express ____ gives an explicit assurance of quality of performance by the seller.,warranty,None,,,,
-fill in the blank,"One major advantage of the ____ is that once the owner has paid all of the company's expenses, he/she can keep the remaining profits (less taxes).",sole proprietorship,This two word term refers to the type of business with one owner.,,,,
-fill in the blank,CSR stands for corporate ____ responsibility.,social,This is a type of regulation in regards to a company's community involvements.,,,,
-fill in the blank,"When the employment relationship between a company and an employee is ended, it is known as a ____.",termination,None,,,,
-fill in the blank,"____ tasks refers to giving responsibilities to other employees, while remaining responsible for the results.",Delegating,None,,,,
-multiple choice,____ is the ability to learn a particular kind of job.,A,,Aptitude,Skill,Competency,Talent
-multiple choice,Prospective entrepreneurs should conduct a(n) ____ to determine their strengths and weaknesses.,C,,interview,survey,self-assessment,standardized test
-multiple choice,"Generally speaking, your marketing strategy will be determined mostly by your business's ____.",B,,long-term goals,short-term goals,medium-term goals,all goals
-multiple choice,____ is not a strategy for dealing with global risk?,D,,Seek government assistance,Work with local business partners,Employ local management,Conduct business only in one country
-multiple choice,Co-ownership of property without the right of survivorship is ____.,C,,partnership,limited partnership,tenancy in common,right of partition
-multiple choice,____ covers the cost to repair an office building if it were damaged by fire.,D,,Life insurance,Business interruption insurance,Liability insurance,Property insurance
-multiple choice,The ____ is a financial statement that show how much money is available to pay bills.,A,,cash flow statement,balance sheet,income statement,pro forma financial statement
-multiple choice,Immediate transfer of ownership of goods from a seller to a buyer for a price is called a ____.,B,,vendor,sale,contract agreement,business transaction
-multiple choice,____ covers a company's legal responsibility for the harm it may cause to others as a result of what it and its employees do or fail to do in its business operations.,A,,Liability insurance,Business interruption insurance,Property insurance,No fault insurance
-multiple choice,"When a business allows another business to buy now and pay later, it is offering ____.",B,,a line of credit,trade credit,retail credit,revolving credit
-multiple choice,____ is a type of pricing technique that starts out with a low introductory price with the goal of building a strong customer base.,C,,Price skimming,Prestige pricing,Penetration pricing,Bundling
-multiple choice,Employees fill out ____ forms for employers to determine the amount of taxes to deduct from pay checks.,D,,1040,W-2,1040EZ,W-4
-multiple choice,____ is the practice of advertising a product at a low price while intentionally stocking only a limited number in hopes of luring shoppers to buy more expensive items.,C,,Substantiation,False advertising,Bait and switch,Puffery
-multiple choice,The ____ believes that the right thing for a person to do in any situation is the action that best serves that person's own long-term interests.,B,,Utility Principle,Egoism Principle,Principle of Duties,Principle of Virtues
-multiple choice,____ permits a party to a contract to reover money or property given to the other party.,A,,Restitution,Punitive damages,Disclaimer,Encumbrance
-dropdown,"____ is made up of more than 10,500 retired executives who volunteer their time to provide entrepreneurs with real-world advice and know-how.",SCORE,,BBB,SCORE,SBDC,SBA
-dropdown,Lexi decides to open a flower shop. She is operating a ____ business.,retail,,service,retail,wholesaling,manufacturing
-dropdown,"Since the business purchases goods for resale, they are called the ____.",vendee,,vendee,vendor,casual seller,owner
-dropdown,The ____ risk offers a chance to gain as well as lose from the event or activity.,speculative,,insurable,controllable,speculative,uncontrollable
-dropdown,Income earned by ____ is double taxed.,corporations,,partnerships,cooperatives,sole proprietorship,corporations
-dropdown,____ means to place the goods at the buyer's disposal.,Tender,,Tender,Sell,Transfer,Distribute
-dropdown,Credit card fraud is an example of ____ risk.,human,,artificial,natural,economic,human
-dropdown,A business can buy insurance to cover risks associated with ____.,destructive weather,,consumer demand,economic conditions,destructive weather,competitiors' actions
-dropdown,Human actions have no effect on ____.,uncontrollable risks,,pure risks,speculative risks,controllable risks,uncontrollable risks
-dropdown,"Once an entrepreneur has identified their goals, it is time to develop a marketing ____.",strategy,,strategy,concept,mix,layout
-dropdown,Product characteristics that will satisfy consumer needs are called ____.,features,,packaging,features,branding,labeling
-dropdown,Creating an image for a product in the customer's mind is called ____.,positioning,,advertising,distributing,positioning,labeling
-dropdown,____ marketing consists of marketing activities designed to satisfy customer needs without negatively impacting the environment.,Green,,Social responsible,Conservative,Renewable,Green
-dropdown,The ____ of ethics refers to social expectations of people's moral behaviour.,standard,,law,impact,standard,culture
-dropdown,Payroll income taxes must be paid ____ by the employer.,quarterly,,semi-annually,annually,monthly,quarterly
+True and False,The first step in making decisions about starting a business is to define the problem/opportunity.,TRUE,,,,,
+True and False,Carol can be considered an entrepreneur because she manages a coffee shop owned by her sister.,FALSE,,,,,
+True and False,Insurance is not a risk associated with doing business in another country.,TRUE,,,,,
+True and False,An income statement does not forecast how well the business can expect to perform in the future.,FALSE,,,,,
+True and False,Inventory is an example of a current asset.,TRUE,,,,,
+True and False,Fringe benefits are demonstrated when employees request employers to take out payments for health or dental insurance from their pay.,FALSE,,,,,
+True and False,Payroll is the list of people who receive salary or wage payments from a business.,TRUE,,,,,
+True and False,"Every month, businesses must pay sales taxes to the federal government.",FALSE,,,,,
+True and False,Giveaways of stationeries imprinted with the company name/logo is an example of self-promotion.,TRUE,,,,,
+True and False,Weaknesses refer to negative external forces that inhibit the firm's ability to achieve its objectives.,FALSE,,,,,
+True and False,The deed is a document used to evidence transfer of ownership of real property.,TRUE,,,,,
+True and False,Potential is a part of the marketing mix.,FALSE,,,,,
+True and False,Price is a part of the marketing mix.,TRUE,,,,,
+True and False,The right to low prices is one of the Consumer Bill of Rights.,FALSE,,,,,
+True and False,Philanthropy is the promotion of human welfare through giving.,TRUE,,,,,
+Fill In The Blank,The ____ follows the main body of a business plan.,appendix,This section provides further details/visuals to support your ideas.,,,,
+Fill In The Blank,The ____ is the roadmap for a business.,business plan,Two words!,,,,
+Fill In The Blank,____ are business possibilities that arise from existing conditions.,Opportunities,This term is in the SWOT acronym.,,,,
+Fill In The Blank,____ loans are backed by collateral.,Secured,How secure are these loans?,,,,
+Fill In The Blank,"The ____ is the grant of the exclusive right to make, use, import, sell, and offer a new product or process.",patent,,,,,
+Fill In The Blank,____ is an amount paid for a job position stated on an annual basis.,Salary,,,,,
+Fill In The Blank,____ are managers who work directly with the employees who perform the day-to-day tasks of a business.,Supervisors,,,,,
+Fill In The Blank,Establishing informal ties with people who can help your business grow is called ____.,networking,,,,,
+Fill In The Blank,____ is the act of establishing a favourable relationship with customers and the general public.,Public relations,2 words!,,,,
+Fill In The Blank,____ occurs when labour negotiations break down and a third party is brought to impose a settlement both sides must accept.,Arbitration,This is a common method to settle disputes.,,,,
+Fill In The Blank,The express ____ gives an explicit assurance of quality of performance by the seller.,warranty,,,,,
+Fill In The Blank,"One major advantage of the ____ is that once the owner has paid all of the company's expenses, he/she can keep the remaining profits (less taxes).",sole proprietorship,This two word term refers to the type of business with one owner.,,,,
+Fill In The Blank,CSR stands for corporate ____ responsibility.,social,This is a type of regulation in regards to a company's community involvements.,,,,
+Fill In The Blank,"When the employment relationship between a company and an employee is ended, it is known as a ____.",termination,,,,,
+Fill In The Blank,"____ tasks refers to giving responsibilities to other employees, while remaining responsible for the results.",Delegating,,,,,
+Multiple Choice,____ is the ability to learn a particular kind of job.,Aptitude,,Aptitude,Skill,Competency,Talent
+Multiple Choice,Prospective entrepreneurs should conduct a(n) ____ to determine their strengths and weaknesses.,self-assessment,,interview,survey,self-assessment,standardized test
+Multiple Choice,"Generally speaking, your marketing strategy will be determined mostly by your business's ____.",short-term goals,,long-term goals,short-term goals,medium-term goals,all goals
+Multiple Choice,____ is not a strategy for dealing with global risk?,Conduct business only in one country,,Seek government assistance,Work with local business partners,Employ local management,Conduct business only in one country
+Multiple Choice,Co-ownership of property without the right of survivorship is ____.,tenancy in common,,partnership,limited partnership,tenancy in common,right of partition
+Multiple Choice,____ covers the cost to repair an office building if it were damaged by fire.,Property insurance,,Life insurance,Business interruption insurance,Liability insurance,Property insurance
+Multiple Choice,The ____ is a financial statement that show how much money is available to pay bills.,cash flow statement,,cash flow statement,balance sheet,income statement,pro forma financial statement
+Multiple Choice,Immediate transfer of ownership of goods from a seller to a buyer for a price is called a ____.,sale,,vendor,sale,contract agreement,business transaction
+Multiple Choice,____ covers a company's legal responsibility for the harm it may cause to others as a result of what it and its employees do or fail to do in its business operations.,Liability insurance,,Liability insurance,Business interruption insurance,Property insurance,No fault insurance
+Multiple Choice,"When a business allows another business to buy now and pay later, it is offering ____.",trade credit,,a line of credit,trade credit,retail credit,revolving credit
+Multiple Choice,____ is a type of pricing technique that starts out with a low introductory price with the goal of building a strong customer base.,Penetration pricing,,Price skimming,Prestige pricing,Penetration pricing,Bundling
+Multiple Choice,Employees fill out ____ forms for employers to determine the amount of taxes to deduct from pay checks.,W-4,,1040,W-2,1040EZ,W-4
+Multiple Choice,____ is the practice of advertising a product at a low price while intentionally stocking only a limited number in hopes of luring shoppers to buy more expensive items.,Bait and switch,,Substantiation,False advertising,Bait and switch,Puffery
+Multiple Choice,The ____ believes that the right thing for a person to do in any situation is the action that best serves that person's own long-term interests.,Egoism Principle,,Utility Principle,Egoism Principle,Principle of Duties,Principle of Virtues
+Multiple Choice,____ permits a party to a contract to reover money or property given to the other party.,Restitution,,Restitution,Punitive damages,Disclaimer,Encumbrance
+Dropdown,"____ is made up of more than 10,500 retired executives who volunteer their time to provide entrepreneurs with real-world advice and know-how.",SCORE,,BBB,SCORE,SBDC,SBA
+Dropdown,Lexi decides to open a flower shop. She is operating a ____ business.,retail,,service,retail,wholesaling,manufacturing
+Dropdown,"Since the business purchases goods for resale, they are called the ____.",vendee,,vendee,vendor,casual seller,owner
+Dropdown,The ____ risk offers a chance to gain as well as lose from the event or activity.,speculative,,insurable,controllable,speculative,uncontrollable
+Dropdown,Income earned by ____ is double taxed.,corporations,,partnerships,cooperatives,sole proprietorship,corporations
+Dropdown,____ means to place the goods at the buyer's disposal.,Tender,,Tender,Sell,Transfer,Distribute
+Dropdown,Credit card fraud is an example of ____ risk.,human,,artificial,natural,economic,human
+Dropdown,A business can buy insurance to cover risks associated with ____.,destructive weather,,consumer demand,economic conditions,destructive weather,competitiors' actions
+Dropdown,Human actions have no effect on ____.,uncontrollable risks,,pure risks,speculative risks,controllable risks,uncontrollable risks
+Dropdown,"Once an entrepreneur has identified their goals, it is time to develop a marketing ____.",strategy,,strategy,concept,mix,layout
+Dropdown,Product characteristics that will satisfy consumer needs are called ____.,features,,packaging,features,branding,labeling
+Dropdown,Creating an image for a product in the customer's mind is called ____.,positioning,,advertising,distributing,positioning,labeling
+Dropdown,____ marketing consists of marketing activities designed to satisfy customer needs without negatively impacting the environment.,Green,,Social responsible,Conservative,Renewable,Green
+Dropdown,The ____ of ethics refers to social expectations of people's moral behaviour.,standard,,law,impact,standard,culture
+Dropdown,Payroll income taxes must be paid ____ by the employer.,quarterly,,semi-annually,annually,monthly,quarterly

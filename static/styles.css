@@ -177,6 +177,27 @@ hr {
     margin-bottom: 16px;
 }
 
+#centered-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.inline {
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+    margin-bottom: 0.6em !important;
+    margin-top: 0.6em !important;
+}
+
+#toggleCollapse1, #dependent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 .info {
     margin-right: 1em;
     margin-left: 1em;
@@ -191,6 +212,17 @@ hr {
 
 .disabled {
     opacity: 0.5;
+}
+
+.table-striped {
+    background-color: white;
+}
+
+#toggleCollapse2 {
+    margin-top: 16px;
+    margin-left: 10em;
+    margin-right: 10em;
+    box-shadow: 0px 0px 0px 8px #93b9ff50 !important;
 }
 
 /*     results page      */

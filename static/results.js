@@ -7,15 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
     for (var i = 1; i <= 5; i++) { 
         var question_type = questions[i]["question_type"];
         to_html = ``;
-        if (question_type == "multiple choice") {
-            if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
+        if (question_type === "Multiple Choice") {
+            if (formResults[i - 1] === questions[i]["answer"]) {
                 to_html = `
                 <div class="question">
                     <div class="q-in-results">
                         <i class="fa fa-check-circle fa-2x"></i>
                         <p>${i}. ${questions[i]["question"]}</p>
                     </div>
-                    <p>Your answer: ${questions[i][questions[i]["answer"].toLowerCase()]}</p>
+                    <p>Your answer: ${[questions[i]["answer"]]}</p>
                 </div>
                 `;
             }
@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fa fa-times-circle fa-2x"></i>
                         <p>${i}. ${questions[i]["question"]}</p>
                     </div>
-                    <p>Correct answer: ${questions[i][questions[i]["answer"].toLowerCase()]}</p>
-                    <p>Your answer: ${questions[i][formResults[i - 1].toLowerCase()]}</p>
+                    <p>Correct answer: ${questions[i]["answer"]}</p>
+                    <p>Your answer: ${formResults[i - 1]}</p>
                 </div>
                 `;
             };
         }
-        else if (question_type == "true and false") {
-            if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
+        else if (question_type == "True and False") {
+            if (formResults[i - 1] == questions[i]["answer"]) {
                 to_html = `
                 <div class="question">
                     <div class="q-in-results">
@@ -58,9 +58,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             };
         }
-        else if (question_type == "dropdown") {
-            res = formResults[i - 1].trim().toLowerCase();
-            if (res == questions[i]["answer"].toLowerCase()) {
+        else if (question_type == "Dropdown") {
+            if (formResults[i - 1] === questions[i]["answer"]) {
                 to_html = `
                 <div class="question">
                     <div class="q-in-results">
@@ -85,8 +84,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
             };
         }
-        else if (question_type == "fill in the blank") {
-            if (formResults[i - 1].toLowerCase() == questions[i]["answer"].toLowerCase()) {
+        else if (question_type == "Fill In The Blank") {
+            res = formResults[i - 1].trim().toLowerCase();
+            if (res === questions[i]["answer"].toLowerCase()) {
                 to_html = `
                 <div class="question">
                     <div class="q-in-results">

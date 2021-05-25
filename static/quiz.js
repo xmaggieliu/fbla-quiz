@@ -10,33 +10,33 @@ document.addEventListener('DOMContentLoaded', function() {
         var question_type = questions[i]["question_type"];
         to_html = ``;
 
-        if (question_type == "multiple choice") {
+        if (question_type == "Multiple Choice") {
             to_html = `
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="A" autocomplete="off" required>
+                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary blue" for="a">A</label>
                             <p class="p-beside-bubbles">${questions[i]["a"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="B" autocomplete="off">
+                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary violet" for="b">B</label>
                             <p class="p-beside-bubbles">${questions[i]["b"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="C" autocomplete="off">
+                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary pink" for="c">C</label>
                             <p class="p-beside-bubbles">${questions[i]["c"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="D" autocomplete="off">
+                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary orange" for="d">D</label>
                             <p class="p-beside-bubbles">${questions[i]["d"]}</p>
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </fieldset>
             `;
         }
-        else if (question_type == "true and false") {
+        else if (question_type == "True and False") {
             to_html = ` 
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </fieldset>
             `;
         }
-        else if (question_type == "dropdown") {
+        else if (question_type == "Dropdown") {
             to_html = `
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </fieldset>
                 `;
         }
-        else if (question_type == "fill in the blank") {
+        else if (question_type == "Fill In The Blank") {
             to_html =  `
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
@@ -89,9 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
 
             var hint = questions[i]["hint"];
-
+            console.log(hint.length)
             // If hint exists and is wanted:
-            if (hint !== "None" && storedHint !== "no-hint") {
+            if (hint.length > 0 && storedHint !== "no-hint") {
                 to_html += `
                     <button type="button" class="btn btn-warning get-hint">Hint</button>
                     <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">

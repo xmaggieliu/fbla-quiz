@@ -52,8 +52,10 @@ def index():
         # Have pages satisfy default/last saved theme and hint modes
         curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
         curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
+        questions = db.execute("SELECT * FROM ? WHERE id > 2", tableName)
+        print(questions)
 
-        return render_template("index.html", theme=curTheme, hintMode=curHint)
+        return render_template("index.html", theme=curTheme, hintMode=curHint, questions=questions)
 
 # 5 questions quiz page
 @app.route("/quiz", methods=["GET"])

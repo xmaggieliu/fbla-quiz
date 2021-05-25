@@ -58,3 +58,66 @@ window.onload = function() {
     sessionStorage.clear() // del this line if clears session in app.py too
   };
 };
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  var qTypes = document.querySelectorAll(".dropdown")
+
+  function addingQType(e) {
+    var type = e.target.value;
+    if (type === "Multiple Choice" || type === "Dropdown") {
+      var to_html = `
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+      </div>
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="a" placeholder="Choice 1" type="text" required>
+      </div>
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="b" placeholder="Choice 2" type="text" required>
+      </div>
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="c" placeholder="Choice 3" type="text" required>
+      </div>
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="d" placeholder="Choice 4" type="text" required>
+      </div>
+      `;
+    }
+    else if (type === "True and False") {
+      var to_html = `
+        <div class="form-group inline">
+          <select name="answer" class="form-control dropdown" required>
+            <option disabled selected value="">Answer</option>
+            <option class="dropdown" value="TRUE">True</option>
+            <option class="dropdown" value="FALSE">False</option>
+          </select>
+        </div>
+          `;
+    }
+    else if (type === "Fill In The Blank"){
+      var to_html = `
+      <div class="form-group inline">
+          <input autocomplete="off" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+      </div>
+      <div class="form-group inline">
+        <input autocomplete="off" autofocus class="form-control" name="hint" placeholder="Hint" type="text">
+      </div>
+      `;
+    }
+    to_html += `<button class="btn btn-primary info" style="margin-bottom: 0.6em" type="submit" value="Submit">Add</button>`
+    document.getElementById("dependent").innerHTML = to_html;
+  };
+
+  for (var i = 0; i < qTypes.length; i++) {
+    qTypes[i].addEventListener("click", (e) => {
+      if (e.target.value.length > 0) {
+        addingQType(e);
+      }
+      else {
+        console.log("no type chosen!!")
+      }
+    });
+  }
+
+});
