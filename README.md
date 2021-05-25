@@ -2,10 +2,12 @@
 Flask web app that randomly generates a 5-question quiz from a SQLite database.
 
 ## Features
-1. Hints (with confirmation alert + disable option)
-2. Dark mode (toggleable)
-3. Printable report in white background
-4. Changeable username and password
+1. 60 default questions (15 each of multiple choice, true and false, dropdown, and fill-in-the-blank)
+2. Questions can be added, editted, or removed from user database
+2. Hints (with confirmation alert + disable option)
+3. Dark mode (toggleable)
+4. Printable report in white background
+5. Username and password can be changed
 
 ## References + Works Cited
 DOCUMENTATIONS/GENERAL RESOURCES VISITED

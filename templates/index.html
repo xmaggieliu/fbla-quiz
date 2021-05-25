@@ -17,7 +17,7 @@
             <!-- END OF SOURCE -->
         </div>
         <div id="home-choose-next">
-            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">Instructions</button>
+            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button>
             <button type="button" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
             <a class="btn btn-primary start" href="/quiz" role="button">Start</a>
         </div>
@@ -78,39 +78,42 @@
                     <button class="btn btn-primary info" type="button" data-toggle="collapse" data-target="#toggleCollapse1" aria-expanded="false" aria-controls="toggleCollapse1">Add questions</button>
                     <button class="btn btn-primary info" type="button" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">View current</button>
                 </div>
-                
-                <form action="/" method="post" class="form-inline" id="toggleCollapse1">
-                    <div class="form-group inline">
-                        <select name="question_type" class="form-control dropdown" required>
-                            <option disabled selected value="">Question Type</option>
-                            <option class="dropdown" value="True and False">True and False</option>
-                            <option class="dropdown" value="Fill In The Blank">Fill In The Blank</option>
-                            <option class="dropdown" value="Multiple Choice">Multiple Choice</option>
-                            <option class="dropdown" value="Dropdown">Dropdown</option>
-                        </select>
-                    </div>
-                    <div class="form-group inline">
-                        <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Question" type="text" required>
-                    </div>  
-                    <div id="dependent"></div>                  
-                </form>
-                <div id="toggleCollapse2">
+                <div id="toggleCollapse1" class="collapse">
+                    <form action="/" method="post" class="form-inline">
+                        <div class="form-group inline">
+                            <select name="question_type" class="form-control dropdown" required>
+                                <option disabled selected value="">Question Type</option>
+                                <option class="dropdown" value="True and False">True and False</option>
+                                <option class="dropdown" value="Fill In The Blank">Fill In The Blank</option>
+                                <option class="dropdown" value="Multiple Choice">Multiple Choice</option>
+                                <option class="dropdown" value="Dropdown">Dropdown</option>
+                            </select>
+                        </div>
+                        <div class="form-group inline">
+                            <input autocomplete="off" autofocus class="form-control" name="question" placeholder="Question" type="text" required>
+                        </div>  
+                        <div id="dependent"></div>                  
+                    </form>
+                </div>
+                <div id="toggleCollapse2" class="collapse">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                            <th scope="col">DEL</th>
                             <th scope="col">Type</th>
                             <th scope="col">Question</th>
                             <th scope="col">Answer</th>
                             <th scope="col">Hint</th>
-                            <th scope="col">Choice 1</th>
-                            <th scope="col">Choice 2</th>
-                            <th scope="col">Choice 3</th>
-                            <th scope="col">Choice 4</th>
+                            <th scope="col">Option 1</th>
+                            <th scope="col">Option 2</th>
+                            <th scope="col">Option 3</th>
+                            <th scope="col">Option 4</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for q in questions %}
                                 <tr>
+                                    <td><i class="del-question fa fa-times-circle fa-2x"></i></td>
                                     <td>{{ q.question_type }}</td>
                                     <td>{{ q.question }}</td>
                                     <td>{{ q.answer }}</td>

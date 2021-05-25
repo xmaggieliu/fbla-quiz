@@ -71,16 +71,16 @@ document.addEventListener('DOMContentLoaded', function() {
           <input autocomplete="off" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
       </div>
       <div class="form-group inline">
-          <input autocomplete="off" autofocus class="form-control" name="a" placeholder="Choice 1" type="text" required>
+          <input autocomplete="off" autofocus class="form-control" name="a" placeholder="Option 1" type="text" required>
       </div>
       <div class="form-group inline">
-          <input autocomplete="off" autofocus class="form-control" name="b" placeholder="Choice 2" type="text" required>
+          <input autocomplete="off" autofocus class="form-control" name="b" placeholder="Option 2" type="text" required>
       </div>
       <div class="form-group inline">
-          <input autocomplete="off" autofocus class="form-control" name="c" placeholder="Choice 3" type="text" required>
+          <input autocomplete="off" autofocus class="form-control" name="c" placeholder="Option 3" type="text" required>
       </div>
       <div class="form-group inline">
-          <input autocomplete="off" autofocus class="form-control" name="d" placeholder="Choice 4" type="text" required>
+          <input autocomplete="off" autofocus class="form-control" name="d" placeholder="Option 4" type="text" required>
       </div>
       `;
     }
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       `;
     }
-    to_html += `<button class="btn btn-primary info" style="margin-bottom: 0.6em" type="submit" value="Submit">Add</button>`
+    to_html += `<button class="btn btn-primary info" style="margin-bottom: 0.6em; margin-top: 0.6em;" type="submit" value="Submit">Add</button>`
     document.getElementById("dependent").innerHTML = to_html;
   };
 

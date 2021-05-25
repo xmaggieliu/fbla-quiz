@@ -40,20 +40,41 @@ Session(app)
 def index():
     global tableName
     if request.method == "POST":
+        # Changing username
         if request.form.get("new-username"):
             if len(db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("new-username"))) == 0:
                 db.execute("UPDATE users SET username = ? WHERE id = ?;", request.form.get("new-username"), session["user_id"])
             else: 
                 return("TAKEN !!!")
+        # Changing password
         elif request.form.get("password"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(request.form.get("password")), session["user_id"])
+        
+        # Adding questions
+        else:
+            addHint = request.form.get("hint")
+            if request.form.get("question_type") == "True and False" or request.form.get("question_type") == "Fill In The Blank":
+                opA = ""
+                opB = ""
+                opC = ""
+                opD = ""
+            else:
+                opA = request.form.get("a")
+                opB = request.form.get("b")
+                opC = request.form.get("c")
+                opD = request.form.get("d")
+            if addHint == None:
+                addHint = ""
+            # Insert question into user database
+            db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", tableName, request.form.get("question_type"), request.form.get("question"), request.form.get("answer"), addHint, opA, opB, opC, opD)
+        
         return redirect("/")
+
     else:    
         # Have pages satisfy default/last saved theme and hint modes
-        curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme'", tableName)[0]["answer"]
-        curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode'", tableName)[0]["answer"]
-        questions = db.execute("SELECT * FROM ? WHERE id > 2", tableName)
-        print(questions)
+        curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
+        curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
+        questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY question_type, question;", tableName)
 
         return render_template("index.html", theme=curTheme, hintMode=curHint, questions=questions)
 
@@ -62,7 +83,6 @@ def index():
 @login_required
 def quiz():
     global questions, tableName
-
     # Remove "answer" from the dictionary passed into quiz page
     questions = get_questions(tableName)
     new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys() - {'answer'}} for k in questions.keys()}
