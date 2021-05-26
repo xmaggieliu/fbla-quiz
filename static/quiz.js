@@ -1,10 +1,12 @@
+// Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
+// Add content to quiz page //
 document.addEventListener('DOMContentLoaded', function() {
 
     var storedHint = sessionStorage.getItem('hint-mode');
 
-    // Loops through dictionary and add HTML depending on question type
+    // Loops through questions dictionary and add HTML depending on question type
     for (var i = 1; i <= 5; i++) { 
 
         var question_type = questions[i]["question_type"];

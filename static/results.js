@@ -1,9 +1,12 @@
+// Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
+// Add content to create a quiz results report //
 document.addEventListener('DOMContentLoaded', function() {
     totalScore = 10
     var colon = ":";
 
+    // Loop through questions dictionary and add HTML based off of form inputs
     for (var i = 1; i <= 5; i++) { 
         var question_type = questions[i]["question_type"];
         to_html = ``;
@@ -149,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.getElementById("results").innerHTML += score_to_html;
 
-    // Prints a light mode report of quiz results.
+    // Prints a light mode report of quiz results w/ white bg
     document.getElementById("print").addEventListener("click", function() {
         window.print();
     });

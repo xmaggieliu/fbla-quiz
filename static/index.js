@@ -1,18 +1,26 @@
-window.onload = function() {
-  // Make currently visited page into set modes
-  // ------------------ SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
-  var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-  if (storedTheme) {
-    document.documentElement.setAttribute('data-theme', storedTheme)
-    sessionStorage.setItem('theme', storedTheme);
-    if (storedTheme == "dark") {
-      document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
-    }
+// Make currently visited page into set modes //
+// ------ line below ------- SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
+
+var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (storedTheme) {
+  document.documentElement.setAttribute('data-theme', storedTheme)
+  sessionStorage.setItem('theme', storedTheme);
+
+  // Move sphere to indicate saved mode is dark
+  if (storedTheme == "dark") {
+    document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
+  }
+}
+
+var storedHint = sessionStorage.getItem('hint-mode') || curHint;
+  if (storedHint === "no-hint") {
+    document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
 
-  // Switch mode
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Switch mode - theme //
   document.getElementById("bg-mode").onclick = function() {
-    console.log("ChANGGE MAINTENAT")
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
 
@@ -28,16 +36,12 @@ window.onload = function() {
     document.documentElement.setAttribute('data-theme', targetTheme)
     sessionStorage.setItem('theme', targetTheme);
   };
-  // -------------------- END OF SOURCE
 
 
-  var storedHint = sessionStorage.getItem('hint-mode') || curHint;
-  if (storedHint === "no-hint") {
-    document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
-  }
-
+  // Switch mode - hints //
   const chk = document.getElementById('chk');
 
+  // Move the white sphere button to show mode has been changed
   chk.addEventListener('change', () => {
     if (chk.checked === true) {
       document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
@@ -50,17 +54,16 @@ window.onload = function() {
     }
   });
     
-  
+  // Save current modes as values in a form within logout btn to be saved in user database //
   var logoutBtn = document.getElementById("logout");
   logoutBtn.onclick = function() {
     to_value = sessionStorage.getItem('theme') + " " + sessionStorage.getItem('hint-mode')
     logoutBtn.value = to_value
     sessionStorage.clear() // del this line if clears session in app.py too
   };
-};
 
 
-document.addEventListener('DOMContentLoaded', function() {
+  // Add questions to user database //
   var qTypes = document.querySelectorAll(".dropdown")
 
   function addingQType(e) {
@@ -119,5 +122,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
 });
