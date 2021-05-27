@@ -200,6 +200,11 @@ hr {
     flex-wrap: wrap;
 }
 
+.add{
+    margin-bottom: 0.6em;
+    margin-top: 0.6em;
+}
+
 .info {
     margin-right: 1em;
     margin-left: 1em;
@@ -226,8 +231,12 @@ hr {
     box-shadow: 0px 0px 0px 8px #93b9ff50 !important;
 }
 
+.del-btn {
+    display: none;
+}
+
 .del-question {
-    opacity: 0;
+    opacity: 0.1;
 }
 
 .del-question:hover {
@@ -236,6 +245,23 @@ hr {
 
 .del-question:active {
     opacity: 1;
+}
+
+.editQ {
+    opacity: 0.5;
+}
+
+.editQ:hover {
+    opacity: 1;
+}
+
+.multi-sel-check {
+    transform: scale(2) translateY(2px);
+}
+
+.multi-del {
+    display: flex;
+    justify-content: center;
 }
 
 /*     results page      */
@@ -248,7 +274,7 @@ hr {
     color: rgb(0, 201, 0);
 }
 
-.fa-times-circle {
+.fa-times-circle, .fa-trash {
     color: rgb(201, 0, 0);
 }
 
@@ -392,7 +418,7 @@ p {
 }
 
 /*      the radio buttons       */
-.form-check-input {
+.quizRadio {
     position: relative;
     z-index: -1;
     background-color: transparent;

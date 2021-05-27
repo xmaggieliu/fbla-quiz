@@ -99,7 +99,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                            <th scope="col">DEL</th>
                             <th scope="col">Type</th>
                             <th scope="col">Question</th>
                             <th scope="col">Answer</th>
@@ -108,12 +107,14 @@
                             <th scope="col">Option 2</th>
                             <th scope="col">Option 3</th>
                             <th scope="col">Option 4</th>
+                            <th scope="col"></th>
+                            <th scope="col">DEL</th>
+                            <th scope="col">SEL</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for q in questions %}
                                 <tr>
-                                    <td><i class="del-question fa fa-times-circle fa-2x"></i></td>
                                     <td>{{ q.question_type }}</td>
                                     <td>{{ q.question }}</td>
                                     <td>{{ q.answer }}</td>
@@ -122,6 +123,13 @@
                                     <td>{{ q.b }}</td>
                                     <td>{{ q.c }}</td>
                                     <td>{{ q.d }}</td>
+                                    <td><button type="button" class="btn btn-warning editQ">EDIT</button></td>
+                                    <td>
+                                        <i class="del-question fa fa-trash fa-2x" data-toggle="modal" data-target="#confirmDelQ">
+                                            <button class="del-btn" value={{ q.id }}></button>
+                                        </i>
+                                    </td>
+                                    <td><div class="form-check multi-del"><input class="form-check-input multi-sel-check" type="checkbox" name="sel{{ q.id }}"></div></td>
                                 </tr>
                             {% endfor %}
                         </tbody>

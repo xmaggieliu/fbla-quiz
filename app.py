@@ -40,6 +40,9 @@ Session(app)
 def index():
     global tableName
     if request.method == "POST":
+        values = request.form.get("submit")
+        action, qid = values.split()
+
         # Changing username
         if request.form.get("new-username"):
             if len(db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("new-username"))) == 0:
@@ -50,8 +53,12 @@ def index():
         elif request.form.get("password"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(request.form.get("password")), session["user_id"])
         
-        # Adding questions
-        else:
+        # Remove question from database
+        elif action == "remove":
+            db.execute("DELETE FROM ? WHERE id = ?", tableName, qid)
+        
+        # Add question to database
+        elif action == "add":
             addHint = request.form.get("hint")
             if request.form.get("question_type") == "True and False" or request.form.get("question_type") == "Fill In The Blank":
                 opA = ""

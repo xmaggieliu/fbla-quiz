@@ -17,28 +17,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary blue" for="a">A</label>
                             <p class="p-beside-bubbles">${questions[i]["a"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary violet" for="b">B</label>
                             <p class="p-beside-bubbles">${questions[i]["b"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary pink" for="c">C</label>
                             <p class="p-beside-bubbles">${questions[i]["c"]}</p>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary orange" for="d">D</label>
                             <p class="p-beside-bubbles">${questions[i]["d"]}</p>
@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 <fieldset class="question" id="group${i}">
                     <p>${i}. ${questions[i]["question"]}</p>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="True" autocomplete="off" required>
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="True" autocomplete="off" required>
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary blue" for="true">True</label><br>
                         </div>
                     </div>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" name="answer${i}" value="False" autocomplete="off">
+                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="False" autocomplete="off">
                         <div class="choice-viewable">
                             <label class="btn btn-outline-primary violet" for="false">False</label><br>
                         </div>

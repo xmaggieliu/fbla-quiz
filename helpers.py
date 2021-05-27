@@ -11,7 +11,7 @@ db = SQL("sqlite:///my.db")
 # Create users table in database
 def create_database():    
     db.execute("""CREATE TABLE IF NOT EXISTS users (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         username TEXT NOT NULL,
         hash TEXT NOT NULL
         );""")
@@ -22,7 +22,7 @@ create_database()
 # Create default question bank for registered user
 def create_questionbank(id_table):
     db.execute("""CREATE TABLE IF NOT EXISTS ? (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id INTEGER PRIMARY KEY,
         question_type TEXT NOT NULL,
         question TEXT NOT NULL,
         answer TEXT NOT NULL,
