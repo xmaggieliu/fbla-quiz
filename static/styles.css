@@ -200,6 +200,10 @@ hr {
     flex-wrap: wrap;
 }
 
+.logout {
+    z-index: 10000;
+}
+
 .add{
     margin-bottom: 0.6em;
     margin-top: 0.6em;
@@ -262,6 +266,24 @@ hr {
 .multi-del {
     display: flex;
     justify-content: center;
+}
+
+#multi-trash {
+    display: none;
+    position: fixed;
+    margin-bottom: 1em;
+    margin-right: 1em;
+    right: 0;
+    bottom: 0;
+    opacity: 0.75;
+}
+
+#multi-trash:hover {
+    opacity: 0.9;
+}
+
+#multi-trash:active {
+    opacity: 1;
 }
 
 /*     results page      */

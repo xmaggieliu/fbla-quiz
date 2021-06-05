@@ -6,6 +6,69 @@
             <button class="btn btn-primary" id="logout" name="submit" type="submit" value="logout">Log out</button>
         </form>
     </div>
+    <div id="multi-trash" data-toggle="modal" data-target="#confirmDelQs">
+        <i class="fa fa-trash fa-3x"></i>
+    </div>
+    <div class="modal fade" id="resetQbank" tabindex="-1" role="dialog" aria-labelledby="resetWhole" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="resetWhole">Reset entire question bank?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <strong>This action cannot be undone.</strong>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form action="/" method="post">
+                    <input class="del-btn" value="reset" name="reset">
+                    <button class="btn btn-danger">Yes, reset</button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmDelQs" tabindex="-1" role="dialog" aria-labelledby="confirmDelQsTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="confirmDelQsTitle">Delete question(s)?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                <strong>This action cannot be undone.</strong>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-danger" id="mulTrashing">Yes, delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editQmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Question</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="editQdiv">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="index-bg">
         <div class="quiz-title">
             <!-- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ -->
@@ -17,7 +80,7 @@
             <!-- END OF SOURCE -->
         </div>
         <div id="home-choose-next">
-            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button>
+            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
             <button type="button" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
             <a class="btn btn-primary start" href="/quiz" role="button">Start</a>
         </div>
@@ -75,8 +138,9 @@
                     <p class="settings-sub">QUESTION BANK</p>
                 </div>
                 <div id="centered-btns">
-                    <button class="btn btn-primary info" type="button" data-toggle="collapse" data-target="#toggleCollapse1" aria-expanded="false" aria-controls="toggleCollapse1">Add questions</button>
-                    <button class="btn btn-primary info" type="button" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">View current</button>
+                    <button class="btn btn-info info" type="button" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">View Current</button>
+                    <button class="btn btn-secondary info" type="button" data-toggle="collapse" data-target="#toggleCollapse1" aria-expanded="false" aria-controls="toggleCollapse1">Add Questions</button>
+                    <button class="btn btn-danger info" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
                 </div>
                 <div id="toggleCollapse1" class="collapse">
                     <form action="/" method="post" class="form-inline">
@@ -114,7 +178,7 @@
                         </thead>
                         <tbody>
                             {% for q in questions %}
-                                <tr>
+                                <tr id="row{{ q.id }}">
                                     <td>{{ q.question_type }}</td>
                                     <td>{{ q.question }}</td>
                                     <td>{{ q.answer }}</td>
@@ -123,7 +187,7 @@
                                     <td>{{ q.b }}</td>
                                     <td>{{ q.c }}</td>
                                     <td>{{ q.d }}</td>
-                                    <td><button type="button" class="btn btn-warning editQ">EDIT</button></td>
+                                    <td><button type="button" class="btn btn-warning editQ" id="edit{{ q.id }}" data-toggle="modal" data-target="#editQmodal">EDIT</button></td>
                                     <td>
                                         <i class="del-question fa fa-trash fa-2x" data-toggle="modal" data-target="#confirmDelQ">
                                             <button class="del-btn" value={{ q.id }}></button>
@@ -141,6 +205,7 @@
     <script>
         var curTheme = "{{ theme|safe }}";
         var curHint = "{{ hintMode|safe }}";
+        // var qBank = "{{ questions|safe }}";
         console.log(curTheme, curHint)
     </script>
     <script src="static/index.js"></script>

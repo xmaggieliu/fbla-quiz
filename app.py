@@ -1,9 +1,10 @@
 from cs50 import SQL
 from helpers import get_questions, login_required, create_questionbank
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session #, jsonify, make_response
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
+import csv
 
 
 app = Flask(__name__)
@@ -40,8 +41,10 @@ Session(app)
 def index():
     global tableName
     if request.method == "POST":
-        values = request.form.get("submit")
-        action, qid = values.split()
+
+        action = "nonenon"
+        if request.form.get("submit"):
+            action = request.form.get("submit")
 
         # Changing username
         if request.form.get("new-username"):
@@ -52,10 +55,14 @@ def index():
         # Changing password
         elif request.form.get("password"):
             db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(request.form.get("password")), session["user_id"])
-        
-        # Remove question from database
-        elif action == "remove":
-            db.execute("DELETE FROM ? WHERE id = ?", tableName, qid)
+                
+        # Reset questionbank
+        elif request.form.get("reset"):
+            db.execute("DELETE FROM ?", tableName)
+            with open("defaults.csv", "r") as f:
+                for row in csv.DictReader(f):
+                    db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", tableName, row["question_type"], row["question"], row["answer"], row["hint"], row["a"], row["b"], row["c"], row["d"])
+
         
         # Add question to database
         elif action == "add":
@@ -75,14 +82,25 @@ def index():
             # Insert question into user database
             db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", tableName, request.form.get("question_type"), request.form.get("question"), request.form.get("answer"), addHint, opA, opB, opC, opD)
         
+        else:
+            fromJS = request.get_json()
+            action = fromJS['action']
+            if action == "delete":
+                toDel = list(map(int, fromJS['data'].split(",") ))
+                print(f"{toDel=}")
+                for qID in toDel:
+                    db.execute("DELETE FROM ? WHERE id = ?", tableName, qID)
+            return "post_request_received"
+
         return redirect("/")
 
     else:    
         # Have pages satisfy default/last saved theme and hint modes
         curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
         curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
-        questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY question_type, question;", tableName)
-
+        # questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY question_type, question;", tableName)
+        questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
+ 
         return render_template("index.html", theme=curTheme, hintMode=curHint, questions=questions)
 
 # 5 questions quiz page

@@ -59,8 +59,21 @@ document.addEventListener('DOMContentLoaded', function() {
   logoutBtn.onclick = function() {
     to_value = sessionStorage.getItem('theme') + " " + sessionStorage.getItem('hint-mode');
     logoutBtn.value = to_value;
-    sessionStorage.clear(); // del this line if clears session in app.py too
+    sessionStorage.clear();
   };
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
   // Add questions to user database //
@@ -108,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       `;
     }
-    to_html += `<button class="btn btn-primary info add" type="submit" name="submit" value="add !">Add</button>`
+    to_html += `<button class="btn btn-primary info add" type="submit" name="submit" value="add">Add</button>`
     document.getElementById("dependent").innerHTML = to_html;
   };
 
@@ -124,15 +137,15 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Delete questions //
-  // var to_del = "";
+  const to_del = [];
 
   var delBtns = document.querySelectorAll(".del-question");
+  var multiDel = document.querySelectorAll(".multi-sel-check");
+  var multiTrash = document.getElementById("multi-trash");
 
   for (var j = 0; j < delBtns.length; j++) {
     delBtns[j].addEventListener("click", (e) => {
-      console.log(e.target.childNodes)
       var qid = e.target.childNodes[1].value;
-      console.log(qid, e.target.innerHTML)
       e.target.parentNode.innerHTML += `
       <div class="modal fade" id="confirmDelQ" tabindex="-1" role="dialog" aria-labelledby="confirmDelQTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -148,18 +161,162 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <form action="/" method="post">
-                <button class="btn btn-danger" value="remove ${qid}" name="submit" type="submit">Yes, delete</button>
-              </form>
-            </div>
+              <button id="delOne" class="btn btn-danger" value="${qid}">Yes, delete</button>
+            </div> 
           </div>
         </div>
       </div>
       `;
-      // to_del += e.target.childNodes[0].value + ",";
-      // tbody = e.target.parentNode.parentNode.parentNode;
-      // tr = e.target.parentNode.parentNode;
-      // tbody.removeChild(tr);
+
+      document.getElementById("delOne").addEventListener("click", (e) => {
+        qid = e.target.value;
+        console.log("deleting", qid)
+        fetch("/", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+              action: "delete",
+              data: `${qid}`
+          })
+        }).then(data => data.text()).then(text => console.log(text));
+        $(`#confirmDelQ`).modal('toggle');
+        rowID = "row" + qid;
+        document.getElementById(rowID).innerHTML = "";
+      })
+    })
+
+    multiDel[j].addEventListener("click", (e) => {
+      var qidDel = e.target.getAttribute("name").substring(3)
+      console.log(qidDel)
+      if (e.target.checked) {
+        to_del.push(qidDel)
+      }
+      else {
+        const index = to_del.indexOf(qidDel);
+        console.log(index)
+        if (index > -1) {
+          to_del.splice(index, 1);
+        }
+      }
+      console.log(to_del);
+      if (to_del.length === 1) {
+        multiTrash.style.display = "block";
+      }
+      else if (to_del.length === 0) {
+        multiTrash.style.display = "none";
+      }
+    })
+  }
+
+  document.getElementById("mulTrashing").addEventListener("click", () => {
+    // Send array of question IDs to Flask
+    fetch("/", {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+          action: "delete",
+          data: `${to_del}`
+      })
+    }).then(data => data.text()).then(text => console.log(text));
+
+    // Delete rows from question bank table in view
+    for (var k = 0; k < to_del.length; k++) {
+      rowID = "row" + to_del[k]
+      document.getElementById(rowID).innerHTML = "";
+    }
+    to_del.length = 0;
+    $('#confirmDelQs').modal('toggle');
+  })
+
+
+  // Edit questions //
+  var editBtns = document.querySelectorAll(".editQ");
+
+  function editQs(e) {
+    qid = e.target.id;
+    qid = qid.slice(4, qid.length);
+    tdChildren = e.target.parentNode.parentNode.children;
+    type = tdChildren[0].innerHTML;
+
+    var to_html = `
+      <div class="form-group inline">
+        <label>Question:</label>
+        <input autocomplete="off" value="${tdChildren[1].innerHTML}" autofocus class="form-control" name="question" placeholder="Question" type="text" required>
+      </div>  
+      <input class="del-btn" value="${qid}" name="qid">
+    `
+
+    if (type === "Multiple Choice" || type === "Dropdown") {
+      to_html += `
+        <div class="form-group inline">
+          <label>Answer:</label>
+          <input autocomplete="off" value="${tdChildren[2].innerHTML}" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+        </div>
+        <div class="form-group inline">
+          <label>Option 1:</label>
+          <input autocomplete="off" value="${tdChildren[4].innerHTML}" autofocus class="form-control" name="a" placeholder="Option 1" type="text" required>
+        </div>
+        <div class="form-group inline">
+          <label>Option 2:</label>
+          <input autocomplete="off" value="${tdChildren[5].innerHTML}" autofocus class="form-control" name="b" placeholder="Option 2" type="text" required>
+        </div>
+        <div class="form-group inline">
+          <label>Option 3:</label>
+          <input autocomplete="off" value="${tdChildren[6].innerHTML}" autofocus class="form-control" name="c" placeholder="Option 3" type="text" required>
+        </div>
+        <div class="form-group inline">
+          <label>Option 4:</label>
+          <input autocomplete="off" value="${tdChildren[7].innerHTML}" autofocus class="form-control" name="d" placeholder="Option 4" type="text" required>
+        </div>
+      `;
+    }
+    else if (type === "True and False") {
+      if (tdChildren[2].value === "TRUE") {
+        to_html += `
+        <div class="form-group inline">
+          <label>Answer:</label>
+          <select name="answer" class="form-control dropdown" required>
+            <option disabled value="">Answer</option>
+            <option class="dropdown" selected value="TRUE">True</option>
+            <option class="dropdown" value="FALSE">False</option>
+          </select>
+        </div>
+          `;
+      }
+      else {
+        to_html += `
+        <div class="form-group inline">
+          <label>Answer:</label>
+          <select name="answer" class="form-control dropdown" required>
+            <option class="dropdown" value="TRUE">True</option>
+            <option class="dropdown" selected value="FALSE">False</option>
+          </select>
+        </div>
+          `;
+      }
+    }
+    else if (type === "Fill In The Blank"){
+      to_html += `
+      <div class="form-group inline">
+        <label>Answer:</label>
+        <input autocomplete="off" value="${tdChildren[2].innerHTML}" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+      </div>
+      <div class="form-group inline">
+        <label>Hint:</label>
+        <input autocomplete="off" value="${tdChildren[3].innerHTML}" autofocus class="form-control" name="hint" placeholder="Hint" type="text">
+      </div>
+      `;
+    }
+    document.getElementById("editQdiv").innerHTML = to_html;
+  };
+
+  for (var l = 0; l < editBtns.length; l++) {
+    editBtns[l].addEventListener("click", (e) => {
+      editQs(e);
     })
   }
 });

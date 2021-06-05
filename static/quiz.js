@@ -172,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide get hint button, add hint to page, have form record which hint was used
     function displayHint(e) {
         console.log(e)
-        // path[3] == parentNode.parentNode.parentNode
         fieldSet = e.target.parentNode.parentNode.parentNode
         qNum = fieldSet.id;
         qNum = qNum.charAt(qNum.length - 1);
