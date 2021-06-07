@@ -75,12 +75,21 @@ document.addEventListener('DOMContentLoaded', function() {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  var addQuestion = {'type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
 
   // Add questions to user database //
   var qTypes = document.querySelectorAll(".dropdown");
 
+  function checkAddQ() {
+    console.log("hi");
+    if (addQuestion['type'] === "Multiple Choice" || type === "Dropdown") {
+      console.log("hello")
+    }
+  }
+
   function addingQType(e) {
     var type = e.target.value;
+    addQuestion['type'] = type;
     if (type === "Multiple Choice" || type === "Dropdown") {
       var to_html = `
       <div class="form-group inline">
@@ -121,9 +130,17 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       `;
     }
-    to_html += `<button class="btn btn-primary info add" type="submit" name="submit" value="add">Add</button>`
+    to_html += `<button class="btn btn-primary info" type="button" id="add">Add</button>`
     document.getElementById("dependent").innerHTML = to_html;
   };
+
+  // SOURCE: https://stackoverflow.com/questions/39199082/validate-html-form-when-button-click 
+  $('#add').click(function() {
+    console.log("add!")
+    $("#addQform").valid();
+    checkAddQ();
+  });
+  // END OF SOURCE
 
   for (var i = 0; i < qTypes.length; i++) {
     qTypes[i].addEventListener("click", (e) => {
@@ -195,7 +212,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       else {
         const index = to_del.indexOf(qidDel);
-        console.log(index)
         if (index > -1) {
           to_del.splice(index, 1);
         }
@@ -248,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <input autocomplete="off" value="${tdChildren[1].innerHTML}" autofocus class="form-control" name="question" placeholder="Question" type="text" required>
       </div>  
       <input class="del-btn" value="${qid}" name="qid">
-    `
+    `;
 
     if (type === "Multiple Choice" || type === "Dropdown") {
       to_html += `

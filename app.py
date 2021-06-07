@@ -58,11 +58,8 @@ def index():
                 
         # Reset questionbank
         elif request.form.get("reset"):
-            db.execute("DELETE FROM ?", tableName)
-            with open("defaults.csv", "r") as f:
-                for row in csv.DictReader(f):
-                    db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", tableName, row["question_type"], row["question"], row["answer"], row["hint"], row["a"], row["b"], row["c"], row["d"])
-
+            create_questionbank(tableName)
+            
         
         # Add question to database
         elif action == "add":

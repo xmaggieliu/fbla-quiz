@@ -1,131 +1,134 @@
 // Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
+
 // Add content to quiz page //
-document.addEventListener('DOMContentLoaded', function() {
 
-    var storedHint = sessionStorage.getItem('hint-mode');
+var storedHint = sessionStorage.getItem('hint-mode');
 
-    // Loops through questions dictionary and add HTML depending on question type
-    for (var i = 1; i <= 5; i++) { 
+// Loops through questions dictionary and add HTML depending on question type
+for (var i = 1; i <= 5; i++) { 
 
-        var question_type = questions[i]["question_type"];
-        to_html = ``;
+    var question_type = questions[i]["question_type"];
+    to_html = ``;
 
-        if (question_type == "Multiple Choice") {
-            to_html = `
-                <fieldset class="question" id="group${i}">
-                    <p>${i}. ${questions[i]["question"]}</p>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary blue" for="a">A</label>
-                            <p class="p-beside-bubbles">${questions[i]["a"]}</p>
-                        </div>
+    if (question_type == "Multiple Choice") {
+        to_html = `
+            <fieldset class="question" id="group${i}">
+                <p>${i}. ${questions[i]["question"]}</p>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary blue" for="a">A</label>
+                        <p class="p-beside-bubbles">${questions[i]["a"]}</p>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary violet" for="b">B</label>
-                            <p class="p-beside-bubbles">${questions[i]["b"]}</p>
-                        </div>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary violet" for="b">B</label>
+                        <p class="p-beside-bubbles">${questions[i]["b"]}</p>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary pink" for="c">C</label>
-                            <p class="p-beside-bubbles">${questions[i]["c"]}</p>
-                        </div>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary pink" for="c">C</label>
+                        <p class="p-beside-bubbles">${questions[i]["c"]}</p>
                     </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary orange" for="d">D</label>
-                            <p class="p-beside-bubbles">${questions[i]["d"]}</p>
-                        </div>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary orange" for="d">D</label>
+                        <p class="p-beside-bubbles">${questions[i]["d"]}</p>
                     </div>
-                </fieldset>
-            `;
-        }
-        else if (question_type == "True and False") {
-            to_html = ` 
-                <fieldset class="question" id="group${i}">
-                    <p>${i}. ${questions[i]["question"]}</p>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="True" autocomplete="off" required>
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary blue" for="true">True</label><br>
-                        </div>
-                    </div>
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="False" autocomplete="off">
-                        <div class="choice-viewable">
-                            <label class="btn btn-outline-primary violet" for="false">False</label><br>
-                        </div>
-                    </div>
-                </fieldset>
-            `;
-        }
-        else if (question_type == "Dropdown") {
-            to_html = `
-                <fieldset class="question" id="group${i}">
-                    <p>${i}. ${questions[i]["question"]}</p>
-                    <div class="form-group col-md-3">
-                        <select name="answer${i}" class="form-control dropdown" required>
-                            <option disabled selected value="">Choose...</option>
-                            <option class="dropdown" value="${questions[i]["a"]}">${questions[i]["a"]}</option>
-                            <option class="dropdown" value="${questions[i]["b"]}">${questions[i]["b"]}</option>
-                            <option class="dropdown" value="${questions[i]["c"]}">${questions[i]["c"]}</option>
-                            <option class="dropdown" value="${questions[i]["d"]}">${questions[i]["d"]}</option>
-                    </div>
-                </fieldset>
-                `;
-        }
-        else if (question_type == "Fill In The Blank") {
-            to_html =  `
-                <fieldset class="question" id="group${i}">
-                    <p>${i}. ${questions[i]["question"]}</p>
-                    <div class="form-group col-md-3">
-                        <input name="answer${i}" class="form-control" placeholder="Type..." type="text" autocomplete="off" required>
-                    </div>
-            `;
-
-            var hint = questions[i]["hint"];
-            console.log(hint.length)
-            // If hint exists and is wanted:
-            if (hint.length > 0 && storedHint !== "no-hint") {
-                to_html += `
-                    <button type="button" class="btn btn-warning get-hint">Hint</button>
-                    <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">
-                        <div>
-                            <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
-                        </div>
-                        <div class="alert-react">
-                            <button type="button" class="btn btn-warning yes-hint">YES!</button>
-                            <button type="button" class="close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="hint"></div>
-                    </fieldset>
-                    <input name="hint${i}" value="FALSE" type="hidden">
-                `;
-            }
-            else {
-                to_html += `</fieldset>`
-                console.log("OFF WITH THE HINT!")
-            }
-        }
-        document.getElementById("quiz_form").innerHTML += to_html;
+                </div>
+            </fieldset>
+        `;
     }
-    // Add submit button
-    document.getElementById("quiz_form").innerHTML += `
-        <div class="general">
-            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
-        </div>
-    `;
+    else if (question_type == "True and False") {
+        to_html = ` 
+            <fieldset class="question" id="group${i}">
+                <p>${i}. ${questions[i]["question"]}</p>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="TRUE" autocomplete="off" required>
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary blue" for="true">True</label><br>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="FALSE" autocomplete="off">
+                    <div class="choice-viewable">
+                        <label class="btn btn-outline-primary violet" for="false">False</label><br>
+                    </div>
+                </div>
+            </fieldset>
+        `;
+    }
+    else if (question_type == "Dropdown") {
+        to_html = `
+            <fieldset class="question" id="group${i}">
+                <p>${i}. ${questions[i]["question"]}</p>
+                <div class="form-group col-md-3">
+                    <select name="answer${i}" class="form-control dropdown" required>
+                        <option disabled selected value="">Choose...</option>
+                        <option class="dropdown" value="${questions[i]["a"]}">${questions[i]["a"]}</option>
+                        <option class="dropdown" value="${questions[i]["b"]}">${questions[i]["b"]}</option>
+                        <option class="dropdown" value="${questions[i]["c"]}">${questions[i]["c"]}</option>
+                        <option class="dropdown" value="${questions[i]["d"]}">${questions[i]["d"]}</option>
+                </div>
+            </fieldset>
+            `;
+    }
+    else if (question_type == "Fill In The Blank") {
+        to_html =  `
+            <fieldset class="question" id="group${i}">
+                <p>${i}. ${questions[i]["question"]}</p>
+                <div class="form-group col-md-3">
+                    <input name="answer${i}" class="form-control" placeholder="Type..." type="text" autocomplete="off" required>
+                </div>
+        `;
 
+        var hint = questions[i]["hint"];
+        console.log(hint.length)
+        // If hint exists and is wanted:
+        if (hint.length > 0 && storedHint !== "no-hint") {
+            to_html += `
+                <button type="button" class="btn btn-warning get-hint">Hint</button>
+                <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">
+                    <div>
+                        <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
+                    </div>
+                    <div class="alert-react">
+                        <button type="button" class="btn btn-warning yes-hint">YES!</button>
+                        <button type="button" class="close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="hint"></div>
+                </fieldset>
+                <input name="hint${i}" value="FALSE" type="hidden">
+            `;
+        }
+        else {
+            to_html += `</fieldset>`
+            console.log("OFF WITH THE HINT!")
+        }
+    }
+    document.getElementById("quiz_form").innerHTML += to_html;
+}
+// Add submit button
+document.getElementById("quiz_form").innerHTML += `
+    <div class="general">
+        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+    </div>
+`;
+
+
+// Respond to page //
+document.addEventListener('DOMContentLoaded', function() {
 
     // Questions related var
     var answerButtons = document.querySelectorAll(".choice-viewable");
