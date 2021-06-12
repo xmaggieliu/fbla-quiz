@@ -4,8 +4,7 @@ from flask import Flask, render_template, request, redirect, session #, jsonify,
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-import csv
-
+import json
 
 app = Flask(__name__)
 questions = {}
@@ -61,32 +60,22 @@ def index():
             create_questionbank(tableName)
             
         
-        # Add question to database
-        elif action == "add":
-            addHint = request.form.get("hint")
-            if request.form.get("question_type") == "True and False" or request.form.get("question_type") == "Fill In The Blank":
-                opA = ""
-                opB = ""
-                opC = ""
-                opD = ""
-            else:
-                opA = request.form.get("a")
-                opB = request.form.get("b")
-                opC = request.form.get("c")
-                opD = request.form.get("d")
-            if addHint == None:
-                addHint = ""
-            # Insert question into user database
-            db.execute("INSERT INTO ? (question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?);", tableName, request.form.get("question_type"), request.form.get("question"), request.form.get("answer"), addHint, opA, opB, opC, opD)
-        
         else:
             fromJS = request.get_json()
+            print(fromJS)
             action = fromJS['action']
+
             if action == "delete":
                 toDel = list(map(int, fromJS['data'].split(",") ))
                 print(f"{toDel=}")
                 for qID in toDel:
                     db.execute("DELETE FROM ? WHERE id = ?", tableName, qID)
+
+            elif action == "add":
+                # Add question to database
+                addQdict = json.loads(fromJS['data'])
+                db.execute("INSERT INTO ? (id, question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", tableName, addQdict['id'], addQdict['question_type'], addQdict['question'], addQdict['answer'], addQdict['hint'], addQdict['a'], addQdict['b'], addQdict['c'], addQdict['d'])
+
             return "post_request_received"
 
         return redirect("/")
@@ -96,9 +85,11 @@ def index():
         curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
         curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
         # questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY question_type, question;", tableName)
-        questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
+        allQuestions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
+        # array of dictionaries
+        print(allQuestions)
  
-        return render_template("index.html", theme=curTheme, hintMode=curHint, questions=questions)
+        return render_template("index.html", theme=curTheme, hintMode=curHint, allQuestions=allQuestions)
 
 # 5 questions quiz page
 @app.route("/quiz", methods=["GET"])

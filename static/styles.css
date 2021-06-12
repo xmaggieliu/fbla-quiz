@@ -193,7 +193,7 @@ hr {
     margin-top: 0.6em !important;
 }
 
-.form-inline, #dependent {
+.form-inline {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -215,16 +215,37 @@ hr {
     color: #fff6fa;
 }
 
-.start {
-    margin-left: 1em;
-    margin-right: 1em;
+.start, .start:hover, .start:active {
     color: #fff6fa;
+    text-decoration: none;
 }
 
 .disabled {
     opacity: 0.5;
 }
 
+#fading-text {
+    font-family: "Abel", sans-serif;
+    font-weight: bold;
+    color: rgb(0, 68, 80);
+    display: none;
+    text-align: center;
+}
+
+#sorting {
+    background-color: #8cace4;
+    color: black;
+    border-color: aliceblue;
+    border-radius: 5px;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+.sort-opt {
+    background-color: #11005e;
+    color: #f1f1f1;
+}
+/* 000d1620 */
 .table-striped {
     background-color: white;
 }
@@ -241,6 +262,7 @@ hr {
 
 #qBankTitle {
     display: flex;
+    justify-content: space-between;
 }
 
 .fa-sort {

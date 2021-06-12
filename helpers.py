@@ -10,9 +10,6 @@ db = SQL("sqlite:///my.db")
 
 # Create users table in database
 def create_database():    
-    # db.execute("DROP TABLE IF EXISTS users;")
-    # db.execute("DROP TABLE IF EXISTS questionbank;")
-
     db.execute("""CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY,
         username TEXT NOT NULL,
