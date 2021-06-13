@@ -76,6 +76,18 @@ def index():
                 addQdict = json.loads(fromJS['data'])
                 db.execute("INSERT INTO ? (id, question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", tableName, addQdict['id'], addQdict['question_type'], addQdict['question'], addQdict['answer'], addQdict['hint'], addQdict['a'], addQdict['b'], addQdict['c'], addQdict['d'])
 
+            elif action == "edit":
+                editQdict = json.loads(fromJS['data'])
+                db.execute("""UPDATE ? 
+                    SET question = ?,
+                    answer = ?,
+                    hint = ?,
+                    a = ?,
+                    b = ?,
+                    c = ?,
+                    d = ?
+                    WHERE id = ?""", tableName, editQdict['question'], editQdict['answer'], editQdict['hint'], editQdict['a'], editQdict['b'], editQdict['c'], editQdict['d'], editQdict['id'])
+            
             return "post_request_received"
 
         return redirect("/")
@@ -84,10 +96,8 @@ def index():
         # Have pages satisfy default/last saved theme and hint modes
         curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
         curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
-        # questions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY question_type, question;", tableName)
         allQuestions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
-        # array of dictionaries
-        print(allQuestions)
+        # print(allQuestions)
  
         return render_template("index.html", theme=curTheme, hintMode=curHint, allQuestions=allQuestions)
 

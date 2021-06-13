@@ -1,7 +1,6 @@
 // Make currently visited page into set modes //
-// ------ line below ------- SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
-
 var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+// ^ Line Above ^ ------- SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
 if (storedTheme) {
   document.documentElement.setAttribute('data-theme', storedTheme)
   sessionStorage.setItem('theme', storedTheme);
@@ -17,16 +16,17 @@ var storedHint = sessionStorage.getItem('hint-mode') || curHint;
     document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
 
-// Fade in + fade out confirmation text 
+
+// Fade in + fade out confirmation text //
 function confirmAddText() {
   $("#fading-text").fadeIn('fast').delay(1500).fadeOut('fast');
 }
 
-
+// Contents in add question modal body //
 const intoAdd = `
   <div class="form-group inline">
-    <select id="question_type" class="form-control dropdown" required>
-      <option disabled selected value="">Question Type</option>
+    <select id="question_type" class="form-control dropdown" autofocus required>
+      <option disabled selected value="">Choose a question type:</option>
       <option class="dropdown" value="True and False">True and False</option>
       <option class="dropdown" value="Fill In The Blank">Fill In The Blank</option>
       <option class="dropdown" value="Multiple Choice">Multiple Choice</option>
@@ -80,7 +80,7 @@ function doSort() {
 }
 
 
-// Add rows in question bank table //
+// Add rows in question bank table /////////////////////////////////////////////////////////////////////////////////////////////////
 function makeTable() {
   var to_table_html = "";
   for (var q = 0; q < qBank.length; q++) {
@@ -94,7 +94,7 @@ function makeTable() {
       <td>${qBank[q]["b"]}</td>
       <td>${qBank[q]["c"]}</td>
       <td>${qBank[q]["d"]}</td>
-      <td><button type="button" class="btn btn-warning editQ" id="edit${qBank[q]["id"]}" data-toggle="modal" data-target="#editQmodal">EDIT</button></td>
+      <td><button type="button" class="btn btn-warning editQ" name="edit${qBank[q]["id"]}" value=${q} id="edit${qBank[q]["id"]}" data-toggle="modal" data-target="#editQmodal">EDIT</button></td>
       <td>
           <i class="del-question fa fa-trash fa-2x" data-toggle="modal" data-target="#confirmDelQ">
               <button class="del-btn" value=${qBank[q]["id"]}></button>
@@ -156,13 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
     sessionStorage.clear();
   };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // ADD QUESTIONS /////////////////////////////////////////////////////////////////////////////////////////////////////////
   var addQuestion = {'id': "", 'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
 
   function addingQType(e) {
+    // Add more input fields depending on type of question to be added
     var type = e.target.value;
     addQuestion['question_type'] = type;
     if (type === "Multiple Choice" || type === "Dropdown") {
@@ -208,6 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById("dependent").innerHTML = to_html;
 
+    // Update addQuestion object to temporarily store all inputs
     document.querySelectorAll('.toAdd').forEach(addSect => {
       addSect.addEventListener("keyup", (e) => {
         addQuestion[e.target.name] = e.target.value;
@@ -217,13 +217,10 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(addQuestion[e.target.name])
       })
     })
-    // Simulate form confirmation
+
+    // Simulate form validation
     document.getElementById("confirmAdd").addEventListener("click", () => {
-      if (addQuestion['question_type'] == '') {
-        console.log("NEED TYPE");
-        return;
-      }
-      else if (addQuestion['question'] == "") {
+      if (addQuestion['question'] == "") {
         document.getElementById("addQinput").setCustomValidity("Please enter a question");
         document.getElementById("addQinput").reportValidity();
         return;
@@ -253,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
         else if (choices.length > setChoix.size) {
-          console.log("ANSERS MUST BE DISTINCT");
           document.getElementById("addA").setCustomValidity("Options must be distinct");
           document.getElementById("addA").reportValidity();
           return;
@@ -264,9 +260,9 @@ document.addEventListener('DOMContentLoaded', function() {
           return;
         }
       }
-      // Add question to database
+
+      // Send question to Flask to be added in database
       addQuestion['id'] = qBank.length + 3;
-      console.log(addQuestion['id']);
       fetch("/", {
         method: "POST",
         headers: {
@@ -278,14 +274,16 @@ document.addEventListener('DOMContentLoaded', function() {
         })
       }).then(data => data.text()).then(text => console.log(text));
 
-      // Update view for question bank table
+      // Update view of question bank table
       qBank.push(addQuestion)
-      addQuestion = {'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
       doSort();
       makeTable();
 
-      // Clear add questions form
+      // Clear addQuestion obj and add questions form
+      addQuestion = {'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
       document.getElementById("addQdiv").innerHTML = intoAdd;
+
+      // Re-add EventListener for question type chosen
       document.getElementById("question_type").addEventListener("click", (e) => {
         if (e.target.value.length > 0) {
           addingQType(e);
@@ -311,15 +309,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Edit questions ---- /////////////////////////////////////////////////////////////////////////////////////////////////
   function editQs(e) {
+    // Row # in table (starts from 0)
+    qNum = parseInt(e.target.value);
+    
+    // Question id
     qid = e.target.id;
     qid = qid.slice(4, qid.length);
+
     tdChildren = e.target.parentNode.parentNode.children;
     type = tdChildren[0].innerHTML;
+    var editQuestion = {'id': qid, "question_type": qBank[qNum]["question_type"],"question": "", "answer": "", "hint": "", "a": "", "b":"", "c":"", "d":""};
 
     var to_html = `
       <div class="form-group inline">
         <label>Question:</label>
-        <input autocomplete="off" value="${tdChildren[1].innerHTML}" autofocus class="form-control" name="question" placeholder="Question" type="text" required>
+        <input autocomplete="off" value="${tdChildren[1].innerHTML}" autofocus id="editQinput" class="form-control toEdit" name="question" placeholder="Question" type="text" required>
       </div>  
       <input class="del-btn" value="${qid}" name="qid">
     `;
@@ -328,23 +332,23 @@ document.addEventListener('DOMContentLoaded', function() {
       to_html += `
         <div class="form-group inline">
           <label>Answer:</label>
-          <input autocomplete="off" value="${tdChildren[2].innerHTML}" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+          <input autocomplete="off" value="${tdChildren[2].innerHTML}" autofocus id="editAnswer" class="form-control toEdit" name="answer" placeholder="Answer" type="text" required>
         </div>
         <div class="form-group inline">
           <label>Option 1:</label>
-          <input autocomplete="off" value="${tdChildren[4].innerHTML}" autofocus class="form-control" name="a" placeholder="Option 1" type="text" required>
+          <input autocomplete="off" value="${tdChildren[4].innerHTML}" autofocus id="editA" class="form-control toEdit" name="a" placeholder="Option 1" type="text" required>
         </div>
         <div class="form-group inline">
           <label>Option 2:</label>
-          <input autocomplete="off" value="${tdChildren[5].innerHTML}" autofocus class="form-control" name="b" placeholder="Option 2" type="text" required>
+          <input autocomplete="off" value="${tdChildren[5].innerHTML}" autofocus id="editB" class="form-control toEdit" name="b" placeholder="Option 2" type="text" required>
         </div>
         <div class="form-group inline">
           <label>Option 3:</label>
-          <input autocomplete="off" value="${tdChildren[6].innerHTML}" autofocus class="form-control" name="c" placeholder="Option 3" type="text" required>
+          <input autocomplete="off" value="${tdChildren[6].innerHTML}" autofocus id="editC" class="form-control toEdit" name="c" placeholder="Option 3" type="text" required>
         </div>
         <div class="form-group inline">
           <label>Option 4:</label>
-          <input autocomplete="off" value="${tdChildren[7].innerHTML}" autofocus class="form-control" name="d" placeholder="Option 4" type="text" required>
+          <input autocomplete="off" value="${tdChildren[7].innerHTML}" autofocus id="editD" class="form-control toEdit" name="d" placeholder="Option 4" type="text" required>
         </div>
       `;
     }
@@ -353,7 +357,7 @@ document.addEventListener('DOMContentLoaded', function() {
         to_html += `
         <div class="form-group inline">
           <label>Answer:</label>
-          <select name="answer" class="form-control dropdown" required>
+          <select name="answer" class="form-control dropdown toEdit" id="editAnswer" required>
             <option disabled value="">Answer</option>
             <option class="dropdown" selected value="TRUE">True</option>
             <option class="dropdown" value="FALSE">False</option>
@@ -365,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
         to_html += `
         <div class="form-group inline">
           <label>Answer:</label>
-          <select name="answer" class="form-control dropdown" required>
+          <select name="answer" class="form-control dropdown toEdit" id="editAnswer" required>
             <option class="dropdown" value="TRUE">True</option>
             <option class="dropdown" selected value="FALSE">False</option>
           </select>
@@ -377,26 +381,95 @@ document.addEventListener('DOMContentLoaded', function() {
       to_html += `
       <div class="form-group inline">
         <label>Answer:</label>
-        <input autocomplete="off" value="${tdChildren[2].innerHTML}" autofocus class="form-control" name="answer" placeholder="Answer" type="text" required>
+        <input autocomplete="off" value="${tdChildren[2].innerHTML}" id="editAnswer" autofocus class="form-control toEdit" name="answer" placeholder="Answer" type="text" required>
       </div>
       <div class="form-group inline">
         <label>Hint:</label>
-        <input autocomplete="off" value="${tdChildren[3].innerHTML}" autofocus class="form-control" name="hint" placeholder="Hint" type="text">
+        <input autocomplete="off" value="${tdChildren[3].innerHTML}" autofocus class="form-control toEdit" name="hint" placeholder="Hint" type="text">
       </div>
       `;
     }
     document.getElementById("editQdiv").innerHTML = to_html;
+
+    // Update addQuestion object to temporarily store all inputs
+    document.querySelectorAll('.toEdit').forEach(editSect => {
+      editSect.addEventListener("keyup", (e) => {
+        editQuestion[e.target.name] = e.target.value;
+      })
+      editSect.addEventListener("click", (e) => {
+        editQuestion[e.target.name] = e.target.value;
+      })
+    })
+
     document.getElementById("confirmSave").addEventListener("click", () => {
+      if (editQuestion['question'] == "") {
+        document.getElementById("editQinput").setCustomValidity("Please enter a question");
+        document.getElementById("editQinput").reportValidity();
+        return;
+      }
+      else if (editQuestion['answer'] == '') {
+        document.getElementById("editAnswer").setCustomValidity("Please enter an answer");
+        document.getElementById("editAnswer").reportValidity();
+        return;
+      }
+      else if (type === "Multiple Choice" || type === "Dropdown") {
+        const choices = [editQuestion['a'], editQuestion['b'], editQuestion['c'], editQuestion['d']];
+        const setChoix = new Set(choices);
+        if (editQuestion['a'] == "") {
+          document.getElementById("editA").reportValidity();
+          return;
+        }
+        else if (editQuestion['b'] == "") {
+          document.getElementById("editB").reportValidity();
+          return;
+        }
+        else if (editQuestion['c'] == "") {
+          document.getElementById("editC").reportValidity();
+          return;
+        }
+        else if (editQuestion['d'] == "") {
+          document.getElementById("editD").reportValidity();
+          return;
+        }
+        else if (choices.length > setChoix.size) {
+          document.getElementById("editA").setCustomValidity("Options must be distinct");
+          document.getElementById("editA").reportValidity();
+          return;
+        }
+        else if (!choices.includes(editQuestion['answer'])) {
+          document.getElementById("editAnswer").setCustomValidity("Answer must be one of the options");
+          document.getElementById("editAnswer").reportValidity();
+          return;
+        }
+      }
+      
+      fetch("/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          action: "edit",
+          data: `${JSON.stringify(editQuestion)}`
+        })
+      }).then(data => data.text()).then(text => console.log(text));
+
+      // Update view of table
+      $('#editQmodal').modal('toggle');
+      qBank[qNum] = editQuestion;
       doSort();
       makeTable();
     })
   };
 
-  document.querySelectorAll(".editQ").forEach(editBtn => {
-    editBtn.addEventListener("click", (e) => {
-      editQs(e);
-    })
-  })
+  var editBtns = document.querySelectorAll(".editQ")
+  
+  // for (var i = 0; i < editBtns.length; i++) {
+  //   editBtns[i].addEventListener("click", (e) => {
+  //     console.log(e.target)
+  //     editQs(e);
+  //   })
+  // }
 
 
   // Delete questions /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -492,22 +565,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     to_del.length = 0;
     $('#confirmDelQs').modal('toggle');
+    $('#multi-trash').fadeOut('fast');
   })
- 
+
+
+  // Sort question bank table /////////////////////////////////////////////////////////////////////////////////////////////////////
+  function checkSort(sortVal) {
+    if (sorted === sortVal) {
+      qBank.reverse();
+    }
+    else {
+      sorted = sortVal;
+      doSort();
+    }
+    makeTable(); 
+  }
 
   document.getElementById("sorting").addEventListener("click", () => {
     document.getElementById("sorting").addEventListener("click", (e) => {
       var sortVal = e.target.value;
       console.log(sorted, "to", sortVal);
-      if (sorted === sortVal) {
-        qBank.reverse();
-      }
-      else {
-        sorted = sortVal;
-        doSort();
-      }
-      makeTable(); 
+      checkSort(sortVal)
     })
+  });
+
+  document.getElementById("sortByType").addEventListener("click", () => {
+    checkSort("Type")
+  });
+
+  document.getElementById("sortByQuestion").addEventListener("click", () => {
+    checkSort("Question")
   });
 
 });

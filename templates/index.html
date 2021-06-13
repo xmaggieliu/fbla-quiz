@@ -163,9 +163,9 @@
                 <div id="toggleCollapse2" class="collapse">
                     <div id="qBankTitle">
                         <h3>Question Bank</h3>
-                        <div class="col-md-3">
+                        <div>
                             <p class="settings-sub">SORT BY:</p>
-                            <select name="sort" id="sorting" class="decorated">
+                            <select name="sort" id="sorting">
                                 <option class="sort-opt" value="Date Added">Date Added</option>
                                 <option class="sort-opt" value="Type">Type</option>
                                 <option class="sort-opt" value="Question">Question</option>
@@ -176,8 +176,8 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                <th scope="col">Type <i class="fa fa-sort"></i></th>
-                                <th scope="col">Question <i class="fa fa-sort"></i></th>
+                                <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
+                                <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
                                 <th scope="col">Answer</th>
                                 <th scope="col">Hint</th>
                                 <th scope="col">Option 1</th>
