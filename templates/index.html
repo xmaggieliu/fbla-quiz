@@ -1,6 +1,14 @@
 {% extends "layout.html" %}
 
 {% block body %}
+    <script>
+        var curTheme = "{{ theme|safe }}";
+        var curHint = "{{ hintMode|safe }}";
+        var qBank = {{ allQuestions|safe }};
+        console.log(curTheme, curHint)
+    </script>
+    <script src="static/index.js"></script>
+
     <div id="instruction-container">
         <form action="/logout" method="post">
             <button class="btn btn-primary" id="logout" name="submit" type="submit" value="logout">Log out</button>
@@ -79,6 +87,21 @@
                     </button>
                 </div>
                 <div class="modal-body" id="addQdiv">
+                    <div class="form-group inline">
+                        <select id="question_type" class="form-control dropdown" autofocus required>
+                            <option disabled selected value="">Choose a question type:</option>
+                            <option class="dropdown" value="True and False">True and False</option>
+                            <option class="dropdown" value="Fill In The Blank">Fill In The Blank</option>
+                            <option class="dropdown" value="Multiple Choice">Multiple Choice</option>
+                            <option class="dropdown" value="Dropdown">Dropdown</option>
+                        </select>
+                    </div>
+                    <div class="form-group inline">
+                        <input autocomplete="off" id="addQinput" autofocus class="form-control toAdd" name="question" placeholder="Question" type="text" required>
+                    </div>  
+                    <!-- Content below in dependent changes based on type of question chosen -->
+                    <div id="dependent"></div>
+                    <p id="fading-text">Added!</p>
                 </div>
                 <div class="modal-footer" id="addFooter">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -176,17 +199,17 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
-                                <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
-                                <th scope="col">Answer</th>
-                                <th scope="col">Hint</th>
-                                <th scope="col">Option 1</th>
-                                <th scope="col">Option 2</th>
-                                <th scope="col">Option 3</th>
-                                <th scope="col">Option 4</th>
-                                <th scope="col"></th>
-                                <th scope="col">DEL</th>
-                                <th scope="col">SEL</th>
+                                    <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
+                                    <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
+                                    <th scope="col">Answer</th>
+                                    <th scope="col">Hint</th>
+                                    <th scope="col">Option 1</th>
+                                    <th scope="col">Option 2</th>
+                                    <th scope="col">Option 3</th>
+                                    <th scope="col">Option 4</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">DEL</th>
+                                    <th scope="col">SEL</th>
                                 </tr>
                             </thead>
                             <tbody id="qBankBody">
@@ -197,12 +220,6 @@
             </div>
         </div>
     </div>
-    <script>
-        var curTheme = "{{ theme|safe }}";
-        var curHint = "{{ hintMode|safe }}";
-        var qBank = {{ allQuestions|safe }};
-        console.log(curTheme, curHint)
-    </script>
-    <script src="static/index.js"></script>
+    
     <script src="static/script.js"></script>
 {% endblock %}
