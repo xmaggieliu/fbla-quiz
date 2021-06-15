@@ -1,7 +1,7 @@
 // Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
     return 'Are you sure you want to leave?';
 };
 
@@ -10,7 +10,7 @@ window.onbeforeunload = function() {
 var storedHint = sessionStorage.getItem('hint-mode');
 
 // Loops through questions dictionary and add HTML depending on question type
-for (var i = 1; i <= 5; i++) { 
+for (var i = 1; i <= 5; i++) {
 
     var question_type = questions[i]["question_type"];
     to_html = ``;
@@ -85,7 +85,7 @@ for (var i = 1; i <= 5; i++) {
             `;
     }
     else if (question_type == "Fill In The Blank") {
-        to_html =  `
+        to_html = `
             <fieldset class="question" id="group${i}">
                 <p>${i}. ${questions[i]["question"]}</p>
                 <div class="form-group col-md-3">
@@ -132,26 +132,26 @@ document.getElementById("quiz_form").innerHTML += `
 
 
 // Respond to page //
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
     // Make CSS changes for MC and true/false type questions
     document.querySelectorAll(".choice-viewable").forEach(answerButtons => {
         // Checkmark "hidden" radio buttons
-        answerButtons.onmousedown = function(e) {
+        answerButtons.onmousedown = function (e) {
             console.log(e)
             // inp = e.toElement.offsetParent.getElementsByTagName("input");
             inp = e.target.offsetParent.getElementsByTagName("input");
             inp[0].checked = true;
         }
     });
-    
+
     // Indicate by color the status of the fill in the blank and dropdown boxes
     function selectBox(e) {
         // Make outline of input box purple if form field is filled
         if (e.target.classList.contains("form-control") && e.target.value) {
             e.target.style.borderColor = "#80008080";
             e.target.style.boxShadow = "0px 0px 0px 3px #80008044";
-        } 
+        }
         // Make outline of dropdown box purple 
         else if (e.target.parentNode.classList.contains("form-control") && e.target.parentNode.value) {
             e.target.parentNode.style.borderColor = "80008080";
@@ -161,22 +161,22 @@ document.addEventListener('DOMContentLoaded', function() {
         else {
             e.target.style.removeProperty("border-color");
             e.target.style.removeProperty("box-shadow");
-        };        
+        };
     };
 
     // Make CSS changes for dropdown and fill-in-the-blank type questions
     document.querySelectorAll(".form-control").forEach(inpBoxes => {
-        inpBoxes.onclick = function(e) {
+        inpBoxes.onclick = function (e) {
             selectBox(e);
         }
-        inpBoxes.onkeyup = function(e) {
+        inpBoxes.onkeyup = function (e) {
             selectBox(e);
         }
     });
 
     // Toggle hint alert
     document.querySelectorAll(".get-hint").forEach(hintBoxes => {
-        hintBoxes.onclick = function(e) {
+        hintBoxes.onclick = function (e) {
             collapseSect = e.target.nextElementSibling;
             var isExpanded = $(e.target).attr("aria-expanded");
             if (isExpanded === "true") {
@@ -187,8 +187,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Collapse all alerts
                 $('.alert-warning').collapse('hide');
                 $('.get-hint').attr("aria-expanded", "false");
-                setTimeout(function() { 
-                    $(collapseSect).collapse('show'); 
+                setTimeout(function () {
+                    $(collapseSect).collapse('show');
                     e.target.setAttribute("aria-expanded", "true");
                 }, 200);
             }
@@ -215,10 +215,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Removes hint alert div from HTML
         e.target.parentNode.parentNode.remove();
     }
-    
+
     // Display hint after 'Yes!' clicked
     document.querySelectorAll(".yes-hint").forEach(getHint => {
-        getHint.onclick = function(e) {
+        getHint.onclick = function (e) {
             displayHint(e);
         }
     });
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide hint alert if 'x' is clicked
     document.querySelectorAll(".close").forEach(noHint => {
         // Checkmark "hidden" radio buttons
-        noHint.onclick = function(e) {
+        noHint.onclick = function (e) {
             targ = "hintAlert" + e.target.id.charAt(e.target.id.length - 1);
             $(`#${targ}`).collapse('toggle');
             hintBtn = "getHint" + e.target.id.charAt(e.target.id.length - 1);

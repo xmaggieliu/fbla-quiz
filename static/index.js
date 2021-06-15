@@ -1,5 +1,6 @@
 // ADD QUESTIONS /////////////////////////////////////////////////////////////////////////////////////////////////////////
-var addQuestion = {'id': "", 'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
+
+var addQuestion = { 'id': "", 'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": "" };
 
 function addingQType(e) {
   // Add more input fields depending on type of question to be added
@@ -35,7 +36,7 @@ function addingQType(e) {
       </div>
     `;
   }
-  else if (type === "Fill In The Blank"){
+  else if (type === "Fill In The Blank") {
     var to_html = `
       <div class="form-group inline">
           <input autocomplete="off" autofocus class="form-control toAdd" name="answer" id="addAnswer" placeholder="Answer" type="text" required>
@@ -50,16 +51,20 @@ function addingQType(e) {
 
   // Update addQuestion object to temporarily store all inputs
   document.querySelectorAll('.toAdd').forEach(addSect => {
-    addSect.onkeyup = function(e) {
+    addSect.onkeyup = function (e) {
       addQuestion[e.target.name] = e.target.value;
     }
-    addSect.onclick = function(e) {
+    addSect.onclick = function (e) {
       addQuestion[e.target.name] = e.target.value;
       console.log(addQuestion[e.target.name])
     };
   })
 };
 
+// Confirmation text for adding questions 
+function confirmAddText() {
+  $("#fading-text").fadeIn('fast').delay(1500).fadeOut('fast');
+}
 
 // EDIT QUESTIONS   /////////////////////////////////////////////////////////////////////////////////////////////////
 function editQs(e) {
@@ -67,14 +72,14 @@ function editQs(e) {
 
   // Row # in table (starts from 0)
   qNum = parseInt(e.value);
-  
+
   // Question id
   qid = e.id;
   qid = qid.slice(4, qid.length);
 
   tdChildren = e.parentNode.parentNode.children;
   type = tdChildren[0].innerHTML;
-  var editQuestion = {'id': qid, "question_type": qBank[qNum]["question_type"], "question": `${tdChildren[1].innerHTML}`, "answer": `${tdChildren[2].innerHTML}`, "hint": `${tdChildren[3].innerHTML}`, "a": `${tdChildren[4].innerHTML}`, "b": `${tdChildren[5].innerHTML}`, "c": `${tdChildren[6].innerHTML}`, "d": `${tdChildren[7].innerHTML}`};
+  var editQuestion = { 'id': qid, "question_type": qBank[qNum]["question_type"], "question": `${tdChildren[1].innerHTML}`, "answer": `${tdChildren[2].innerHTML}`, "hint": `${tdChildren[3].innerHTML}`, "a": `${tdChildren[4].innerHTML}`, "b": `${tdChildren[5].innerHTML}`, "c": `${tdChildren[6].innerHTML}`, "d": `${tdChildren[7].innerHTML}` };
 
   var to_html = `
     <div class="form-group inline">
@@ -133,7 +138,7 @@ function editQs(e) {
         `;
     }
   }
-  else if (type === "Fill In The Blank"){
+  else if (type === "Fill In The Blank") {
     to_html += `
     <div class="form-group inline">
       <label>Answer:</label>
@@ -149,17 +154,17 @@ function editQs(e) {
 
   // Update addQuestion object to temporarily store all inputs
   document.querySelectorAll('.toEdit').forEach(editSect => {
-    editSect.onclick = function(e) {
+    editSect.onclick = function (e) {
       e = e || window.event;
       editQuestion[e.target.name] = e.target.value;
     }
-    editSect.onkeyup = function(e) {
+    editSect.onkeyup = function (e) {
       e = e || window.event;
       editQuestion[e.target.name] = e.target.value;
     }
   });
 
-  document.getElementById("confirmSave").onclick = function() {
+  document.getElementById("confirmSave").onclick = function () {
     if (editQuestion['question'] == "") {
       document.getElementById("editQinput").setCustomValidity("Please enter a question");
       document.getElementById("editQinput").reportValidity();
@@ -200,11 +205,11 @@ function editQs(e) {
         return;
       }
     }
-    
+
     fetch("/", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         action: "edit",
@@ -222,6 +227,7 @@ function editQs(e) {
 
 
 // DELETE QUESTIONS    ///////////////////////////////////////////////////////////////////////////////////////////////
+
 const to_del = [];
 
 function delBtns(e) {
@@ -249,18 +255,18 @@ function delBtns(e) {
   </div>
   `;
 
-  document.getElementById("delOne").onclick = function(e) {
+  document.getElementById("delOne").onclick = function (e) {
     e = e || window.event;
     qid = e.target.value;
     console.log("deleting", qid)
     fetch("/", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          action: "delete",
-          data: `${qid}`
+        action: "delete",
+        data: `${qid}`
       })
     }).then(data => data.text()).then(text => console.log(text));
     $(`#confirmDelQ`).modal('toggle');
@@ -291,32 +297,6 @@ function multiDel(e) {
     multiTrash.style.display = "none";
   }
 }
-
-
-// MISC   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Confirmation text for adding questions 
-function confirmAddText() {
-  $("#fading-text").fadeIn('fast').delay(1500).fadeOut('fast');
-}
-
-// // HTML in add question modal body
-// const intoAdd = `
-//   <div class="form-group inline">
-//     <select id="question_type" class="form-control dropdown" required>
-//       <option disabled selected value="">Question Type</option>
-//       <option class="dropdown" value="True and False">True and False</option>
-//       <option class="dropdown" value="Fill In The Blank">Fill In The Blank</option>
-//       <option class="dropdown" value="Multiple Choice">Multiple Choice</option>
-//       <option class="dropdown" value="Dropdown">Dropdown</option>
-//     </select>
-//   </div>
-//   <div class="form-group inline">
-//       <input autocomplete="off" id="addQinput" autofocus class="form-control toAdd" name="question" placeholder="Question" type="text" required>
-//   </div>  
-//   <!-- Content below in dependent changes based on type of question chosen -->
-//   <div id="dependent"></div>
-//   <p id="fading-text">Added!</p>
-// `;
 
 
 // TABLE STRUCTURE   /////////////////////////////////////////////////////////////////////////////////////////
@@ -365,7 +345,7 @@ function checkSort(sortVal) {
     sorted = sortVal;
     doSort();
   }
-  makeTable(); 
+  makeTable();
 }
 
 // Add rows in question bank table //
@@ -395,13 +375,11 @@ function makeTable() {
   document.getElementById("qBankBody").innerHTML = to_table_html;
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-  // document.getElementById("addQdiv").innerHTML = intoAdd;
-
+document.addEventListener('DOMContentLoaded', function () {
 
   // Make table for the first time
   makeTable();
-  
+
   // Make currently visited page into set modes //
   var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   // ^ Line Above ^ ------- SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
@@ -419,17 +397,17 @@ document.addEventListener('DOMContentLoaded', function() {
   if (storedHint === "no-hint") {
     document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
-  
+
   // SWITCH MODES /////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Switch mode - theme //
-  document.getElementById("bg-mode").onclick = function() {
+  document.getElementById("bg-mode").onclick = function () {
     var currentTheme = document.documentElement.getAttribute("data-theme");
     var targetTheme = "light";
 
     // Move the white sphere button to show mode has been changed
     if (currentTheme === "light") {
-        targetTheme = "dark";
-        document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
+      targetTheme = "dark";
+      document.querySelectorAll('.ball')[0].style.transform = 'translateX(24px)';
     }
     else {
       document.querySelectorAll('.ball')[0].style.transform = 'translateX(0px)';
@@ -455,17 +433,17 @@ document.addEventListener('DOMContentLoaded', function() {
       sessionStorage.setItem('hint-mode', "yes-hint");
     }
   });
-    
+
   // Save current modes as values in a form within logout btn to be saved in user database //
   var logoutBtn = document.getElementById("logout");
-  logoutBtn.onclick = function() {
+  logoutBtn.onclick = function () {
     to_value = sessionStorage.getItem('theme') + " " + sessionStorage.getItem('hint-mode');
     logoutBtn.value = to_value;
     sessionStorage.clear();
   };
 
   // Simulate form validation
-  document.getElementById("confirmAdd").onclick = function() {
+  document.getElementById("confirmAdd").onclick = function () {
     if (addQuestion['question_type'] == "") {
       document.getElementById("question_type").setCustomValidity("Choose a type");
       document.getElementById("question_type").reportValidity();
@@ -517,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch("/", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
         action: "add",
@@ -531,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
     makeTable();
 
     // Clear addQuestion obj and add questions form
-    addQuestion = {'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": ""};
+    addQuestion = { 'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": "" };
     document.getElementById("question_type").innerHTML = `
       <option disabled selected value="">Choose a question type:</option>
       <option class="dropdown" value="True and False">True and False</option>
@@ -546,7 +524,7 @@ document.addEventListener('DOMContentLoaded', function() {
     confirmAddText();
   }
 
-  document.getElementById("question_type").onclick = function(e) {
+  document.getElementById("question_type").onclick = function (e) {
     e = e || window.event;
     if (e.target.value.length > 0) {
       addingQType(e);
@@ -556,19 +534,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
-  
+
   // Delete questions /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  document.getElementById("mulTrashing").onclick = function() {
+  document.getElementById("mulTrashing").onclick = function () {
     // Send array of question IDs to Flask
     fetch("/", {
       method: "POST",
       headers: {
-          "Content-Type": "application/json"
+        "Content-Type": "application/json"
       },
       body: JSON.stringify({
-          action: "delete",
-          data: `${to_del}`
+        action: "delete",
+        data: `${to_del}`
       })
     }).then(data => data.text()).then(text => console.log(text));
 
@@ -593,11 +571,11 @@ document.addEventListener('DOMContentLoaded', function() {
     })
   });
 
-  document.getElementById("sortByType").onclick = function() {
+  document.getElementById("sortByType").onclick = function () {
     checkSort("Type")
   };
 
-  document.getElementById("sortByQuestion").onclick = function() {
+  document.getElementById("sortByQuestion").onclick = function () {
     checkSort("Question")
   };
 

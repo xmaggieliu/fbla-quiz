@@ -1,6 +1,6 @@
 from cs50 import SQL
 from helpers import get_questions, login_required, create_questionbank
-from flask import Flask, render_template, request, redirect, session #, jsonify, make_response
+from flask import Flask, render_template, request, redirect, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -48,36 +48,37 @@ def index():
         # Changing username
         if request.form.get("new-username"):
             if len(db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("new-username"))) == 0:
-                db.execute("UPDATE users SET username = ? WHERE id = ?;", request.form.get("new-username"), session["user_id"])
-            else: 
+                db.execute("UPDATE users SET username = ? WHERE id = ?;",
+                           request.form.get("new-username"), session["user_id"])
+            else:
                 return("TAKEN !!!")
         # Changing password
         elif request.form.get("password"):
-            db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(request.form.get("password")), session["user_id"])
-                
+            db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(
+                request.form.get("password")), session["user_id"])
+
         # Reset questionbank
         elif request.form.get("reset"):
             if request.form.get("reset") == "default":
                 create_questionbank(tableName)
             else:
                 db.execute("DELETE FROM ? WHERE id > 2", tableName)
-            
-        
+
         else:
             fromJS = request.get_json()
             print(fromJS)
             action = fromJS['action']
 
             if action == "delete":
-                toDel = list(map(int, fromJS['data'].split(",") ))
-                print(f"{toDel=}")
+                toDel = list(map(int, fromJS['data'].split(",")))
                 for qID in toDel:
                     db.execute("DELETE FROM ? WHERE id = ?", tableName, qID)
 
             elif action == "add":
                 # Add question to database
                 addQdict = json.loads(fromJS['data'])
-                db.execute("INSERT INTO ? (id, question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", tableName, addQdict['id'], addQdict['question_type'], addQdict['question'], addQdict['answer'], addQdict['hint'], addQdict['a'], addQdict['b'], addQdict['c'], addQdict['d'])
+                db.execute("INSERT INTO ? (id, question_type, question, answer, hint, a, b, c, d) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);", tableName,
+                           addQdict['id'], addQdict['question_type'], addQdict['question'], addQdict['answer'], addQdict['hint'], addQdict['a'], addQdict['b'], addQdict['c'], addQdict['d'])
 
             elif action == "edit":
                 editQdict = json.loads(fromJS['data'])
@@ -90,21 +91,25 @@ def index():
                     c = ?,
                     d = ?
                     WHERE id = ?""", tableName, editQdict['question'], editQdict['answer'], editQdict['hint'], editQdict['a'], editQdict['b'], editQdict['c'], editQdict['d'], editQdict['id'])
-            
+
             return "post_request_received"
 
         return redirect("/")
 
-    else:    
+    else:
         # Have pages satisfy default/last saved theme and hint modes
-        curTheme = db.execute("SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
-        curHint = db.execute("SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
-        allQuestions = db.execute("SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
-        # print(allQuestions)
- 
+        curTheme = db.execute(
+            "SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
+        curHint = db.execute(
+            "SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
+        allQuestions = db.execute(
+            "SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
+
         return render_template("index.html", theme=curTheme, hintMode=curHint, allQuestions=allQuestions)
 
 # 5 questions quiz page
+
+
 @app.route("/quiz", methods=["GET"])
 @login_required
 def quiz():
@@ -112,13 +117,15 @@ def quiz():
     # Remove "answer" from the dictionary passed into quiz page
     id_nums = db.execute("SELECT id FROM ? WHERE id > 2", tableName)
     id_nums = [row['id'] for row in id_nums]
-    print(id_nums)
     questions = get_questions(tableName, id_nums)
-    new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys() - {'answer'}} for k in questions.keys()}
+    new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys(
+    ) - {'answer'}} for k in questions.keys()}
 
     return render_template("quiz.html", questions=new_dict)
 
-# Results page  
+# Results page
+
+
 @app.route("/results", methods=["GET", "POST"])
 @login_required
 def results():
@@ -142,6 +149,7 @@ def results():
 
         return render_template("results.html", formResults=formResults, hintsUsed=hintsUsed, questions=questions)
 
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     global tableName
@@ -150,7 +158,8 @@ def login():
     session.clear()
 
     if request.method == "POST":
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE username = ?",
+                          request.form.get("username"))
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
@@ -166,10 +175,12 @@ def login():
     else:
         return render_template("login.html")
 
+
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+        rows = db.execute("SELECT * FROM users WHERE username = ?",
+                          request.form.get("username"))
 
         # Ensure username does not exist
         if len(rows) != 0:
@@ -180,9 +191,11 @@ def signup():
             return "passwords do not match"
 
         # Add new user to database
-        db.execute("INSERT INTO users (username, hash) VALUES (?, ?);", request.form.get("username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8))
+        db.execute("INSERT INTO users (username, hash) VALUES (?, ?);", request.form.get(
+            "username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8))
 
-        id_num = db.execute("SELECT id FROM users where username = ?", request.form.get("username"))[0]["id"]
+        id_num = db.execute("SELECT id FROM users where username = ?",
+                            request.form.get("username"))[0]["id"]
         table_name = "question_bank" + str(id_num)
         create_questionbank(table_name)
 
@@ -190,6 +203,7 @@ def signup():
 
     else:
         return render_template("signup.html")
+
 
 @app.route("/logout", methods=["POST"])
 def logout():
@@ -199,8 +213,10 @@ def logout():
     values = request.form.get("submit")
     curTheme, curHint = values.split()
 
-    db.execute("UPDATE ? SET answer = ? WHERE question = 'theme'", tableName, curTheme)
-    db.execute("UPDATE ? SET answer = ? WHERE question = 'hint-mode'", tableName, curHint)
+    db.execute("UPDATE ? SET answer = ? WHERE question = 'theme'",
+               tableName, curTheme)
+    db.execute("UPDATE ? SET answer = ? WHERE question = 'hint-mode'",
+               tableName, curHint)
 
     # Forget any user_id
     session.clear()
