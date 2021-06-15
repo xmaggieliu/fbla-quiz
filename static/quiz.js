@@ -1,9 +1,9 @@
 // Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
-// window.onbeforeunload = function() {
-//     return 'Are you sure you want to leave?';
-// };
+window.onbeforeunload = function() {
+    return 'Are you sure you want to leave?';
+};
 
 // Add content to quiz page //
 
@@ -94,13 +94,12 @@ for (var i = 1; i <= 5; i++) {
         `;
 
         var hint = questions[i]["hint"];
-        console.log(hint.length)
+
         // If hint exists and is wanted:
         if (hint.length > 0 && storedHint !== "no-hint") {
             to_html += ` <!-- below ! data-target="#hintAlert${i}" aria-controls="hintAlert${i}" -->
-                <button type="button" class="btn btn-warning get-hint" data-toggle="collapse" aria-expanded="false">Hint</button>
+                <button type="button" class="btn btn-warning get-hint" id="getHint${i}" data-toggle="collapse" aria-expanded="false">Hint</button>
                 <div class="shadow-sm alert alert-warning alert-dismissible collapse" id="hintAlert${i}">
-                <!--role="alert" data-hide="alert"-->
                     <div class="alert-text-container">
                         <div class="alert-text">
                             <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
@@ -123,6 +122,7 @@ for (var i = 1; i <= 5; i++) {
     }
     document.getElementById("quiz_form").innerHTML += to_html;
 }
+
 // Add submit button
 document.getElementById("quiz_form").innerHTML += `
     <div class="general">
@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Toggle hint alert
     document.querySelectorAll(".get-hint").forEach(hintBoxes => {
         hintBoxes.onclick = function(e) {
             collapseSect = e.target.nextElementSibling;
@@ -193,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-    
+
     // Hide get hint button, add hint to page, have form record which hint was used
     function displayHint(e) {
         fieldSet = e.target.parentNode.parentNode.parentNode
@@ -226,8 +227,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll(".close").forEach(noHint => {
         // Checkmark "hidden" radio buttons
         noHint.onclick = function(e) {
-            targ = "hintAlert" + e.target.id.charAt(e.target.id.length - 1)
+            targ = "hintAlert" + e.target.id.charAt(e.target.id.length - 1);
             $(`#${targ}`).collapse('toggle');
+            hintBtn = "getHint" + e.target.id.charAt(e.target.id.length - 1);
+            document.getElementById(hintBtn).setAttribute("aria-expanded", "false");
         }
     });
 });
