@@ -57,7 +57,10 @@ def index():
                 
         # Reset questionbank
         elif request.form.get("reset"):
-            create_questionbank(tableName)
+            if request.form.get("reset") == "default":
+                create_questionbank(tableName)
+            else:
+                db.execute("DELETE FROM ? WHERE id > 2", tableName)
             
         
         else:
@@ -107,7 +110,10 @@ def index():
 def quiz():
     global questions, tableName
     # Remove "answer" from the dictionary passed into quiz page
-    questions = get_questions(tableName)
+    id_nums = db.execute("SELECT id FROM ? WHERE id > 2", tableName)
+    id_nums = [row['id'] for row in id_nums]
+    print(id_nums)
+    questions = get_questions(tableName, id_nums)
     new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys() - {'answer'}} for k in questions.keys()}
 
     return render_template("quiz.html", questions=new_dict)

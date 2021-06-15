@@ -55,5 +55,5 @@ css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #170020}";
 document.body.appendChild(css);
 // -------------------------------------------------- END OF SOURCE
 
-  
+// function errorAlert()  
   

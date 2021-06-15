@@ -50,13 +50,15 @@ def create_questionbank(id_table):
 # Create a dictionary of 5 random questions and their info
 quiz_questions = {}
 
-def get_questions(table_name):
-    num_of_q = len(db.execute("SELECT * FROM ?", table_name))
+def get_questions(table_name, idList):
     i = 1
     # Loop through 5 unique int from [3, total num of questions]       <=      id = 1 and id = 2 are reserved for theme and hint mode
-    for q_id in random.sample(range(3, num_of_q + 1), 5): 
-        quiz_questions[i] = db.execute("SELECT * FROM ? where id = (?);", table_name, q_id)[0]
-        i += 1
+    for q_id in random.sample(idList, 5): 
+        try:
+            quiz_questions[i] = db.execute("SELECT * FROM ? where id = (?);", table_name, q_id)[0]
+            i += 1
+        except: 
+            print(q_id)
     return quiz_questions
 
 

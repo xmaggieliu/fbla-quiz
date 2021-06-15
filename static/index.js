@@ -64,7 +64,6 @@ function addingQType(e) {
 // EDIT QUESTIONS   /////////////////////////////////////////////////////////////////////////////////////////////////
 function editQs(e) {
   e = e || window.event;
-  console.log(e)
 
   // Row # in table (starts from 0)
   qNum = parseInt(e.value);
@@ -110,7 +109,7 @@ function editQs(e) {
     `;
   }
   else if (type === "True and False") {
-    if (tdChildren[2].value === "TRUE") {
+    if (tdChildren[2].innerHTML === "TRUE") {
       to_html += `
       <div class="form-group inline">
         <label>Answer:</label>

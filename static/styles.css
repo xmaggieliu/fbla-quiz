@@ -219,11 +219,6 @@ hr {
     color: #fff6fa;
 }
 
-.start, .start:hover, .start:active {
-    color: #fff6fa;
-    text-decoration: none;
-}
-
 .disabled {
     opacity: 0.5;
 }
@@ -392,6 +387,7 @@ hr {
     right: 0;
     margin-top: 1em;
     margin-right: 1em;
+    z-index: 10000;
 }
 
 .home {
@@ -432,8 +428,7 @@ p {
 
 .alert-warning {
     position: fixed;
-    display: none;
-    align-items: center;
+    display: flex;
     justify-content: space-between;
     top: 1em;
     padding-right: 0;
@@ -441,6 +436,16 @@ p {
     left: 50%;
     border-color: #ffc889d0;
     border-radius: 10px;
+    transition-duration: 100ms;
+}
+
+.alert-text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.alert-text-container {
+    display: table;
 }
 
 .close {

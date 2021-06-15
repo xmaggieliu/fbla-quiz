@@ -1,6 +1,9 @@
 // Set light mode or dark mode to page //
 document.documentElement.setAttribute('data-theme', sessionStorage.getItem('theme'))
 
+// window.onbeforeunload = function() {
+//     return 'Are you sure you want to leave?';
+// };
 
 // Add content to quiz page //
 
@@ -94,17 +97,18 @@ for (var i = 1; i <= 5; i++) {
         console.log(hint.length)
         // If hint exists and is wanted:
         if (hint.length > 0 && storedHint !== "no-hint") {
-            to_html += `
-                <button type="button" class="btn btn-warning get-hint">Hint</button>
-                <div class="shadow-sm alert alert-warning alert-dismissible" role="alert" data-hide="alert">
-                    <div>
-                        <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
+            to_html += ` <!-- below ! data-target="#hintAlert${i}" aria-controls="hintAlert${i}" -->
+                <button type="button" class="btn btn-warning get-hint" data-toggle="collapse" aria-expanded="false">Hint</button>
+                <div class="shadow-sm alert alert-warning alert-dismissible collapse" id="hintAlert${i}">
+                <!--role="alert" data-hide="alert"-->
+                    <div class="alert-text-container">
+                        <div class="alert-text">
+                            <strong>Q${i} Hint alert!</strong> Are you sure you want to use a hint?
+                        </div>
                     </div>
                     <div class="alert-react">
                         <button type="button" class="btn btn-warning yes-hint">YES!</button>
-                        <button type="button" class="close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        <button type="button" class="close" id="hintReact${i}">&times;</button>
                     </div>
                 </div>
                 <div class="hint"></div>
@@ -130,24 +134,17 @@ document.getElementById("quiz_form").innerHTML += `
 // Respond to page //
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Questions related var
-    var answerButtons = document.querySelectorAll(".choice-viewable");
-    var inpBoxes = document.querySelectorAll(".form-control");
-
-    // Hints related var
-    var hintBox = document.querySelectorAll(".get-hint");
-    var yesHint = document.querySelectorAll(".yes-hint");
-    var hintAlert = document.querySelectorAll(".alert-react");
-
-
-    // Checkmark "hidden" radio buttons
-    function selectBubble(e) {
-        console.log(e)
-        // inp = e.toElement.offsetParent.getElementsByTagName("input");
-        inp = e.target.offsetParent.getElementsByTagName("input");
-        inp[0].checked = true;
-    }
-
+    // Make CSS changes for MC and true/false type questions
+    document.querySelectorAll(".choice-viewable").forEach(answerButtons => {
+        // Checkmark "hidden" radio buttons
+        answerButtons.onmousedown = function(e) {
+            console.log(e)
+            // inp = e.toElement.offsetParent.getElementsByTagName("input");
+            inp = e.target.offsetParent.getElementsByTagName("input");
+            inp[0].checked = true;
+        }
+    });
+    
     // Indicate by color the status of the fill in the blank and dropdown boxes
     function selectBox(e) {
         // Make outline of input box purple if form field is filled
@@ -167,14 +164,38 @@ document.addEventListener('DOMContentLoaded', function() {
         };        
     };
 
-    // Hint alert appears
-    function confirmGetHint(e) {
-        e.target.nextElementSibling.style.display = "flex";
-    }
+    // Make CSS changes for dropdown and fill-in-the-blank type questions
+    document.querySelectorAll(".form-control").forEach(inpBoxes => {
+        inpBoxes.onclick = function(e) {
+            selectBox(e);
+        }
+        inpBoxes.onkeyup = function(e) {
+            selectBox(e);
+        }
+    });
+
+    document.querySelectorAll(".get-hint").forEach(hintBoxes => {
+        hintBoxes.onclick = function(e) {
+            collapseSect = e.target.nextElementSibling;
+            var isExpanded = $(e.target).attr("aria-expanded");
+            if (isExpanded === "true") {
+                $(collapseSect).collapse('hide');
+                e.target.setAttribute("aria-expanded", "false");
+            }
+            else {
+                // Collapse all alerts
+                $('.alert-warning').collapse('hide');
+                $('.get-hint').attr("aria-expanded", "false");
+                setTimeout(function() { 
+                    $(collapseSect).collapse('show'); 
+                    e.target.setAttribute("aria-expanded", "true");
+                }, 200);
+            }
+        }
+    });
     
     // Hide get hint button, add hint to page, have form record which hint was used
     function displayHint(e) {
-        console.log(e)
         fieldSet = e.target.parentNode.parentNode.parentNode
         qNum = fieldSet.id;
         qNum = qNum.charAt(qNum.length - 1);
@@ -190,45 +211,23 @@ document.addEventListener('DOMContentLoaded', function() {
         var hintToForm = document.getElementsByName(`hint${qNum}`)[0];
         hintToForm.setAttribute('value', 'TRUE');
 
-        $(".alert-warning").hide(); 
+        // Removes hint alert div from HTML
+        e.target.parentNode.parentNode.remove();
     }
-
-
-    // Make CSS changes for MC and true/false type questions
-    for (var j = 0; j < answerButtons.length; j++) {
-        answerButtons[j].addEventListener("mousedown", (e) => {
-            selectBubble(e);
-        });
-    }
-
-    // Make CSS changes for dropdown and fill-in-the-blank type questions
-    for (var k = 0; k < inpBoxes.length; k++) {
-        inpBoxes[k].addEventListener("click", (e) => {
-            selectBox(e);
-        })
-        inpBoxes[k].addEventListener("keyup", (e) => {
-            selectBox(e);
-        })
-    }
-
-    // Hint alert appears
-    for (var l = 0; l < hintBox.length; l++) {
-        hintBox[l].addEventListener("click", (e) => {
-            confirmGetHint(e);
-        }) 
-    }
-
+    
     // Display hint after 'Yes!' clicked
-    for (var m = 0; m < yesHint.length; m++) {
-        yesHint[m].addEventListener("click", (e) => {
+    document.querySelectorAll(".yes-hint").forEach(getHint => {
+        getHint.onclick = function(e) {
             displayHint(e);
-        }) 
-    }
+        }
+    });
 
     // Hide hint alert if 'x' is clicked
-    for (var n = 0; n < hintAlert.length; n++) {
-        hintAlert[n].addEventListener("click", function(){
-            $(".alert-warning").hide(); 
-        }) 
-    }
+    document.querySelectorAll(".close").forEach(noHint => {
+        // Checkmark "hidden" radio buttons
+        noHint.onclick = function(e) {
+            targ = "hintAlert" + e.target.id.charAt(e.target.id.length - 1)
+            $(`#${targ}`).collapse('toggle');
+        }
+    });
 });
