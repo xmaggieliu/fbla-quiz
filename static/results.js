@@ -8,7 +8,7 @@ totalScore = 10
 var colon = ":";
 
 // Loop through questions dictionary and add HTML based off of form inputs
-for (var i = 1; i <= 5; i++) { 
+for (var i = 1; i <= 5; i++) {
     var question_type = questions[i]["question_type"];
     to_html = ``;
     if (question_type === "Multiple Choice") {
@@ -100,7 +100,7 @@ for (var i = 1; i <= 5; i++) {
                 <p>Your answer: ${questions[i]["answer"]}</p>
             `;
         }
-        else{
+        else {
             totalScore -= 2;
             to_html = `
             <div class="question">
@@ -122,6 +122,8 @@ for (var i = 1; i <= 5; i++) {
     }
     document.getElementById("questionsResults").innerHTML += to_html;
 }
+
+// Add print button
 document.getElementById("print-region").innerHTML += `
     <div class="general">
         <button type="button" class="btn btn-warning" id="print">Print</button>        
@@ -143,6 +145,7 @@ var yyyy = today.getFullYear();
 today = mm + '/' + dd + '/' + yyyy;
 //-----------------------------------------------------  END OF SOURCE
 
+// Add total score + name input + date to page
 var score_to_html = `
     <button type="button" class="btn btn-light">Score = ${totalScore}/10 = ${percentage}%</button>
     <div id="name-in-report" class="form-group form-inline">
@@ -155,9 +158,9 @@ document.getElementById("results").innerHTML += score_to_html;
 
 
 // Respond to page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Prints a light mode report of quiz results w/ white bg
-    document.getElementById("print").addEventListener("click", function() {
+    document.getElementById("print").addEventListener("click", function () {
         window.print();
     });
 
