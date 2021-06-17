@@ -223,7 +223,7 @@ hr {
     opacity: 0.5;
 }
 
-#fading-text {
+.confirmation-text {
     font-family: "Abel", sans-serif;
     font-weight: bold;
     color: rgb(0, 68, 80);
@@ -401,6 +401,10 @@ hr {
 .home:hover, .home:focus, .home:active {
     background-color: #1a8abe !important;
     border-color: #1a8abe !important;
+}
+
+.new-pw {
+    padding-bottom: 10px;
 }
 
 .in-quiz {

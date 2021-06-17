@@ -1,3 +1,5 @@
+// TYPEWRITER TITLE EFFECT //
+
 // --------------- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ ---------------------
 var TxtType = function(el, toRotate, period) {
     this.toRotate = toRotate;
@@ -54,6 +56,4 @@ css.type = "text/css";
 css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #170020}";
 document.body.appendChild(css);
 // -------------------------------------------------- END OF SOURCE
-
-// function errorAlert()  
   

@@ -1,3 +1,10 @@
+function hitEnter(e, btnID) {
+  if (e.code === 'Enter') {
+    document.getElementById(`${btnID}`).click();
+  }
+}
+
+
 // ADD QUESTIONS /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var addQuestion = { 'id': "", 'question_type': "", "question": "", "answer": "", "hint": "", "a": "", "b": "", "c": "", "d": "" };
@@ -53,6 +60,7 @@ function addingQType(e) {
   document.querySelectorAll('.toAdd').forEach(addSect => {
     addSect.onkeyup = function (e) {
       addQuestion[e.target.name] = e.target.value;
+      hitEnter(e, "confirmAdd");
     }
     addSect.onclick = function (e) {
       addQuestion[e.target.name] = e.target.value;
@@ -161,6 +169,7 @@ function editQs(e) {
     editSect.onkeyup = function (e) {
       e = e || window.event;
       editQuestion[e.target.name] = e.target.value;
+      hitEnter(e, "confirmSave");
     }
   });
 
@@ -441,6 +450,62 @@ document.addEventListener('DOMContentLoaded', function () {
     logoutBtn.value = to_value;
     sessionStorage.clear();
   };
+
+
+  document.getElementById("newUser").onclick = function () {
+    var newUser = document.getElementById("new-username").value;
+    fetch("/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            action: "newUsername",
+            data: `${newUser}`
+        })
+    }).then(data => data.text()).then(text => {
+      console.log(text);
+      if (text === "existing") {
+        document.getElementById("new-username").setCustomValidity("Username has already been taken");
+        document.getElementById("new-username").reportValidity();
+        return;
+      }
+    });
+  };
+  document.getElementById("new-username").onkeyup = function (e) {
+    hitEnter(e, "newUser");
+  }
+  
+  document.getElementById("newPass").onclick = function () {
+    var password = document.getElementById("new-password").value;
+    var confirmation = document.getElementById("new-confirmation").value;
+    if (password === confirmation) {
+      fetch("/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            action: "newPassword",
+            data: `${password}`
+        })
+      }).then(data => data.text()).then(text => console.log(text));
+      document.getElementById("new-password").value = "";
+      document.getElementById("new-confirmation").value = "";
+      $("#fading-text-pw").fadeIn('fast').delay(1500).fadeOut('fast');
+    }
+    else {
+      document.getElementById("new-confirmation").setCustomValidity("Passwords are not the same");
+      document.getElementById("new-confirmation").reportValidity();
+      return;
+    }
+  };  
+  document.getElementById("new-password").onkeyup = function (e) {
+    hitEnter(e, "newPass");
+  }
+  document.getElementById("new-confirmation").onkeyup = function (e) {
+    hitEnter(e, "newPass");
+  }
 
   // Simulate form validation
   document.getElementById("confirmAdd").onclick = function () {

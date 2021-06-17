@@ -41,35 +41,35 @@ def index():
     global tableName
     if request.method == "POST":
 
-        action = "nonenon"
-        if request.form.get("submit"):
-            action = request.form.get("submit")
-
-        # Changing username
-        if request.form.get("new-username"):
-            if len(db.execute("SELECT * FROM users WHERE username = ?;", request.form.get("new-username"))) == 0:
-                db.execute("UPDATE users SET username = ? WHERE id = ?;",
-                           request.form.get("new-username"), session["user_id"])
-            else:
-                return("TAKEN !!!")
-        # Changing password
-        elif request.form.get("password"):
-            db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(
-                request.form.get("password")), session["user_id"])
-
         # Reset questionbank
-        elif request.form.get("reset"):
+        if request.form.get("reset"):
             if request.form.get("reset") == "default":
                 create_questionbank(tableName)
             else:
                 db.execute("DELETE FROM ? WHERE id > 2", tableName)
-
+        
         else:
             fromJS = request.get_json()
             print(fromJS)
             action = fromJS['action']
 
-            if action == "delete":
+            # Changing username
+            if action == "newUsername":
+                newUsername = fromJS['data']
+                if len(db.execute("SELECT * FROM users WHERE username = ?;", newUsername)) == 0:
+                    db.execute("UPDATE users SET username = ? WHERE id = ?;",
+                            newUsername, session["user_id"])
+                else:
+                    return "existing"
+
+            # Changing password
+            elif action == "newPassword":
+                newPassword = fromJS['data']
+                db.execute("UPDATE users SET hash = ? WHERE id = ?;", generate_password_hash(
+                    newPassword), session["user_id"])
+                return "password changed!"
+
+            elif action == "delete":
                 toDel = list(map(int, fromJS['data'].split(",")))
                 for qID in toDel:
                     db.execute("DELETE FROM ? WHERE id = ?", tableName, qID)
@@ -92,7 +92,7 @@ def index():
                     d = ?
                     WHERE id = ?""", tableName, editQdict['question'], editQdict['answer'], editQdict['hint'], editQdict['a'], editQdict['b'], editQdict['c'], editQdict['d'], editQdict['id'])
 
-            return "post_request_received"
+            return "updated"
 
         return redirect("/")
 
@@ -104,8 +104,10 @@ def index():
             "SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
         allQuestions = db.execute(
             "SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
+        userName = db.execute(
+            "SELECT username FROM users WHERE id = ?", int(tableName[13:]))[0]["username"]
 
-        return render_template("index.html", theme=curTheme, hintMode=curHint, allQuestions=allQuestions)
+        return render_template("index.html", theme=curTheme, hintMode=curHint, allQuestions=allQuestions, userName=userName)
 
 # 5 questions quiz page
 
@@ -158,19 +160,23 @@ def login():
     session.clear()
 
     if request.method == "POST":
+        fromJS = request.get_json()
+        userName = fromJS['userName']
+        passWord = fromJS['passWord']
+
         rows = db.execute("SELECT * FROM users WHERE username = ?",
-                          request.form.get("username"))
+                        userName)
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return "invalid username and/or password"
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], passWord):
+            return "DNE"
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
         tableName = "question_bank" + str(session["user_id"])
 
         # Redirect logged in user to index.html
-        return redirect("/")
+        return "yes"
 
     else:
         return render_template("login.html")
@@ -179,27 +185,34 @@ def login():
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
     if request.method == "POST":
-        rows = db.execute("SELECT * FROM users WHERE username = ?",
-                          request.form.get("username"))
+        fromJS = request.get_json()
+        action = fromJS['action']
 
-        # Ensure username does not exist
-        if len(rows) != 0:
-            return "this username has already been taken"
+        if action == "username":
 
-        # Ensure passwords are the same
-        elif (request.form.get("password") != request.form.get("confirmation")):
-            return "passwords do not match"
+            newUsername = fromJS['data']
+
+            rows = db.execute("SELECT * FROM users WHERE username = ?",
+                            newUsername)
+
+            print(len(rows))
+
+            # Check if username is already taken
+            if len(rows) != 0:
+                return "existing"
+            else:
+                return "ok username!"
 
         # Add new user to database
-        db.execute("INSERT INTO users (username, hash) VALUES (?, ?);", request.form.get(
-            "username"), generate_password_hash(request.form.get("password"), method='pbkdf2:sha256', salt_length=8))
+        db.execute("INSERT INTO users (username, hash) VALUES (?, ?);",
+                            fromJS['userName'], generate_password_hash(fromJS['passWord'], method='pbkdf2:sha256', salt_length=8))
 
         id_num = db.execute("SELECT id FROM users where username = ?",
-                            request.form.get("username"))[0]["id"]
+                            fromJS['userName'])[0]["id"]
         table_name = "question_bank" + str(id_num)
         create_questionbank(table_name)
 
-        return render_template("login.html")
+        return "signed up!"
 
     else:
         return render_template("signup.html")

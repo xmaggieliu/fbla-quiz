@@ -14,15 +14,16 @@
             </h1>
             <!-- END OF SOURCE -->
         </div>
-        <form action="/login" method="post" id="adv-wrapper" class="lower">
+        <form id="adv-wrapper" class="lower">
             <div class="form-group">
-                <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
+                <input autocomplete="off" autofocus class="form-control" id="login-username" placeholder="Username" type="text">
             </div>
             <div class="form-group">
-                <input autocomplete="off" class="form-control" name="password" placeholder="Password" type="password">
+                <input autocomplete="off" class="form-control" id="login-password" placeholder="Password" type="password">
             </div>
-            <button class="btn btn-primary" type="submit">Log In</button>
+            <button class="btn btn-primary" type="button" id="log-in-btn">Log In</button>
         </form>
     </div>
     <script src="static/script.js"></script>
+    <script src="static/login.js"></script>
 {% endblock %}
