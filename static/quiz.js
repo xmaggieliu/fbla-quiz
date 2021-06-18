@@ -5,6 +5,11 @@ window.onbeforeunload = function () {
     return 'Are you sure you want to leave?';
 };
 
+// Allow auto submit without leaving page alert
+$(document).on("submit", "form", function() {
+    window.onbeforeunload = null;
+});
+
 // Add content to quiz page //
 
 var storedHint = sessionStorage.getItem('hint-mode');
@@ -126,7 +131,7 @@ for (var i = 1; i <= 5; i++) {
 // Add submit button
 document.getElementById("quiz_form").innerHTML += `
     <div class="general">
-        <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+        <button class="btn btn-primary" type="submit">Submit</button>
     </div>
 `;
 

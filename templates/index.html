@@ -163,12 +163,10 @@
                 </div>
                 <div class="modes">
                     <p class="adv-setting-text">Change username</p>
-                    <div class="form-inline">
-                        <div class="form-group mx-sm-3 mb-2">
-                            <input type="text" class="form-control" value={{ userName }} id="new-username" placeholder="New username" autocomplete="off" required>
-                        </div>
-                        <button class="btn btn-primary" id="newUser">Change</button>
+                    <div class="form-group mx-sm-3 mb-2 new-pw">
+                        <input type="text" class="form-control" id="new-username" placeholder={{ userName }} autocomplete="off" required>
                     </div>
+                    <button class="btn btn-primary" id="newUser">Change</button>
                 </div>
                 <div class="modes">
                     <p class="adv-setting-text">Change password</p>
@@ -188,11 +186,11 @@
                     <p class="settings-sub">QUESTION BANK</p>
                 </div>
                 <div id="centered-btns">
-                    <button class="btn btn-info info" type="button" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">View Current</button>
-                    <button class="btn btn-secondary info" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button> <!-- data-toggle="collapse" data-target="#toggleCollapse1" aria-expanded="false" aria-controls="toggleCollapse1" -->
+                    <button class="btn btn-info info" type="button" id="qbank-btn" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">Collapse Current</button>
+                    <button class="btn btn-secondary info" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
                     <button class="btn btn-danger info" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
                 </div>
-                <div id="toggleCollapse2" class="collapse">
+                <div id="toggleCollapse2" class="collapse show">
                     <div id="qBankTitle">
                         <h3>Question Bank</h3>
                         <div>

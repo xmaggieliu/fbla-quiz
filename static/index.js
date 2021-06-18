@@ -644,4 +644,13 @@ document.addEventListener('DOMContentLoaded', function () {
     checkSort("Question")
   };
 
+  document.getElementById("qbank-btn").onclick = function () {
+    if (document.getElementById("toggleCollapse2").classList.contains("show")) {
+      document.getElementById("qbank-btn").innerHTML = "View Current";
+    }
+    else {
+      document.getElementById("qbank-btn").innerHTML = "Collapse Current";
+    }
+  }
+
 });

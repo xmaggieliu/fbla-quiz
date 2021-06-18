@@ -70,6 +70,14 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     display: inline;
 }
 
+.manual-heading {
+    font-weight: 900;
+    font-family: "Abel", sans-serif;
+    color: #0c001a;
+    text-decoration: underline;
+    text-decoration-color: #0c001a;
+}
+
 /* in register and login page */
 .lower {
     margin-top: 2em;
@@ -93,6 +101,10 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.dropdown {
+    cursor: pointer;
 }
 
 /*          yes or no hint button          */
@@ -507,6 +519,7 @@ p {
 
 .p-beside-bubbles {
     padding-left: 15px;
+    cursor: pointer;
 }
 
 .choice-viewable > label{
