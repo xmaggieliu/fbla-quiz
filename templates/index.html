@@ -128,7 +128,7 @@
         </div>
         <div id="home-choose-next">
             <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
-            <button type="button" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
+            <button type="button" id="adv-settings-btn" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
             <button type="button" class="btn btn-primary info" onClick="location.href='/quiz'">Start</button>
             <!-- del class start -->
         </div>
@@ -202,7 +202,7 @@
                             </select>
                         </div>
                     </div>
-                    <div id="qBankTable">
+                    <div id="qBankTable" class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>

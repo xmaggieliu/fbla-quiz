@@ -275,6 +275,10 @@ hr {
     margin-top: 1.2em;
 }
 
+.table {
+	margin-bottom: 0;
+}
+
 #qBankTitle {
     display: flex;
     justify-content: space-between;

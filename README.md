@@ -10,7 +10,7 @@ Flask web app that randomly generates a 5-question quiz from a SQLite database.
 5. Username and password can be changed
 
 ## References + Works Cited
-DOCUMENTATIONS/GENERAL RESOURCES VISITED/USED
+GENERAL RESOURCES / DOCUMENTATIONS
 - CS50x: https://cs50.harvard.edu/x/2021/weeks/9/
 - Web: https://developer.mozilla.org/en-US/docs/Web
 - Bootstrap: https://getbootstrap.com/docs/4.3/components/

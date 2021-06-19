@@ -385,10 +385,6 @@ function makeTable() {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-
-  // Make table for the first time
-  makeTable();
-
   // Make currently visited page into set modes //
   var storedTheme = sessionStorage.getItem('theme') || curTheme || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
   // ^ Line Above ^ ------- SOURCE: https://lukelowrey.com/css-variable-theme-switcher/
@@ -406,6 +402,10 @@ document.addEventListener('DOMContentLoaded', function () {
   if (storedHint === "no-hint") {
     document.querySelectorAll('.ball')[1].style.transform = 'translateX(24px)';
   }
+
+  // Make table for the first time
+  makeTable();
+
 
   // SWITCH MODES /////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Switch mode - theme //
