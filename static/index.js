@@ -4,6 +4,10 @@ function hitEnter(e, btnID) {
   }
 }
 
+function hasWhiteSpace(s) {
+  return s.indexOf(' ') >= 0;
+}
+
 
 // ADD QUESTIONS /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -59,7 +63,8 @@ function addingQType(e) {
   // Update addQuestion object to temporarily store all inputs
   document.querySelectorAll('.toAdd').forEach(addSect => {
     addSect.onkeyup = function (e) {
-      addQuestion[e.target.name] = e.target.value;
+      addQuestion[e.target.name] = e.target.value.trim();
+      console.log(addQuestion[e.target.name])
       hitEnter(e, "confirmAdd");
     }
     addSect.onclick = function (e) {
@@ -70,8 +75,8 @@ function addingQType(e) {
 };
 
 // Confirmation text for adding questions 
-function confirmAddText() {
-  $("#fading-text").fadeIn('fast').delay(1500).fadeOut('fast');
+function confirmAddText(textID) {
+  $(`${textID}`).fadeIn('fast').delay(1500).fadeOut('fast');
 }
 
 // EDIT QUESTIONS   /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -168,7 +173,7 @@ function editQs(e) {
     }
     editSect.onkeyup = function (e) {
       e = e || window.event;
-      editQuestion[e.target.name] = e.target.value;
+      editQuestion[e.target.name] = e.target.value.trim();
       hitEnter(e, "confirmSave");
     }
   });
@@ -469,7 +474,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   document.getElementById("newUser").onclick = function () {
-    var newUser = document.getElementById("new-username").value;
+    var userElem = document.getElementById("new-username");
+    var newUser = userElem.value.trim();
+    if (hasWhiteSpace(newUser)) {
+      userElem.setCustomValidity("Username cannot contain spaces");
+      userElem.reportValidity();
+      return;
+    }
     fetch("/", {
         method: "POST",
         headers: {
@@ -482,9 +493,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }).then(data => data.text()).then(text => {
       console.log(text);
       if (text === "existing") {
-        document.getElementById("new-username").setCustomValidity("Username has already been taken");
-        document.getElementById("new-username").reportValidity();
+        userElem.setCustomValidity("Username has already been taken");
+        userElem.reportValidity();
         return;
+      }
+      else {
+        userElem.placeholder = newUser;
+        userElem.value = "";
+        confirmAddText("#fading-text-user");
       }
     });
   };
@@ -495,6 +511,13 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById("newPass").onclick = function () {
     var password = document.getElementById("new-password").value;
     var confirmation = document.getElementById("new-confirmation").value;
+    if (hasWhiteSpace(password)) {
+      document.getElementById("new-password").setCustomValidity("Password cannot contain spaces");
+      document.getElementById("new-password").reportValidity();
+      document.getElementById("new-password").value = "";
+      document.getElementById("new-confirmation").value = "";
+      return;
+    }
     if (password === confirmation) {
       fetch("/", {
         method: "POST",
@@ -508,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }).then(data => data.text()).then(text => console.log(text));
       document.getElementById("new-password").value = "";
       document.getElementById("new-confirmation").value = "";
-      $("#fading-text-pw").fadeIn('fast').delay(1500).fadeOut('fast');
+      confirmAddText("#fading-text-pw");
     }
     else {
       document.getElementById("new-confirmation").setCustomValidity("Passwords are not the same");
@@ -602,7 +625,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById("dependent").innerHTML = "";
 
     // Show user confirmation 
-    confirmAddText();
+    confirmAddText("#fading-text-addQ");
   }
 
   document.getElementById("question_type").onclick = function (e) {

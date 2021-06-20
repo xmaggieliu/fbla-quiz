@@ -386,6 +386,10 @@ hr {
     justify-content: space-between;
 }
 
+#date {
+    text-align: center;
+}
+
 #input-name {
     margin-left: 10px;
 }

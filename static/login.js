@@ -13,8 +13,11 @@ document.getElementById("log-in-btn").onclick = function () {
     }).then(data => data.text()).then(text => {
         if (text === "DNE") {
             console.log("smt wrong")
+            document.getElementById("login-username").value = "";
+            document.getElementById("login-password").value = "";
             document.getElementById("login-password").setCustomValidity("Incorrect username or password");
             document.getElementById("login-password").reportValidity();
+            
             return;
         }
         else {

@@ -152,7 +152,7 @@ var score_to_html = `
         <label for="input-name">NAME${colon}</label>
         <input type="nameInput" id="input-name" class="form-control">
     </div>
-    <p>DATE: ${today}</p>
+    <p id="date">DATE: ${today}</p>
 `;
 document.getElementById("results").innerHTML += score_to_html;
 
