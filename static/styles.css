@@ -186,15 +186,16 @@ hr {
 * { color:#002955; text-decoration: none;}
 /* -------------------------------------------------- END OF SOURCE */
 
-#home-choose-next {
-    margin-top: 2em;
+#center-div {
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    margin-bottom: 16px;
 }
 
-#centered-btns {
+#home-choose-next {
+    margin-top: 2em;
+}
+
+.group-btns {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -226,8 +227,7 @@ hr {
 }
 
 .info {
-    margin-right: 1em;
-    margin-left: 1em;
+    margin: 0.25em 1em;
     color: #fff6fa;
 }
 
@@ -261,10 +261,6 @@ hr {
     cursor: pointer;
 }
 
-.table-striped {
-    background-color: white;
-}
-
 #toggleCollapse2 {
     margin-top: 16px;
     width: 90%;
@@ -275,8 +271,18 @@ hr {
     margin-top: 1.2em;
 }
 
+#scroll1, #scroll2 {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+} 
+
+#scroll1 div {
+    height: 1px;
+}
+
 .table {
 	margin-bottom: 0;
+    background-color: white;
 }
 
 #qBankTitle {
@@ -503,6 +509,9 @@ p {
     }
     .in-quiz {
         margin-top: 1em;
+    }
+    .group-btns {
+        flex-direction: column-reverse;
     }
 }
 

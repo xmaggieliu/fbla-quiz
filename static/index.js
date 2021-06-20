@@ -406,6 +406,22 @@ document.addEventListener('DOMContentLoaded', function () {
   // Make table for the first time
   makeTable();
 
+  // Top & bottom horizontal scrollbar for qbank table 
+  document.getElementById("adv-settings-btn").addEventListener("click", () => {
+    $('#adv-settings').on('shown.bs.collapse', function() {
+      console.log("shown");
+      console.log($("#tableQbank").width());
+      $("#scroll1 div").width($("#tableQbank").width());
+      
+      $("#scroll1").on("scroll", function(){
+          $("#scroll2").scrollLeft($(this).scrollLeft()); 
+      });
+      $("#scroll2").on("scroll", function(){
+          $("#scroll1").scrollLeft($(this).scrollLeft()); 
+      });
+    })
+  })
+
 
   // SWITCH MODES /////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Switch mode - theme //

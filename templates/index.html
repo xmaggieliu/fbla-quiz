@@ -126,11 +126,12 @@
             </h1>
             <!-- END OF SOURCE -->
         </div>
-        <div id="home-choose-next">
-            <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
-            <button type="button" id="adv-settings-btn" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
-            <button type="button" class="btn btn-primary info" onClick="location.href='/quiz'">Start</button>
-            <!-- del class start -->
+        <div id="center-div">
+            <div id="home-choose-next" class="group-btns">
+                <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
+                <button type="button" id="adv-settings-btn" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
+                <button type="button" class="btn btn-primary info" onClick="location.href='/quiz'">Start</button>
+            </div>
         </div>
         <div id="adv-settings" class="collapse">
             <div id="adv-wrapper">
@@ -185,7 +186,7 @@
                     <hr>
                     <p class="settings-sub">QUESTION BANK</p>
                 </div>
-                <div id="centered-btns">
+                <div id="centered-btns" class="group-btns">
                     <button class="btn btn-info info" type="button" id="qbank-btn" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">Collapse Current</button>
                     <button class="btn btn-secondary info" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
                     <button class="btn btn-danger info" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
@@ -202,26 +203,31 @@
                             </select>
                         </div>
                     </div>
-                    <div id="qBankTable" class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
-                                    <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
-                                    <th scope="col">Answer</th>
-                                    <th scope="col">Hint</th>
-                                    <th scope="col">Option 1</th>
-                                    <th scope="col">Option 2</th>
-                                    <th scope="col">Option 3</th>
-                                    <th scope="col">Option 4</th>
-                                    <th scope="col"></th>
-                                    <th scope="col">DEL</th>
-                                    <th scope="col">SEL</th>
-                                </tr>
-                            </thead>
-                            <tbody id="qBankBody">
-                            </tbody>
-                        </table>
+                    <div id="qBankTable">
+                        <div id="scroll1">
+                            <div></div>
+                        </div> <!-- class="table-responsive" -->
+                        <div id="scroll2">
+                            <table class="table table-striped" id="tableQbank">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
+                                        <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
+                                        <th scope="col">Answer</th>
+                                        <th scope="col">Hint</th>
+                                        <th scope="col">Option 1</th>
+                                        <th scope="col">Option 2</th>
+                                        <th scope="col">Option 3</th>
+                                        <th scope="col">Option 4</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">DEL</th>
+                                        <th scope="col">SEL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="qBankBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
