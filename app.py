@@ -56,7 +56,11 @@ def index():
             # Changing username
             if action == "newUsername":
                 newUsername = fromJS['data']
-                if len(db.execute("SELECT * FROM users WHERE username = ?;", newUsername)) == 0:
+                if newUsername == "":
+                    return "noUser"
+                elif " " in newUsername:
+                    return "blank"
+                elif len(db.execute("SELECT * FROM users WHERE username = ?;", newUsername)) == 0:
                     db.execute("UPDATE users SET username = ? WHERE id = ?;",
                             newUsername, session["user_id"])
                 else:
@@ -190,7 +194,10 @@ def signup():
 
         if action == "username":
 
-            newUsername = fromJS['data']
+            newUsername = fromJS['data'].strip()
+
+            if newUsername.isspace() or newUsername == "":
+                return "blank"
 
             rows = db.execute("SELECT * FROM users WHERE username = ?",
                             newUsername)
@@ -204,6 +211,18 @@ def signup():
                 return "ok username!"
 
         # Add new user to database
+        passWord = fromJS['passWord']
+        pwConfirmation = fromJS['confirmationPW']
+
+        if passWord == "":
+            return "noPassword"
+        elif pwConfirmation == "":
+            return "noConfirmation"
+        elif passWord.isspace() or pwConfirmation.isspace() or " " in passWord:
+            return "blank"
+        elif passWord != pwConfirmation:
+            return "differentPw"
+
         db.execute("INSERT INTO users (username, hash) VALUES (?, ?);",
                             fromJS['userName'], generate_password_hash(fromJS['passWord'], method='pbkdf2:sha256', salt_length=8))
 

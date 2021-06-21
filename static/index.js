@@ -414,10 +414,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Top & bottom horizontal scrollbar for qbank table 
   document.getElementById("adv-settings-btn").addEventListener("click", () => {
     $('#adv-settings').on('shown.bs.collapse', function() {
-      console.log("shown");
-      console.log($("#tableQbank").width());
       $("#scroll1 div").width($("#tableQbank").width());
-      
       $("#scroll1").on("scroll", function(){
           $("#scroll2").scrollLeft($(this).scrollLeft()); 
       });
@@ -475,12 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById("newUser").onclick = function () {
     var userElem = document.getElementById("new-username");
-    var newUser = userElem.value.trim();
-    if (hasWhiteSpace(newUser)) {
-      userElem.setCustomValidity("Username cannot contain spaces");
-      userElem.reportValidity();
-      return;
-    }
+    var newUser = userElem.value;
     fetch("/", {
         method: "POST",
         headers: {
@@ -492,7 +484,16 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }).then(data => data.text()).then(text => {
       console.log(text);
-      if (text === "existing") {
+      if (text == "blank") {
+        userElem.setCustomValidity("Username cannot contain spaces");
+        userElem.reportValidity();
+        return;
+      }
+      else if (text == "noUser") {
+        userElem.reportValidity();
+        return;
+      }
+      else if (text === "existing") {
         userElem.setCustomValidity("Username has already been taken");
         userElem.reportValidity();
         return;
@@ -516,6 +517,10 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById("new-password").reportValidity();
       document.getElementById("new-password").value = "";
       document.getElementById("new-confirmation").value = "";
+      return;
+    }
+    else if (password === "") {
+      document.getElementById("new-password").reportValidity();
       return;
     }
     if (password === confirmation) {
