@@ -50,14 +50,14 @@ def create_questionbank(id_table):
     except:
         pass
     
-
-# Create a list of 5 random questions and their info
-quiz_questions = []
-
+# Returns a list of 5 random questions and their info
 def get_questions(table_name, idList):
+    quiz_questions = []
+
     # Loop through 5 unique int from array of id numbers (idList)
     for q_id in random.sample(idList, 5): 
         quiz_questions.append(db.execute("SELECT * FROM ? where id = (?);", table_name, q_id)[0])
+
     return quiz_questions
 
 
