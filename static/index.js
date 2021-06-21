@@ -1,11 +1,21 @@
-function hitEnter(e, btnID) {
+function hitEnter (e, btnID) {
   if (e.code === 'Enter') {
     document.getElementById(`${btnID}`).click();
   }
 }
 
-function hasWhiteSpace(s) {
+function hasWhiteSpace (s) {
   return s.indexOf(' ') >= 0;
+}
+
+function doubleHorizontalBars () {
+  $("#scroll1 div").width($("#tableQbank").width());
+  $("#scroll1").on("scroll", function(){
+      $("#scroll2").scrollLeft($(this).scrollLeft()); 
+  });
+  $("#scroll2").on("scroll", function(){
+      $("#scroll1").scrollLeft($(this).scrollLeft()); 
+  });
 }
 
 
@@ -387,6 +397,7 @@ function makeTable() {
     `;
   }
   document.getElementById("qBankBody").innerHTML = to_table_html;
+  doubleHorizontalBars();
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -414,13 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Top & bottom horizontal scrollbar for qbank table 
   document.getElementById("adv-settings-btn").addEventListener("click", () => {
     $('#adv-settings').on('shown.bs.collapse', function() {
-      $("#scroll1 div").width($("#tableQbank").width());
-      $("#scroll1").on("scroll", function(){
-          $("#scroll2").scrollLeft($(this).scrollLeft()); 
-      });
-      $("#scroll2").on("scroll", function(){
-          $("#scroll1").scrollLeft($(this).scrollLeft()); 
-      });
+      doubleHorizontalBars();
     })
   })
 
