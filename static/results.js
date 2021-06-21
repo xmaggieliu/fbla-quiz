@@ -5,17 +5,17 @@ var colon = ":";
 
 // Loop through questions dictionary and add HTML based off of form inputs
 for (var i = 1; i <= 5; i++) {
-    var question_type = questions[i]["question_type"];
+    var question_type = questions[i - 1]["question_type"];
     to_html = ``;
     if (question_type === "Multiple Choice") {
-        if (formResults[i - 1] === questions[i]["answer"]) {
+        if (formResults[i - 1] === questions[i - 1]["answer"]) {
             to_html = `
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-check-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Your answer: ${[questions[i]["answer"]]}</p>
+                <p>Your answer: ${[questions[i - 1]["answer"]]}</p>
             </div>
             `;
         }
@@ -25,23 +25,23 @@ for (var i = 1; i <= 5; i++) {
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-times-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Correct answer: ${questions[i]["answer"]}</p>
+                <p>Correct answer: ${questions[i - 1]["answer"]}</p>
                 <p>Your answer: ${formResults[i - 1]}</p>
             </div>
             `;
         };
     }
     else if (question_type == "True and False") {
-        if (formResults[i - 1] == questions[i]["answer"]) {
+        if (formResults[i - 1] == questions[i - 1]["answer"]) {
             to_html = `
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-check-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Your answer: ${questions[i]["answer"]}</p>
+                <p>Your answer: ${questions[i - 1]["answer"]}</p>
             </div>
             `;
         }
@@ -51,22 +51,22 @@ for (var i = 1; i <= 5; i++) {
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-times-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Correct answer: ${questions[i]["answer"]}</p>
+                <p>Correct answer: ${questions[i - 1]["answer"]}</p>
             </div>
             `;
         };
     }
     else if (question_type == "Dropdown") {
-        if (formResults[i - 1] === questions[i]["answer"]) {
+        if (formResults[i - 1] === questions[i - 1]["answer"]) {
             to_html = `
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-check-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Your answer: ${questions[i]["answer"]}</p>
+                <p>Your answer: ${questions[i - 1]["answer"]}</p>
             </div>
             `;
         }
@@ -76,9 +76,9 @@ for (var i = 1; i <= 5; i++) {
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-times-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Correct answer: ${questions[i]["answer"]}</p>
+                <p>Correct answer: ${questions[i - 1]["answer"]}</p>
                 <p>Your answer: ${formResults[i - 1]}</p>
             </div>
             `;
@@ -86,14 +86,14 @@ for (var i = 1; i <= 5; i++) {
     }
     else if (question_type == "Fill In The Blank") {
         res = formResults[i - 1].trim().toLowerCase();
-        if (res === questions[i]["answer"].toLowerCase()) {
+        if (res === questions[i - 1]["answer"].toLowerCase()) {
             to_html = `
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-check-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Your answer: ${questions[i]["answer"]}</p>
+                <p>Your answer: ${questions[i - 1]["answer"]}</p>
             `;
         }
         else {
@@ -102,16 +102,16 @@ for (var i = 1; i <= 5; i++) {
             <div class="question">
                 <div class="q-in-results">
                     <i class="fa fa-times-circle fa-2x"></i>
-                    <p>${i}. ${questions[i]["question"]}</p>
+                    <p>${i}. ${questions[i - 1]["question"]}</p>
                 </div>
-                <p>Correct answer: ${questions[i]["answer"]}</p>
+                <p>Correct answer: ${questions[i - 1]["answer"]}</p>
                 <p>Your answer: ${formResults[i - 1]}</p>
             `;
         };
         if (hintsUsed.includes(i)) {
             totalScore -= 1;
             to_html += `
-                <button type="button" class="btn btn-light hint-result">Hint used: ${questions[i]["hint"]}</button>
+                <button type="button" class="btn btn-light hint-result">Hint used: ${questions[i - 1]["hint"]}</button>
             `;
         }
         to_html += `</div>`;

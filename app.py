@@ -7,7 +7,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import json
 
 app = Flask(__name__)
-questions = {}
+questions = []
 tableName = ""
 
 # Connect to database
@@ -106,6 +106,8 @@ def index():
             "SELECT answer FROM ? WHERE question = 'theme';", tableName)[0]["answer"]
         curHint = db.execute(
             "SELECT answer FROM ? WHERE question = 'hint-mode';", tableName)[0]["answer"]
+
+        # id = 1 and id = 2 are reserved for theme and hint mode
         allQuestions = db.execute(
             "SELECT * FROM ? WHERE id > 2 ORDER BY id DESC;", tableName)
         userName = db.execute(
@@ -124,8 +126,8 @@ def quiz():
     id_nums = db.execute("SELECT id FROM ? WHERE id > 2", tableName)
     id_nums = [row['id'] for row in id_nums]
     questions = get_questions(tableName, id_nums)
-    new_dict = {k: {kk: questions[k][kk] for kk in questions[k].keys(
-    ) - {'answer'}} for k in questions.keys()}
+    new_dict = [{ii: questions[i][ii] for ii in questions[i].keys(
+    ) - {'answer'}} for i in range(5)]
 
     return render_template("quiz.html", questions=new_dict)
 

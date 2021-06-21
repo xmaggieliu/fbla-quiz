@@ -14,39 +14,39 @@ var storedHint = sessionStorage.getItem('hint-mode');
 // Loops through questions dictionary and add HTML depending on question type
 for (var i = 1; i <= 5; i++) {
 
-    var question_type = questions[i]["question_type"];
+    var question_type = questions[i - 1]["question_type"];
     to_html = ``;
 
     if (question_type == "Multiple Choice") {
         to_html = `
             <fieldset class="question" id="group${i}">
-                <p>${i}. ${questions[i]["question"]}</p>
+                <p>${i}. ${questions[i - 1]["question"]}</p>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["a"]}" autocomplete="off" required>
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i - 1]["a"]}" autocomplete="off" required>
                     <div class="choice-viewable">
                         <label class="btn btn-outline-primary blue" for="a">A</label>
-                        <p class="p-beside-bubbles">${questions[i]["a"]}</p>
+                        <p class="p-beside-bubbles">${questions[i - 1]["a"]}</p>
                     </div>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["b"]}" autocomplete="off">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i - 1]["b"]}" autocomplete="off">
                     <div class="choice-viewable">
                         <label class="btn btn-outline-primary violet" for="b">B</label>
-                        <p class="p-beside-bubbles">${questions[i]["b"]}</p>
+                        <p class="p-beside-bubbles">${questions[i - 1]["b"]}</p>
                     </div>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["c"]}" autocomplete="off">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i - 1]["c"]}" autocomplete="off">
                     <div class="choice-viewable">
                         <label class="btn btn-outline-primary pink" for="c">C</label>
-                        <p class="p-beside-bubbles">${questions[i]["c"]}</p>
+                        <p class="p-beside-bubbles">${questions[i - 1]["c"]}</p>
                     </div>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i]["d"]}" autocomplete="off">
+                    <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="${questions[i - 1]["d"]}" autocomplete="off">
                     <div class="choice-viewable">
                         <label class="btn btn-outline-primary orange" for="d">D</label>
-                        <p class="p-beside-bubbles">${questions[i]["d"]}</p>
+                        <p class="p-beside-bubbles">${questions[i - 1]["d"]}</p>
                     </div>
                 </div>
             </fieldset>
@@ -55,7 +55,7 @@ for (var i = 1; i <= 5; i++) {
     else if (question_type == "True and False") {
         to_html = ` 
             <fieldset class="question" id="group${i}">
-                <p>${i}. ${questions[i]["question"]}</p>
+                <p>${i}. ${questions[i - 1]["question"]}</p>
                 <div class="form-check">
                     <input type="radio" class="form-check-input quizRadio" name="answer${i}" value="TRUE" autocomplete="off" required>
                     <div class="choice-viewable">
@@ -74,14 +74,14 @@ for (var i = 1; i <= 5; i++) {
     else if (question_type == "Dropdown") {
         to_html = `
             <fieldset class="question" id="group${i}">
-                <p>${i}. ${questions[i]["question"]}</p>
+                <p>${i}. ${questions[i - 1]["question"]}</p>
                 <div class="form-group col-md-3">
                     <select name="answer${i}" class="form-control dropdown" required>
                         <option disabled selected value="">Choose...</option>
-                        <option class="dropdown" value="${questions[i]["a"]}">${questions[i]["a"]}</option>
-                        <option class="dropdown" value="${questions[i]["b"]}">${questions[i]["b"]}</option>
-                        <option class="dropdown" value="${questions[i]["c"]}">${questions[i]["c"]}</option>
-                        <option class="dropdown" value="${questions[i]["d"]}">${questions[i]["d"]}</option>
+                        <option class="dropdown" value="${questions[i - 1]["a"]}">${questions[i - 1]["a"]}</option>
+                        <option class="dropdown" value="${questions[i - 1]["b"]}">${questions[i - 1]["b"]}</option>
+                        <option class="dropdown" value="${questions[i - 1]["c"]}">${questions[i - 1]["c"]}</option>
+                        <option class="dropdown" value="${questions[i - 1]["d"]}">${questions[i - 1]["d"]}</option>
                 </div>
             </fieldset>
             `;
@@ -89,13 +89,13 @@ for (var i = 1; i <= 5; i++) {
     else if (question_type == "Fill In The Blank") {
         to_html = `
             <fieldset class="question" id="group${i}">
-                <p>${i}. ${questions[i]["question"]}</p>
+                <p>${i}. ${questions[i - 1]["question"]}</p>
                 <div class="form-group col-md-3">
                     <input name="answer${i}" class="form-control" placeholder="Type..." type="text" autocomplete="off" required>
                 </div>
         `;
 
-        var hint = questions[i]["hint"];
+        var hint = questions[i - 1]["hint"];
 
         // If hint exists and is wanted:
         if (hint.length > 0 && storedHint !== "no-hint") {
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
         hintButton.style.display = "none";
 
         fieldSet.querySelectorAll(".hint")[0].innerHTML += `
-            <p class="hint-p">HINT: ${questions[i]["hint"]}</p>
+            <p class="hint-p">HINT: ${questions[i - 1]["hint"]}</p>
         `;
 
         var hintToForm = document.getElementsByName(`hint${qNum}`)[0];
