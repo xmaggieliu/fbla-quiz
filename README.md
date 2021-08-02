@@ -1,9 +1,9 @@
 # FBLA NLC 2021 - Coding and Programming Submission
-Flask web app that randomly generates a 5-question quiz from a SQLite database.
+Flask web app that generates a random 5-question quiz from a SQLite database.
 
 ## Features
 1. 60 default questions (15 each of multiple choice, true and false, dropdown, and fill-in-the-blank)
-2. Questions can be added, editted, or removed from user database
+2. Mutable question bank for each user
 2. Hints (with confirmation alert + disable option)
 3. Dark mode (toggleable)
 4. Printable report in white background
