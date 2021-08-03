@@ -119,13 +119,13 @@
     <div id="index-bg">
         <div class="page-content">
             <div class="quiz-title">
-            <!-- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ -->
-            <h1>
-                <a href="" class="typewrite" data-period="2000" data-type='["FBLA Quiz", "5 Questions"]'>
-                    <span class="wrap"></span>
-                </a>
-            </h1>
-            <!-- END OF SOURCE -->
+                <!-- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ -->
+                <h1>
+                    <a href="" class="typewrite" data-period="2000" data-type='["FBLA Quiz", "5 Questions"]'>
+                        <span class="wrap"></span>
+                    </a>
+                </h1>
+                <!-- END OF SOURCE -->
             </div>
             <div id="center-div">
                 <div id="home-choose-next" class="group-btns">
@@ -190,8 +190,8 @@
                     </div>
                     <div id="centered-btns" class="group-btns">
                         <button class="btn btn-info info" type="button" id="qbank-btn" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">Collapse Current</button>
-                        <button class="btn btn-secondary info quiz-mode" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
-                        <button class="btn btn-danger info quiz-mode" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
+                        <button class="btn btn-secondary info" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
+                        <button class="btn btn-danger info" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
                     </div>
                     <div id="toggleCollapse2" class="collapse show">
                         <div id="qBankTitle">
@@ -221,10 +221,9 @@
                                             <th scope="col">Option 2</th>
                                             <th scope="col">Option 3</th>
                                             <th scope="col">Option 4</th>
-                                            <th scope="col" class="quiz-mode"></th>
-                                            <th scope="col" class="quiz-mode">DEL</th>
-                                            <th scope="col" class="quiz-mode">SEL</th>
-                                            <th scope="col" class="card-mode">Level of Comfort</th>
+                                            <th scope="col"></th>
+                                            <th scope="col">DEL</th>
+                                            <th scope="col">SEL</th>
                                         </tr>
                                     </thead>
                                     <tbody id="qBankBody">
@@ -241,4 +240,6 @@
             <p class="text-center">&copy; Maggie Liu 2021</p>
         </footer>
     </div>
+    
+    <script src="static/script.js"></script>
 {% endblock %}
