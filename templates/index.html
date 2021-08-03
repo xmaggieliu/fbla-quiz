@@ -117,7 +117,8 @@
         </div>
     </div>
     <div id="index-bg">
-        <div class="quiz-title">
+        <div class="page-content">
+            <div class="quiz-title">
             <!-- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ -->
             <h1>
                 <a href="" class="typewrite" data-period="2000" data-type='["FBLA Quiz", "5 Questions"]'>
@@ -125,115 +126,119 @@
                 </a>
             </h1>
             <!-- END OF SOURCE -->
-        </div>
-        <div id="center-div">
-            <div id="home-choose-next" class="group-btns">
-                <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
-                <button type="button" id="adv-settings-btn" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
-                <button type="button" class="btn btn-primary info" onClick="location.href='/quiz'">Start</button>
             </div>
-        </div>
-        <div id="adv-settings" class="collapse">
-            <div id="adv-wrapper">
-                <div class="setting-section">
-                    <hr>
-                    <p class="settings-sub">MODES</p>
-                </div>
-                <div id="bg-mode" class="modes">
-                    <p class="adv-setting-text">Dark mode</p>
-                    <!-- SOURCE: https://codepen.io/FlorinPop17/pen/XWWZYYG -->
-                    <div class="label">
-                        <i class="fa fa-sun-o"></i>
-                        <i class="fa fa-moon-o"></i>
-                        <div class="ball"></div>
-                    </div>
-                    <!-- END OF SOURCE -->
-                </div>
-                <div class="modes">
-                    <p class="adv-setting-text">Disable hint</p>
-                    <input type="checkbox" class="checkbox" id="chk" />
-                    <label class="label" for="chk">
-                        <i class="fa fa-lightbulb-o on" aria-hidden="true"></i>
-                        <i class="fa fa-lightbulb-o off" aria-hidden="true"></i>
-                        <div class="ball"></div>
-                    </label>
-                </div>
-                <div class="setting-section">
-                    <hr>
-                    <p class="settings-sub">ACCOUNT</p>
-                </div>
-                <div class="modes">
-                    <p class="adv-setting-text">Change username</p>
-                    <div class="form-group mx-sm-3 mb-2 new-pw">
-                        <input type="text" class="form-control" id="new-username" placeholder={{ userName }} autocomplete="off" required>
-                    </div>
-                    <p id="fading-text-user" class="confirmation-text">Changed!</p>
-                    <button class="btn btn-primary" id="newUser">Change</button>
-                </div>
-                <div class="modes">
-                    <p class="adv-setting-text">Change password</p>
-                    <form>
-                        <div class="form-group mx-sm-3 mb-2 new-pw">
-                            <input type="password" class="form-control" id="new-password" placeholder="New password" autocomplete="off" required>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2 new-pw">
-                            <input type="password" class="form-control" id="new-confirmation" placeholder="Confirm new password" autocomplete="off" required>
-                        </div>
-                    </form>
-                    <p id="fading-text-pw" class="confirmation-text">Changed!</p>
-                    <button class="btn btn-primary" id="newPass">Change</button>
-                </div>
-                <div class="setting-section">
-                    <hr>
-                    <p class="settings-sub">QUESTION BANK</p>
-                </div>
-                <div id="centered-btns" class="group-btns">
-                    <button class="btn btn-info info" type="button" id="qbank-btn" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">Collapse Current</button>
-                    <button class="btn btn-secondary info" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
-                    <button class="btn btn-danger info" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
-                </div>
-                <div id="toggleCollapse2" class="collapse show">
-                    <div id="qBankTitle">
-                        <h3>Question Bank</h3>
-                        <div>
-                            <p class="settings-sub">SORT BY:</p>
-                            <select name="sort" id="sorting">
-                                <option class="sort-opt" value="Date Added">Date Added</option>
-                                <option class="sort-opt" value="Type">Type</option>
-                                <option class="sort-opt" value="Question">Question</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div id="qBankTable">
-                        <div id="scroll1">
-                            <div></div>
-                        </div>
-                        <div id="scroll2">
-                            <table class="table table-striped" id="tableQbank">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
-                                        <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
-                                        <th scope="col">Answer</th>
-                                        <th scope="col">Hint</th>
-                                        <th scope="col">Option 1</th>
-                                        <th scope="col">Option 2</th>
-                                        <th scope="col">Option 3</th>
-                                        <th scope="col">Option 4</th>
-                                        <th scope="col"></th>
-                                        <th scope="col">DEL</th>
-                                        <th scope="col">SEL</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="qBankBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div id="center-div">
+                <div id="home-choose-next" class="group-btns">
+                    <button type="button" class="btn btn-info info" data-toggle="modal" data-target="#quiz-instructions">User Manual</button> 
+                    <button type="button" id="adv-settings-btn" class="btn btn-secondary info" data-toggle="collapse" data-target="#adv-settings" aria-expanded="false" aria-controls="adv-settings">Advanced Settings</button>
+                    <button type="button" class="btn btn-primary info" onClick="location.href='/quiz'">Start</button>
                 </div>
             </div>
+            <div id="adv-settings" class="collapse">
+                <div id="adv-wrapper">
+                    <div class="setting-section">
+                        <hr>
+                        <p class="settings-sub">MODES</p>
+                    </div>
+                    <div id="bg-mode" class="modes">
+                        <p class="adv-setting-text">Dark mode</p>
+                        <!-- SOURCE: https://codepen.io/FlorinPop17/pen/XWWZYYG -->
+                        <div class="label">
+                            <i class="fa fa-sun-o"></i>
+                            <i class="fa fa-moon-o"></i>
+                            <div class="ball"></div>
+                        </div>
+                        <!-- END OF SOURCE -->
+                    </div>
+                    <div class="modes">
+                        <p class="adv-setting-text">Disable hint</p>
+                        <input type="checkbox" class="checkbox" id="chk" />
+                        <label class="label" for="chk">
+                            <i class="fa fa-lightbulb-o on" aria-hidden="true"></i>
+                            <i class="fa fa-lightbulb-o off" aria-hidden="true"></i>
+                            <div class="ball"></div>
+                        </label>
+                    </div>
+                    <div class="setting-section">
+                        <hr>
+                        <p class="settings-sub">ACCOUNT</p>
+                    </div>
+                    <div class="modes">
+                        <p class="adv-setting-text">Change username</p>
+                        <div class="form-group mx-sm-3 mb-2 new-pw">
+                            <input type="text" class="form-control" id="new-username" placeholder={{ userName }} autocomplete="off" required>
+                        </div>
+                        <p id="fading-text-user" class="confirmation-text">Changed!</p>
+                        <button class="btn btn-primary" id="newUser">Change</button>
+                    </div>
+                    <div class="modes">
+                        <p class="adv-setting-text">Change password</p>
+                        <form>
+                            <div class="form-group mx-sm-3 mb-2 new-pw">
+                                <input type="password" class="form-control" id="new-password" placeholder="New password" autocomplete="off" required>
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2 new-pw">
+                                <input type="password" class="form-control" id="new-confirmation" placeholder="Confirm new password" autocomplete="off" required>
+                            </div>
+                        </form>
+                        <p id="fading-text-pw" class="confirmation-text">Changed!</p>
+                        <button class="btn btn-primary" id="newPass">Change</button>
+                    </div>
+                    <div class="setting-section">
+                        <hr>
+                        <p class="settings-sub">QUESTION BANK</p>
+                    </div>
+                    <div id="centered-btns" class="group-btns">
+                        <button class="btn btn-info info" type="button" id="qbank-btn" data-toggle="collapse" data-target="#toggleCollapse2" aria-expanded="false" aria-controls="toggleCollapse2">Collapse Current</button>
+                        <button class="btn btn-secondary info quiz-mode" type="button" data-toggle="modal" data-target="#addQmodal">Add Questions</button>
+                        <button class="btn btn-danger info quiz-mode" id="reset" data-toggle="modal" data-target="#resetQbank">Reset Question Bank</button>     
+                    </div>
+                    <div id="toggleCollapse2" class="collapse show">
+                        <div id="qBankTitle">
+                            <h3>Question Bank</h3>
+                            <div>
+                                <p class="settings-sub">SORT BY:</p>
+                                <select name="sort" id="sorting">
+                                    <option class="sort-opt" value="Date Added">Date Added</option>
+                                    <option class="sort-opt" value="Type">Type</option>
+                                    <option class="sort-opt" value="Question">Question</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="qBankTable">
+                            <div id="scroll1">
+                                <div></div>
+                            </div>
+                            <div id="scroll2">
+                                <table class="table table-striped" id="tableQbank">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" id="sortByType">Type <i class="fa fa-sort"></i></th>
+                                            <th scope="col" id="sortByQuestion">Question <i class="fa fa-sort"></i></th>
+                                            <th scope="col">Answer</th>
+                                            <th scope="col">Hint</th>
+                                            <th scope="col">Option 1</th>
+                                            <th scope="col">Option 2</th>
+                                            <th scope="col">Option 3</th>
+                                            <th scope="col">Option 4</th>
+                                            <th scope="col" class="quiz-mode"></th>
+                                            <th scope="col" class="quiz-mode">DEL</th>
+                                            <th scope="col" class="quiz-mode">SEL</th>
+                                            <th scope="col" class="card-mode">Level of Comfort</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="qBankBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <footer>
+            <hr>
+            <p class="text-center">&copy; Maggie Liu 2021</p>
+        </footer>
     </div>
-    
-    <script src="static/script.js"></script>
 {% endblock %}
