@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function () {
         // Checkmark "hidden" radio buttons
         answerButtons.onmousedown = function (e) {
             console.log(e)
-            // inp = e.toElement.offsetParent.getElementsByTagName("input");
             inp = e.target.offsetParent.getElementsByTagName("input");
             inp[0].checked = true;
         }
