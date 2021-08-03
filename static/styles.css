@@ -2,6 +2,16 @@ html, body {
 	height: 100%;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.page-content {
+    padding-bottom: 2.5em;
+}
+
 @media print{
     #instruction-container {
         display: none !important;
@@ -16,6 +26,8 @@ html, body {
         background-color: white !important;
     }
 }
+
+/* ---------------------------------------------------------------------------------------- */
 
 html[data-theme='dark'] {
     transition: background 0.2s linear;
@@ -50,6 +62,23 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     position: fixed !important;
 }
 
+/* ---------------------------------------------------------------------------------------- */
+
+#quiz-instructions {
+    z-index: 1000000;
+}
+
+#instruction-container {
+    position: fixed;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    right: 0;
+    margin-top: 1em;
+    margin-right: 1em;
+    z-index: 10000;
+}
+
 #adv-wrapper {
     display: flex;
     flex-direction: column;
@@ -78,7 +107,8 @@ html[data-theme='dark'] #instruction-container, html[data-theme='dark'] .alert-w
     text-decoration-color: #0c001a;
 }
 
-/* in register and login page */
+/* REGISTER + LOGIN ----------------------------------------------------------------- */
+
 .lower {
     margin-top: 2em;
 }
@@ -107,11 +137,8 @@ hr {
     cursor: pointer;
 }
 
-/*          yes or no hint button          */
-.checkbox {
-	opacity: 0;
-	position: absolute;
-}
+
+/* Mode Buttons  ----------------------------------------------------------------------------- */
 
 .on {
     color: #f39c12;
@@ -123,8 +150,12 @@ hr {
     color: #759fc4;
 }
 
+/* yes or no hint button checkbox*/
+.checkbox {
+	opacity: 0;
+	position: absolute;
+}
 
-/*       light/dark mode button        */
 .label {
 	background-color: #111;
 	border-radius: 50px;
@@ -160,17 +191,20 @@ hr {
 }
 
 
-/*     home page      */
+/* Page bgs -------------------------------------------------------------------------- */
+
 #index-bg {
     background-color: #e8f0ff;
     height: auto;
     min-height: 100%;
+    position: relative;
 }
 
 #page-bg {
     background-color: #dfe5f1;
     height: auto;
     min-height: 100%;
+    position: relative;
 }
 
 .quiz-title {
@@ -178,6 +212,7 @@ hr {
     color: #002955;
     padding-top: 10em;
 }
+
 /* --------------- SOURCE: https://css-tricks.com/snippets/css/typewriter-effect/ --------------------- */
 .typewrite:hover {
     text-decoration: none;
@@ -185,6 +220,9 @@ hr {
       
 * { color:#002955; text-decoration: none;}
 /* -------------------------------------------------- END OF SOURCE */
+
+
+/* INDEX ------------------------------------------------------------------------------------ */
 
 #center-div {
     display: flex;
@@ -345,7 +383,9 @@ hr {
     opacity: 1;
 }
 
-/*     results page      */
+
+/* RESULTS --------------------------------------------------------------------------  */
+
 .fa-2x {
     margin-right: 10px;
     display: inline;
@@ -404,17 +444,8 @@ hr {
     }
 }
 
-/*     quiz page      */
-#instruction-container {
-    position: fixed;
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    right: 0;
-    margin-top: 1em;
-    margin-right: 1em;
-    z-index: 10000;
-}
+
+/* QUIZ ------------------------------------------------------------------------------------------------- */
 
 .home {
     background-color: #1596d1;
@@ -460,6 +491,7 @@ p {
     position: fixed;
     display: flex;
     justify-content: space-between;
+    z-index: 10000;
     top: 1em;
     padding-right: 0;
     margin-left: -15em;
@@ -519,7 +551,9 @@ p {
     }
 }
 
-/*      the radio buttons       */
+
+/* Radio btns --------------------------------------------------------------------------------------- */
+
 .quizRadio {
     position: relative;
     z-index: -1;
@@ -540,7 +574,7 @@ p {
 }
 
 .choice-viewable > label{
-    border-radius: 20px; /*roundness of answer boxes*/
+    border-radius: 20px;
 }
 
 .form-control {
@@ -550,10 +584,9 @@ p {
 .btn-outline-primary {
     background-color: #f4fcfb !important;
 }
-/*  F7F7F9*/
 
 .blue {
-    color: #005ec2; /*text color */
+    color: #005ec2; 
     background-color: white;
 }
 
