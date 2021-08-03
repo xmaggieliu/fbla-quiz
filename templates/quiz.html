@@ -3,14 +3,20 @@
 {% block body %}
     <script src="static/mode.js"></script>
     <div id="page-bg">
-        <div id="instruction-container">
-            <a class="btn btn-primary home" href="/" role="button">Home</a>
-            <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">User Manual</button>
-        </div>    
-        <div id="quiz_questions">
-            <form id="quiz_form" action="/results" method="post">
-            </form>
+        <div class="page-content">
+            <div id="instruction-container">
+                <a class="btn btn-primary home" href="/" role="button">Home</a>
+                <button type="button" class="btn btn-info info in-quiz" data-toggle="modal" data-target="#quiz-instructions">User Manual</button>
+            </div>    
+            <div id="quiz_questions">
+                <form id="quiz_form" action="/results" method="post">
+                </form>
+            </div>
         </div>
+        <footer>
+            <hr>
+            <p class="text-center">&copy; Maggie Liu 2021</p>
+        </footer>
     </div>
     <script>
         var questions = {{ questions|safe }};
