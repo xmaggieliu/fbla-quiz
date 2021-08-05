@@ -1,4 +1,4 @@
-# FBLA NLC 2021 - Coding and Programming Submission
+# FBLA NLC 2021 - Coding and Programming
 Flask web app that generates a random 5-question quiz from a SQLite database.
 
 ## Features
